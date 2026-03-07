@@ -1,8 +1,8 @@
 import * as React from "react"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
+import { tv, type VariantProps } from "tailwind-variants"
 
-const headingVariants = cva("font-serif tracking-tight", {
+const headingVariants = tv({
+  base: "font-serif tracking-tight",
   variants: {
     level: {
       1: "text-5xl font-bold",
@@ -30,7 +30,7 @@ function Heading({ className, level = 1, ...props }: HeadingProps) {
   return (
     <Tag
       data-slot="heading"
-      className={cn(headingVariants({ level }), className)}
+      className={headingVariants({ level, class: className })}
       {...props}
     />
   )

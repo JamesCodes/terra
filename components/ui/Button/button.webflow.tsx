@@ -5,26 +5,41 @@ import { Button } from "./button"
 
 import "../../../app/globals.css"
 
+const variantMap = {
+	Primary: "default",
+	Outline: "outline",
+	Ghost: "ghost",
+	Link: "link",
+} as const
+
+const sizeMap = {
+	Small: "sm",
+	Medium: "default",
+	Large: "lg",
+	"Icon Only": "icon",
+} as const
+
 interface WebflowButtonProps {
-	className?: string
-	variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
-	size?: "default" | "sm" | "lg" | "icon"
+	variant?: keyof typeof variantMap
+	size?: keyof typeof sizeMap
 	children?: string
 	disabled?: boolean
 	link?: PropValues[PropType.Link]
 }
 
 const WebflowButton: React.FC<WebflowButtonProps> = ({
-	className,
-	variant,
-	size,
+	variant = "Primary",
+	size = "Medium",
 	children,
 	disabled,
 	link,
 }) => {
+	const mappedVariant = variantMap[variant]
+	const mappedSize = sizeMap[size]
+
 	if (link?.href) {
 		return (
-			<Button asChild variant={variant} size={size} className={className}>
+			<Button asChild variant={mappedVariant} size={mappedSize}>
 				<a href={link.href} target={link.target}>
 					{children}
 				</a>
@@ -34,9 +49,8 @@ const WebflowButton: React.FC<WebflowButtonProps> = ({
 
 	return (
 		<Button
-			variant={variant}
-			size={size}
-			className={className}
+			variant={mappedVariant}
+			size={mappedSize}
 			disabled={disabled}
 		>
 			{children}
@@ -49,36 +63,33 @@ export default declareComponent(WebflowButton, {
 	description: "A versatile button component with multiple variants and sizes",
 	group: "Interaction",
 	props: {
-		className: props.Text({
-			name: "Class Name",
-			defaultValue: "",
-			tooltip: "Additional Tailwind CSS classes",
-		}),
 		variant: props.Variant({
-			name: "Variant",
-			options: ["default", "destructive", "outline", "secondary", "ghost", "link"],
-			defaultValue: "default",
+			name: "Style",
+			options: ["Primary", "Outline", "Ghost", "Link"],
+			defaultValue: "Primary",
 			tooltip: "The visual style of the button",
 		}),
 		size: props.Variant({
 			name: "Size",
-			options: ["default", "sm", "lg", "icon"],
-			defaultValue: "default",
+			options: ["Small", "Medium", "Large", "Icon Only"],
+			defaultValue: "Medium",
 			tooltip: "The size of the button",
 		}),
 		children: props.Text({
-			name: "Text",
+			name: "Label",
 			defaultValue: "Button",
-			tooltip: "The button label text",
+			tooltip: "The button text",
 		}),
 		disabled: props.Boolean({
 			name: "Disabled",
 			defaultValue: false,
-			tooltip: "Whether the button is disabled",
+			trueLabel: "Yes",
+			falseLabel: "No",
+			tooltip: "Prevents interaction when enabled",
 		}),
 		link: props.Link({
 			name: "Link",
-			tooltip: "Optional URL — renders the button as a link when set",
+			tooltip: "Makes the button navigate to a URL when clicked",
 		}),
 	},
 })
