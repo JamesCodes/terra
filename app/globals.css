@@ -113,6 +113,37 @@
   --sidebar-ring: oklch(0.621 0.186 38);
 }
 
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@theme inline {
+  --animate-slide-in-right: slide-in-right 200ms ease-in-out;
+  --animate-slide-in-left: slide-in-left 200ms ease-in-out;
+}
+
+@utility container {
+  @apply mx-auto px-20;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
