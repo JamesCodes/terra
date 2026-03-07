@@ -144,11 +144,15 @@
   @apply mx-auto px-20;
 }
 
+@utility page-grid {
+  @apply mx-auto grid w-full max-w-[1440px] grid-cols-4 gap-3 px-5 md:grid-cols-12 md:gap-5 md:px-20;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
 }
