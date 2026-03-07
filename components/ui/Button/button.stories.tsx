@@ -87,9 +87,15 @@ export const AllSizes: Story = {
 export const OutlineSizes: Story = {
   render: () => (
     <div className="flex items-center gap-4">
-      <Button variant="outline" size="sm">Small</Button>
-      <Button variant="outline" size="default">Default</Button>
-      <Button variant="outline" size="lg">Large</Button>
+      <Button variant="outline" size="sm">
+        Small
+      </Button>
+      <Button variant="outline" size="default">
+        Default
+      </Button>
+      <Button variant="outline" size="lg">
+        Large
+      </Button>
     </div>
   ),
 }
@@ -130,7 +136,9 @@ export const Disabled: Story = {
   render: () => (
     <div className="flex items-center gap-4">
       <Button disabled>Disabled</Button>
-      <Button variant="outline" disabled>Disabled</Button>
+      <Button variant="outline" disabled>
+        Disabled
+      </Button>
     </div>
   ),
 }
