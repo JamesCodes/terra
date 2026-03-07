@@ -4,7 +4,6 @@ import type React from "react"
 import type { ReactNode } from "react"
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -15,20 +14,16 @@ import {
 import "../../../app/globals.css"
 
 interface WebflowCardProps {
-  className?: string
   title?: string
   description?: string
   content?: ReactNode
-  footerContent?: string
+  footerContent?: ReactNode
   showHeader?: boolean
   showContent?: boolean
   showFooter?: boolean
-  showAction?: boolean
-  actionContent?: string
 }
 
 const WebflowCard: React.FC<WebflowCardProps> = ({
-  className,
   title,
   description,
   content,
@@ -36,65 +31,49 @@ const WebflowCard: React.FC<WebflowCardProps> = ({
   showHeader = true,
   showContent = true,
   showFooter = false,
-  showAction = false,
-  actionContent,
 }) => {
   return (
-    <Card className={className}>
+    <Card>
       {showHeader && (
         <CardHeader>
           {title && <CardTitle>{title}</CardTitle>}
           {description && <CardDescription>{description}</CardDescription>}
-          {showAction && actionContent && (
-            <CardAction>{actionContent}</CardAction>
-          )}
         </CardHeader>
       )}
-      {showContent && content && <CardContent>{content}</CardContent>}
-      {showFooter && footerContent && <CardFooter>{footerContent}</CardFooter>}
+      {showContent && <CardContent>{content}</CardContent>}
+      {showFooter && <CardFooter>{footerContent}</CardFooter>}
     </Card>
   )
 }
 
 export default declareComponent(WebflowCard, {
   name: "Card",
-  description: "A container component for grouped content",
+  description:
+    "A container component for grouped content with header, body, and footer sections",
   group: "Layout",
   props: {
-    className: props.Text({
-      name: "Class Name",
-      defaultValue: "",
-      tooltip: "Additional Tailwind CSS classes",
-    }),
-    title: props.Text({
+    title: props.TextNode({
       name: "Title",
       defaultValue: "Card Title",
       group: "Header",
-      tooltip: "The card heading text",
+      tooltip: "The card heading text — editable directly on the canvas",
     }),
-    description: props.Text({
+    description: props.TextNode({
       name: "Description",
       defaultValue: "Card description goes here.",
+      multiline: true,
       group: "Header",
-      tooltip: "The card description text",
+      tooltip: "The card description text — editable directly on the canvas",
     }),
-    content: props.RichText({
+    content: props.Slot({
       name: "Content",
-      tooltip: "The main content of the card",
-      defaultValue: "Card content goes here.",
       group: "Content",
+      tooltip: "The main content area — drop in any components",
     }),
-    footerContent: props.Text({
-      name: "Footer Content",
-      defaultValue: "Footer content",
+    footerContent: props.Slot({
+      name: "Footer",
       group: "Footer",
-      tooltip: "Text displayed in the card footer",
-    }),
-    actionContent: props.Text({
-      name: "Action Content",
-      defaultValue: "Action",
-      group: "Header",
-      tooltip: "Text for the header action button",
+      tooltip: "The footer area — drop in buttons, links, or other components",
     }),
     showHeader: props.Visibility({
       name: "Show Header",
@@ -113,12 +92,6 @@ export default declareComponent(WebflowCard, {
       defaultValue: false,
       group: "Visibility",
       tooltip: "Toggle the card footer section",
-    }),
-    showAction: props.Visibility({
-      name: "Show Action",
-      defaultValue: false,
-      group: "Visibility",
-      tooltip: "Toggle the header action button",
     }),
   },
 })

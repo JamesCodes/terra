@@ -1,9 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
-import { Badge } from "../Badge/badge"
 import { Button } from "../Button/button"
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
   CardFooter,
@@ -32,7 +30,7 @@ export const Default: Story = {
         <CardDescription>Card Description</CardDescription>
       </CardHeader>
       <CardContent>
-        <p>Card Content</p>
+        <p>Card content goes here.</p>
       </CardContent>
       <CardFooter>
         <Button>Action</Button>
@@ -41,139 +39,37 @@ export const Default: Story = {
   ),
 }
 
-export const Simple: Story = {
-  render: () => (
-    <Card className="w-[350px]">
-      <CardContent>
-        <p>Simple card with just content.</p>
-      </CardContent>
-    </Card>
-  ),
-}
-
-export const WithAction: Story = {
+export const HeaderOnly: Story = {
   render: () => (
     <Card className="w-[350px]">
       <CardHeader>
-        <CardTitle>Project Alpha</CardTitle>
-        <CardDescription>Development in progress</CardDescription>
-        <CardAction>
-          <Badge variant="secondary">Active</Badge>
-        </CardAction>
+        <CardTitle>Header Only</CardTitle>
+        <CardDescription>A card with just a header section.</CardDescription>
       </CardHeader>
+    </Card>
+  ),
+}
+
+export const ContentOnly: Story = {
+  render: () => (
+    <Card className="w-[350px]">
       <CardContent>
-        <p>
-          This project is currently in active development with a team of 5
-          developers.
-        </p>
+        <p>A card with just content, no header or footer.</p>
       </CardContent>
+    </Card>
+  ),
+}
+
+export const WithFooter: Story = {
+  render: () => (
+    <Card className="w-[350px]">
+      <CardHeader>
+        <CardTitle>Confirm Action</CardTitle>
+        <CardDescription>Are you sure you want to proceed?</CardDescription>
+      </CardHeader>
       <CardFooter className="gap-2">
-        <Button variant="outline">View Details</Button>
-        <Button>Edit</Button>
-      </CardFooter>
-    </Card>
-  ),
-}
-
-export const ProductCard: Story = {
-  render: () => (
-    <Card className="w-[300px]">
-      <CardHeader>
-        <CardTitle>MacBook Pro</CardTitle>
-        <CardDescription>Apple M2 chip, 16GB RAM</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-2">
-          <div className="flex justify-between">
-            <span className="text-sm text-muted-foreground">Price</span>
-            <span className="font-semibold">$1,999</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-sm text-muted-foreground">Stock</span>
-            <Badge variant="outline">12 available</Badge>
-          </div>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button className="w-full">Add to Cart</Button>
-      </CardFooter>
-    </Card>
-  ),
-}
-
-export const UserCard: Story = {
-  render: () => (
-    <Card className="w-[300px]">
-      <CardHeader>
-        <div className="flex items-center gap-3">
-          <div className="size-10 bg-primary rounded-full flex items-center justify-center text-primary-foreground font-semibold">
-            JD
-          </div>
-          <div>
-            <CardTitle className="text-base">John Doe</CardTitle>
-            <CardDescription>Software Engineer</CardDescription>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <p className="text-sm text-muted-foreground">
-          Passionate about building great user experiences with modern web
-          technologies.
-        </p>
-      </CardContent>
-      <CardFooter className="gap-2">
-        <Button variant="outline" size="sm">
-          Follow
-        </Button>
-        <Button size="sm">Message</Button>
-      </CardFooter>
-    </Card>
-  ),
-}
-
-export const StatsCard: Story = {
-  render: () => (
-    <Card className="w-[250px]">
-      <CardHeader>
-        <CardTitle className="text-2xl">$45,231.89</CardTitle>
-        <CardDescription>Total Revenue</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="flex items-center gap-2">
-          <Badge variant="default">+20.1%</Badge>
-          <span className="text-sm text-muted-foreground">from last month</span>
-        </div>
-      </CardContent>
-    </Card>
-  ),
-}
-
-export const NotificationCard: Story = {
-  render: () => (
-    <Card className="w-[400px]">
-      <CardHeader>
-        <CardTitle>New Message</CardTitle>
-        <CardDescription>You have 3 unread messages</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-3">
-          <div className="flex items-center gap-3 p-2 rounded-md bg-muted/50">
-            <div className="size-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm">
-              A
-            </div>
-            <div className="flex-1">
-              <p className="text-sm font-medium">Alice Johnson</p>
-              <p className="text-xs text-muted-foreground">
-                Hey, how is the project going?
-              </p>
-            </div>
-            <Badge variant="destructive">2</Badge>
-          </div>
-        </div>
-      </CardContent>
-      <CardFooter className="gap-2">
-        <Button variant="outline">Mark as Read</Button>
-        <Button>Reply</Button>
+        <Button variant="outline">Cancel</Button>
+        <Button>Confirm</Button>
       </CardFooter>
     </Card>
   ),
@@ -181,34 +77,22 @@ export const NotificationCard: Story = {
 
 export const CardGrid: Story = {
   render: () => (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl">
-      <Card>
-        <CardHeader>
-          <CardTitle>Feature 1</CardTitle>
-          <CardDescription>Description for feature 1</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Content for feature 1</p>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader>
-          <CardTitle>Feature 2</CardTitle>
-          <CardDescription>Description for feature 2</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Content for feature 2</p>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardHeader>
-          <CardTitle>Feature 3</CardTitle>
-          <CardDescription>Description for feature 3</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <p>Content for feature 3</p>
-        </CardContent>
-      </Card>
+    <div className="grid grid-cols-3 gap-4 max-w-3xl">
+      {["Feature 1", "Feature 2", "Feature 3"].map((title) => (
+        <Card key={title}>
+          <CardHeader>
+            <CardTitle>{title}</CardTitle>
+            <CardDescription>
+              Description for {title.toLowerCase()}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <p className="text-sm text-muted-foreground">
+              Content for {title.toLowerCase()}.
+            </p>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   ),
 }
