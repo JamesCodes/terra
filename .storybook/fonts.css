@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap");
+
+@font-face {
+  font-family: "Seasonmix";
+  src: url("/fonts/SeasonMix-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-dm-sans: "DM Sans", sans-serif;
+  --font-season-mix: Seasonmix, "Palatino Linotype", sans-serif;
+  --font-geist-mono: "Geist Mono", monospace;
+}
