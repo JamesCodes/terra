@@ -1,33 +1,20 @@
 import * as AvatarPrimitive from "@radix-ui/react-avatar"
-import { tv, type VariantProps } from "tailwind-variants"
 import type React from "react"
 
 import { cn } from "@/lib/utils"
 
-const avatarVariants = tv({
-  base: "relative flex shrink-0 overflow-hidden rounded-full",
-  variants: {
-    size: {
-      default: "size-8",
-      sm: "size-6",
-      lg: "size-10",
-      xl: "size-12",
-    },
-  },
-  defaultVariants: {
-    size: "default",
-  },
-})
-
-export interface AvatarProps // Export AvatarProps
-  extends React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>,
-    VariantProps<typeof avatarVariants> {}
-
-function Avatar({ className, size, children, ...props }: AvatarProps) {
+function Avatar({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<typeof AvatarPrimitive.Root>) {
   return (
     <AvatarPrimitive.Root
       data-slot="avatar"
-      className={avatarVariants({ size, class: className })}
+      className={cn(
+        "relative flex size-12 shrink-0 overflow-hidden rounded-full",
+        className,
+      )}
       {...props}
     >
       {children}
@@ -56,7 +43,7 @@ function AvatarFallback({
     <AvatarPrimitive.Fallback
       data-slot="avatar-fallback"
       className={cn(
-        "bg-muted flex size-full items-center justify-center rounded-full",
+        "bg-secondary flex size-full items-center justify-center rounded-full",
         className,
       )}
       {...props}
