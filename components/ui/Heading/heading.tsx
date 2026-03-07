@@ -5,10 +5,10 @@ const headingVariants = tv({
   base: "font-serif tracking-tight",
   variants: {
     level: {
-      1: "text-5xl font-bold",
-      2: "text-4xl font-bold",
-      3: "text-3xl font-semibold",
-      4: "text-2xl font-semibold",
+      1: "text-5xl leading-[1.05] font-bold md:text-7xl md:leading-[1.06]",
+      2: "text-[32px] leading-[1.25] font-bold md:text-5xl md:leading-[1.4]",
+      3: "text-2xl leading-[1.33] font-semibold md:text-[32px] md:leading-[1.25]",
+      4: "text-xl leading-[1.33] font-semibold md:text-2xl md:leading-[1.33]",
     },
   },
   defaultVariants: {
