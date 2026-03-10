@@ -4,7 +4,8 @@
     "components": ["./components/**/*.webflow.@(js|jsx|mjs|ts|tsx)"],
     "description": "",
     "id": "terra-components",
-    "bundleConfig": "./webpack.webflow.js"
+    "bundleConfig": "./webpack.webflow.js",
+    "globals": "./globals.ts"
   },
   "telemetry": {
     "global": {
@@ -12,5 +13,6 @@
       "lastPrompted": 1756871120594,
       "version": "1.8.38"
     }
-  }
+  },
+  "siteId": "69a98b4b24c294851cb127c9"
 }

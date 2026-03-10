@@ -5,14 +5,14 @@ import { Button } from "./button"
 
 import "../../../app/globals.css"
 
-const variantMap = {
+export const variantMap = {
   Primary: "default",
   Outline: "outline",
   Ghost: "ghost",
   Link: "link",
 } as const
 
-const sizeMap = {
+export const sizeMap = {
   Small: "sm",
   Medium: "default",
   Large: "lg",

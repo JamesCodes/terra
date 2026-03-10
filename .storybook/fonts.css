@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: "Seasonmix";
-  src: url("/fonts/SeasonMix-Regular.woff2") format("woff2");
+  src: url("/fonts/SeasonMix-Medium.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -13,4 +13,21 @@
   --font-dm-sans: "DM Sans", sans-serif;
   --font-season-mix: Seasonmix, "Palatino Linotype", sans-serif;
   --font-geist-mono: "Geist Mono", monospace;
+  --grid-columns: 4;
+  --grid-gap: 12px;
+  --grid-gutter: 24px;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --grid-columns: 12;
+    --grid-gap: 20px;
+    --grid-gutter: 40px;
+  }
+}
+
+@media (min-width: 992px) {
+  :root {
+    --grid-gutter: 80px;
+  }
 }

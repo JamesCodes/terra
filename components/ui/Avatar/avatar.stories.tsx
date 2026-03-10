@@ -2,15 +2,18 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar"
 import "../../../app/globals.css"
 
-const meta: Meta<typeof Avatar> = {
+const meta = {
   title: "UI/Avatar",
   component: Avatar,
-  parameters: { layout: "centered" },
+  parameters: {
+    layout: "centered",
+    controls: { include: [] },
+  },
   tags: ["autodocs"],
-}
+} satisfies Meta<typeof Avatar>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<any>
 
 export const Default: Story = {
   render: () => (

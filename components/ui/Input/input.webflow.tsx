@@ -6,9 +6,24 @@ import { Input } from "./input"
 
 import "../../../app/globals.css"
 
-const variantMap = {
+export const variantMap = {
   Default: "default",
   Search: "search",
+  Inline: "inline",
+} as const
+
+export const typeMap = {
+  text: "text",
+  email: "email",
+  password: "password",
+  number: "number",
+  tel: "tel",
+  url: "url",
+  search: "search",
+  date: "date",
+  time: "time",
+  "datetime-local": "datetime-local",
+  file: "file",
 } as const
 
 interface WebflowInputProps {
@@ -85,12 +100,12 @@ function WebflowInput({
 
 export default declareComponent(WebflowInput, {
   name: "Input",
-  description: "A text input field with default and search variants",
+  description: "A text input field with default, search, and inline variants",
   group: "Form",
   props: {
     variant: props.Variant({
       name: "Style",
-      options: ["Default", "Search"],
+      options: ["Default", "Search", "Inline"],
       defaultValue: "Default",
       tooltip: "The visual style of the input",
     }),

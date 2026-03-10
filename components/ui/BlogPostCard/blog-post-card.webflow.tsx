@@ -5,10 +5,19 @@ import { BlogPostCard } from "./blog-post-card"
 
 import "../../../app/globals.css"
 
-const variantMap = {
+export const variantMap = {
   Grid: "grid",
   Featured: "featured",
   List: "list",
+} as const
+
+export const propLabels = {
+  layout: "Layout",
+  category: "Category",
+  title: "Title",
+  description: "Description",
+  author: "Author",
+  date: "Date",
 } as const
 
 interface WebflowBlogPostCardProps {
@@ -39,9 +48,7 @@ const WebflowBlogPostCard: React.FC<WebflowBlogPostCardProps> = ({
   return (
     <BlogPostCard
       variant={mappedVariant}
-      image={
-        showImage && image?.src ? { src: image.src, alt: image.alt } : undefined
-      }
+      image={showImage && image?.src ? { src: image.src, alt: image.alt } : undefined}
       category={category}
       title={title}
       description={description}

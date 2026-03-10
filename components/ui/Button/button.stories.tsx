@@ -1,29 +1,60 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { ArrowRight } from "lucide-react"
+import { booleanArg, selectArg } from "@/lib/storybook"
 import { Button } from "./button"
+import { sizeMap, variantMap } from "./button.webflow"
 import "../../../app/globals.css"
 
-const meta: Meta<typeof Button> = {
+const meta = {
   title: "UI/Button",
   component: Button,
   parameters: {
     layout: "centered",
+    controls: { include: ["variant", "size", "children", "disabled"] },
   },
   tags: ["autodocs"],
+  args: {
+    variant: "Primary" as any,
+    size: "Medium" as any,
+    children: "Button",
+    disabled: false,
+  },
   argTypes: {
-    variant: {
-      control: { type: "select" },
-      options: ["default", "outline", "ghost", "link"],
-    },
-    size: {
-      control: { type: "select" },
-      options: ["default", "sm", "lg", "icon"],
-    },
+    variant: selectArg("Style", variantMap),
+    size: selectArg("Size", sizeMap),
+    disabled: booleanArg("Disabled"),
+  },
+} satisfies Meta<typeof Button>
+
+export default meta
+type Story = StoryObj<any>
+
+export const Default: Story = {
+  args: {
+    children: "View All Stories",
   },
 }
 
-export default meta
-type Story = StoryObj<typeof meta>
+export const Outline: Story = {
+  args: {
+    variant: "Outline",
+    children: "Read the Full Story",
+  },
+}
+
+export const Ghost: Story = {
+  args: {
+    variant: "Ghost",
+    children: "Ghost",
+  },
+}
+
+export const Link: Story = {
+  args: {
+    variant: "Link",
+    children: "Product",
+  },
+}
 
 export const AllVariants: Story = {
   render: () => (
@@ -34,33 +65,6 @@ export const AllVariants: Story = {
       <Button variant="link">Product</Button>
     </div>
   ),
-}
-
-export const Default: Story = {
-  args: {
-    children: "View All Stories",
-  },
-}
-
-export const Outline: Story = {
-  args: {
-    variant: "outline",
-    children: "Read the Full Story",
-  },
-}
-
-export const Ghost: Story = {
-  args: {
-    variant: "ghost",
-    children: "Ghost",
-  },
-}
-
-export const Link: Story = {
-  args: {
-    variant: "link",
-    children: "Product",
-  },
 }
 
 export const Icon: Story = {

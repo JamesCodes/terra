@@ -6,6 +6,19 @@ import { Alert, AlertDescription, AlertTitle } from "./alert"
 
 import "../../../app/globals.css"
 
+export const variantMap = {
+  default: "default",
+  destructive: "destructive",
+} as const
+
+export const iconOptionsMap = {
+  none: "none",
+  info: "info",
+  warning: "warning",
+  error: "error",
+  success: "success",
+} as const
+
 const iconMap = {
   none: null,
   info: Info,

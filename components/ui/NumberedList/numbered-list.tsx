@@ -1,6 +1,6 @@
 import * as React from "react"
-import { cn } from "@/lib/utils"
 import { Heading } from "@/components/ui/Heading/heading"
+import { cn } from "@/lib/utils"
 
 interface NumberedListItemProps extends React.ComponentProps<"div"> {
   number: number
@@ -30,11 +30,7 @@ function NumberedListItem({
       >
         {number}
       </span>
-      <Heading
-        level={4}
-        data-slot="numbered-list-title"
-        className="md:col-span-6 md:col-start-3"
-      >
+      <Heading level={4} data-slot="numbered-list-title" className="md:col-span-6 md:col-start-3">
         {title}
       </Heading>
       <p

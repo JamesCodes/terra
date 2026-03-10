@@ -2,14 +2,7 @@ import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import type React from "react"
 import type { ReactNode } from "react"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card"
 
 import "../../../app/globals.css"
 
@@ -48,8 +41,7 @@ const WebflowCard: React.FC<WebflowCardProps> = ({
 
 export default declareComponent(WebflowCard, {
   name: "Card",
-  description:
-    "A container component for grouped content with header, body, and footer sections",
+  description: "A container component for grouped content with header, body, and footer sections",
   group: "Layout",
   props: {
     title: props.TextNode({

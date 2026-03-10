@@ -1,17 +1,30 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { Shield, ShieldCheck, Target } from "lucide-react"
+import { selectArg } from "@/lib/storybook"
 import { FeatureCard } from "./feature-card"
+import { layoutMap } from "./feature-card.webflow"
 import "../../../app/globals.css"
 
-const meta: Meta<typeof FeatureCard> = {
+const meta = {
   title: "UI/FeatureCard",
   component: FeatureCard,
-  parameters: { layout: "centered" },
+  parameters: {
+    layout: "centered",
+    controls: { include: ["variant", "label", "title", "description"] },
+  },
   tags: ["autodocs"],
-}
+  args: {
+    variant: "Grid" as any,
+    title: "Feature Title",
+    description: "Feature description goes here.",
+  },
+  argTypes: {
+    variant: selectArg("Layout", layoutMap),
+  },
+} satisfies Meta<typeof FeatureCard>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<any>
 
 export const Large: Story = {
   render: () => (
@@ -66,15 +79,11 @@ export const Grid: Story = {
 }
 
 export const Single: Story = {
-  args: {
-    variant: "grid",
-    title: "Zero false positives",
-    description:
-      "Terra agents go beyond surface scanning and legacy tooling to provide unparalleled quality of discovery.",
-  },
-  render: (args) => (
+  render: () => (
     <FeatureCard
-      {...args}
+      variant="grid"
+      title="Zero false positives"
+      description="Terra agents go beyond surface scanning and legacy tooling to provide unparalleled quality of discovery."
       icon={<Target className="size-10 text-accent" />}
       className="max-w-xs"
     />

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@gsap/react':
+        specifier: ^2.1.2
+        version: 2.1.2(gsap@3.14.2)(react@19.2.4)
       '@nanostores/react':
         specifier: ^1.0.0
         version: 1.0.0(nanostores@1.1.1)(react@19.2.4)
@@ -23,6 +26,9 @@ importers:
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      gsap:
+        specifier: ^3.14.2
+        version: 3.14.2
       lucide-react:
         specifier: ^0.577.0
         version: 0.577.0(react@19.2.4)
@@ -38,6 +44,9 @@ importers:
       react-dom:
         specifier: 19.2.4
         version: 19.2.4(react@19.2.4)
+      react-inlinesvg:
+        specifier: ^4.2.0
+        version: 4.2.0(react@19.2.4)
       tailwind-merge:
         specifier: ^3.5.0
         version: 3.5.0
@@ -73,17 +82,23 @@ importers:
         specifier: ^1.2.1
         version: 1.2.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@webflow/webflow-cli':
-        specifier: ^1.12.3
-        version: 1.12.3(@babel/core@7.29.0)(@rspack/core@1.7.7(@swc/helpers@0.5.19))(@types/node@25.3.3)(esbuild@0.27.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
+        specifier: ^1.12.4
+        version: 1.12.4(@babel/core@7.29.0)(@rspack/core@1.7.7(@swc/helpers@0.5.19))(@types/node@25.3.3)(esbuild@0.27.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)
       playwright:
         specifier: ^1.58.2
         version: 1.58.2
       storybook:
         specifier: ^10.2.16
         version: 10.2.16(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      storybook-addon-grid-overlay:
+        specifier: ^1.0.1
+        version: 1.0.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       tailwindcss:
         specifier: ^4.2.1
         version: 4.2.1
+      turbo:
+        specifier: ^2.8.14
+        version: 2.8.14
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
@@ -1039,6 +1054,12 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@gsap/react@2.1.2':
+    resolution: {integrity: sha512-JqliybO1837UcgH2hVOM4VO+38APk3ECNrsuSM4MuXp+rbf+/2IG2K1YJiqfTcXQHH7XlA0m3ykniFYstfq0Iw==}
+    peerDependencies:
+      gsap: ^3.12.5
+      react: '>=17'
 
   '@img/colour@1.1.0':
     resolution: {integrity: sha512-Td76q7j57o/tLVdgS746cYARfSyxk8iEfRxewL9h4OMzYhbW4TAcppl0mT4eyqXddh6L/jwoM75mo7ixa/pCeQ==}
@@ -2040,6 +2061,13 @@ packages:
   '@storybook/global@5.0.0':
     resolution: {integrity: sha512-FcOqPAXACP0I3oJ/ws6/rrPT9WGhu915Cg8D02a9YxLo0DE9zI+a9A5gRGvmQ09fiWPukqI8ZAEoQEdWUKMQdQ==}
 
+  '@storybook/icons@1.6.0':
+    resolution: {integrity: sha512-hcFZIjW8yQz8O8//2WTIXylm5Xsgc+lW9ISLgUk1xGmptIJQRdlhVIXCpSyLrQaaRiyhQRaVg7l3BD9S216BHw==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta
+
   '@storybook/icons@2.0.1':
     resolution: {integrity: sha512-/smVjw88yK3CKsiuR71vNgWQ9+NuY2L+e8X7IMrFjexjm6ZR8ULrV2DRkTA61aV6ryefslzHEGDInGpnNeIocg==}
     peerDependencies:
@@ -2319,8 +2347,8 @@ packages:
       react: '>=18 <=19'
       react-dom: '>=18 <=19'
 
-  '@webflow/webflow-cli@1.12.3':
-    resolution: {integrity: sha512-iVSSvDnjGmJmTl5UsoBBkUgC9nDAcHaaVNinTKmTKzi4/JKuXaCdmZFHoeA6NAa1A8VMZ6a9/ojCT8KTuG57Mg==}
+  '@webflow/webflow-cli@1.12.4':
+    resolution: {integrity: sha512-4ZcqsOryAwdStOetuWno9TIlr/ER5BWLhwmzjP46c95P9cW6mXpEcMOIrfP7tW48WhUCyKOvyqJG2OaH7XqxCw==}
     engines: {node: '>=18.16.0'}
     hasBin: true
 
@@ -3202,6 +3230,9 @@ packages:
   graceful-fs@4.2.11:
     resolution: {integrity: sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==}
 
+  gsap@3.14.2:
+    resolution: {integrity: sha512-P8/mMxVLU7o4+55+1TCnQrPmgjPKnwkzkXOK1asnR9Jg2lna4tEY5qBJjMmAaOBDDZWtlRjBXjLa0w53G/uBLA==}
+
   has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
@@ -4034,6 +4065,16 @@ packages:
     peerDependencies:
       react: ^19.2.4
 
+  react-from-dom@0.7.5:
+    resolution: {integrity: sha512-CO92PmMKo/23uYPm6OFvh5CtZbMgHs/Xn+o095Lz/TZj9t8DSDhGdSOMLxBxwWI4sr0MF17KUn9yJWc5Q00R/w==}
+    peerDependencies:
+      react: 16.8 - 19
+
+  react-inlinesvg@4.2.0:
+    resolution: {integrity: sha512-V59P6sFU7NACIbvoay9ikYKVFWyIIZFGd7w6YT1m+H7Ues0fOI6B6IftE6NPSYXXv7RHVmrncIyJeYurs3OJcA==}
+    peerDependencies:
+      react: 16.8 - 19
+
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
 
@@ -4250,6 +4291,9 @@ packages:
     resolution: {integrity: sha512-UhDfHmA92YAlNnCfhmq0VeNL5bDbiZGg7sZ2IvPsXubGkiNa9EC+tUTsjBRsYUAz87btI6/1wf4XoVvQ3uRnmQ==}
     engines: {node: '>=18'}
 
+  storybook-addon-grid-overlay@1.0.1:
+    resolution: {integrity: sha512-XW1Xir4vfD62ciamW6oldFI2osg2fcvRTcL9xayFSe5MUlD1l/MjlnMKpuzk6G4y9sg/osSCfFS5Gvch6lKlig==}
+
   storybook@10.2.16:
     resolution: {integrity: sha512-Az1Qro0XjCBttsuO55H2aIGPYqGx00T8O3o29rLQswOyZhgAVY9H2EnJiVsfmSG1Kwt8qYTVv7VxzLlqDxropA==}
     hasBin: true
@@ -4446,6 +4490,40 @@ packages:
     resolution: {integrity: sha512-LxhtAkPDTkVCMQjt2h6eBVY28KCjikZqZfMcC15YBeNjkgUpdCfBu5HoiOTDu86v6smE8yOjyEktJ8hlbANHQA==}
     engines: {node: '>=0.6.x'}
 
+  turbo-darwin-64@2.8.14:
+    resolution: {integrity: sha512-9sFi7n2lLfEsGWi5OEoA/eTtQU2BPKtzSYKqufMtDeRmqMT9vKjbv9gJCRkllSVE9BOXA0qXC3diyX8V8rKIKw==}
+    cpu: [x64]
+    os: [darwin]
+
+  turbo-darwin-arm64@2.8.14:
+    resolution: {integrity: sha512-aS4yJuy6A1PCLws+PJpZP0qCURG8Y5iVx13z/WAbKyeDTY6W6PiGgcEllSaeLGxyn++382ztN/EZH85n2zZ6VQ==}
+    cpu: [arm64]
+    os: [darwin]
+
+  turbo-linux-64@2.8.14:
+    resolution: {integrity: sha512-XC6wPUDJkakjhNLaS0NrHDMiujRVjH+naEAwvKLArgqRaFkNxjmyNDRM4eu3soMMFmjym6NTxYaF74rvET+Orw==}
+    cpu: [x64]
+    os: [linux]
+
+  turbo-linux-arm64@2.8.14:
+    resolution: {integrity: sha512-ChfE7isyVNjZrVSPDwcfqcHLG/FuIBbOFxnt1FM8vSuBGzHAs8AlTdwFNIxlEMJfZ8Ad9mdMxdmsCUPIWiQ6cg==}
+    cpu: [arm64]
+    os: [linux]
+
+  turbo-windows-64@2.8.14:
+    resolution: {integrity: sha512-FTbIeQL1ycLFW2t9uQNMy+bRSzi3Xhwun/e7ZhFBdM+U0VZxxrtfYEBM9CHOejlfqomk6Jh7aRz0sJoqYn39Hg==}
+    cpu: [x64]
+    os: [win32]
+
+  turbo-windows-arm64@2.8.14:
+    resolution: {integrity: sha512-KgZX12cTyhY030qS7ieT8zRkhZZE2VWJasDFVUSVVn17nR7IShpv68/7j5UqJNeRLIGF1XPK0phsP5V5yw3how==}
+    cpu: [arm64]
+    os: [win32]
+
+  turbo@2.8.14:
+    resolution: {integrity: sha512-UCTxeMNYT1cKaHiIFdLCQ7ulI+jw5i5uOnJOrRXsgUD7G3+OjlUjwVd7JfeVt2McWSVGjYA3EVW/v1FSsJ5DtA==}
+    hasBin: true
+
   tw-animate-css@1.4.0:
     resolution: {integrity: sha512-7bziOlRqH0hJx80h/3mbicLW7o8qLsH5+RaLR2t+OHM3D0JlWGODQKQ4cxbK7WlvmUxpcj6Kgu6EKqjrGFe3QQ==}
 
@@ -4583,8 +4661,8 @@ packages:
     resolution: {integrity: sha512-Zn5uXdcFNIA1+1Ei5McRd+iRzfhENPCe7LeABkJtNulSxjma+l7ltNx55BWZkRlwRnpOgHqxnjyaDgJnNXnqzg==}
     engines: {node: '>=10.13.0'}
 
-  webflow-api@3.2.0:
-    resolution: {integrity: sha512-fFZoxFl8TZeGCkC9/NGA7BKgVysfmEYPx4sK7HWLmHakd4pRI+ZivZk5ycCOJFHMmUKyH+owkzgYneDiJZ2cDA==}
+  webflow-api@3.2.2:
+    resolution: {integrity: sha512-q57QYXb/h+vnavgMkv1vWFRMdlvL8Bc/pq6SJSPXZSlgSydeJqEn3u35Tva37qbmF54BGgYJtPtU+Izp4rj2xQ==}
 
   webidl-conversions@3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
@@ -5660,6 +5738,11 @@ snapshots:
   '@esbuild/win32-x64@0.27.3':
     optional: true
 
+  '@gsap/react@2.1.2(gsap@3.14.2)(react@19.2.4)':
+    dependencies:
+      gsap: 3.14.2
+      react: 19.2.4
+
   '@img/colour@1.1.0':
     optional: true
 
@@ -6539,6 +6622,11 @@ snapshots:
 
   '@storybook/global@5.0.0': {}
 
+  '@storybook/icons@1.6.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+    dependencies:
+      react: 19.2.4
+      react-dom: 19.2.4(react@19.2.4)
+
   '@storybook/icons@2.0.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       react: 19.2.4
@@ -6881,7 +6969,7 @@ snapshots:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
 
-  '@webflow/webflow-cli@1.12.3(@babel/core@7.29.0)(@rspack/core@1.7.7(@swc/helpers@0.5.19))(@types/node@25.3.3)(esbuild@0.27.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
+  '@webflow/webflow-cli@1.12.4(@babel/core@7.29.0)(@rspack/core@1.7.7(@swc/helpers@0.5.19))(@types/node@25.3.3)(esbuild@0.27.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3)':
     dependencies:
       '@babel/preset-env': 7.29.0(@babel/core@7.29.0)
       '@babel/preset-react': 7.28.5(@babel/core@7.29.0)
@@ -6923,7 +7011,7 @@ snapshots:
       tsconfig-paths: 4.2.0
       tsconfig-paths-webpack-plugin: 4.2.0
       unionfs: 4.6.0
-      webflow-api: 3.2.0
+      webflow-api: 3.2.2
       webpack: 5.105.4(esbuild@0.27.3)
       webpack-merge: 6.0.1
       webpack-node-externals: 3.0.0
@@ -7883,6 +7971,8 @@ snapshots:
 
   graceful-fs@4.2.11: {}
 
+  gsap@3.14.2: {}
+
   has-flag@4.0.0: {}
 
   has-property-descriptors@1.0.2:
@@ -8234,7 +8324,7 @@ snapshots:
 
   md5.js@1.3.5:
     dependencies:
-      hash-base: 3.0.5
+      hash-base: 3.1.2
       inherits: 2.0.4
       safe-buffer: 5.2.1
 
@@ -8627,6 +8717,15 @@ snapshots:
       react: 19.2.4
       scheduler: 0.27.0
 
+  react-from-dom@0.7.5(react@19.2.4):
+    dependencies:
+      react: 19.2.4
+
+  react-inlinesvg@4.2.0(react@19.2.4):
+    dependencies:
+      react: 19.2.4
+      react-from-dom: 0.7.5(react@19.2.4)
+
   react-is@17.0.2: {}
 
   react@19.2.4: {}
@@ -8914,6 +9013,13 @@ snapshots:
 
   stdin-discarder@0.2.2: {}
 
+  storybook-addon-grid-overlay@1.0.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
+    dependencies:
+      '@storybook/icons': 1.6.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+    transitivePeerDependencies:
+      - react
+      - react-dom
+
   storybook@10.2.16(@testing-library/dom@10.4.1)(prettier@2.8.8)(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       '@storybook/global': 5.0.0
@@ -9101,6 +9207,33 @@ snapshots:
 
   tsscmp@1.0.6: {}
 
+  turbo-darwin-64@2.8.14:
+    optional: true
+
+  turbo-darwin-arm64@2.8.14:
+    optional: true
+
+  turbo-linux-64@2.8.14:
+    optional: true
+
+  turbo-linux-arm64@2.8.14:
+    optional: true
+
+  turbo-windows-64@2.8.14:
+    optional: true
+
+  turbo-windows-arm64@2.8.14:
+    optional: true
+
+  turbo@2.8.14:
+    optionalDependencies:
+      turbo-darwin-64: 2.8.14
+      turbo-darwin-arm64: 2.8.14
+      turbo-linux-64: 2.8.14
+      turbo-linux-arm64: 2.8.14
+      turbo-windows-64: 2.8.14
+      turbo-windows-arm64: 2.8.14
+
   tw-animate-css@1.4.0: {}
 
   type-is@2.0.1:
@@ -9213,10 +9346,10 @@ snapshots:
       glob-to-regexp: 0.4.1
       graceful-fs: 4.2.11
 
-  webflow-api@3.2.0:
+  webflow-api@3.2.2:
     dependencies:
       crypto-browserify: 3.12.1
-      form-data: 4.0.4
+      form-data: 4.0.5
       formdata-node: 6.0.3
       js-base64: 3.7.7
       node-fetch: 2.7.0

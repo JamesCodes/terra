@@ -1,56 +1,53 @@
 import type * as React from "react"
 import { cn } from "@/lib/utils"
-import { tv, type VariantProps } from "tailwind-variants"
 
-const statsCardVariants = tv({
-  base: "flex flex-col justify-between rounded-2xl border border-accent/30 overflow-hidden",
-  variants: {
-    variant: {
-      large:
-        "h-[381px] bg-gradient-to-b from-accent/8 to-transparent p-8 text-primary-foreground",
-      mini: "h-auto bg-gradient-to-b from-accent/8 to-transparent p-6 text-primary-foreground",
-    },
-  },
-  defaultVariants: {
-    variant: "large",
-  },
-})
+type StatsCardVariant = "large" | "mini"
 
-interface StatsCardProps
-  extends React.ComponentProps<"div">,
-    VariantProps<typeof statsCardVariants> {
+interface StatsCardProps extends React.ComponentProps<"div"> {
+  variant?: StatsCardVariant
   value: string
-  description: string
+  suffix?: string
+  description?: string
 }
 
 function StatsCard({
   className,
-  variant,
+  variant = "large",
   value,
+  suffix,
   description,
   ...props
 }: StatsCardProps) {
   return (
     <div
       data-slot="stats-card"
-      className={cn(statsCardVariants({ variant }), className)}
+      className={cn(
+        "flex flex-col text-primary-foreground",
+        {
+          "border-t border-primary-foreground/20 gap-4 pt-6 md:relative md:justify-between md:overflow-clip md:rounded-2xl md:border-t-0 md:p-8 md:h-70 lg:h-95 md:gap-0 md:gradient-border":
+            variant === "large",
+          "h-auto rounded-2xl border border-accent/30 p-6": variant === "mini",
+        },
+        className,
+      )}
       {...props}
     >
       <p
         data-slot="stats-card-value"
-        className={cn(
-          "font-light tracking-tight",
-          variant === "mini" ? "text-5xl" : "text-7xl",
-        )}
+        className={cn("font-light tracking-tight", {
+          "text-[56px] leading-12.5 md:text-7xl md:leading-none": variant === "large",
+          "text-5xl": variant === "mini",
+        })}
       >
         {value}
+        <span className="text-[40px] md:text-[56px]">{suffix}</span>
       </p>
       <p
         data-slot="stats-card-description"
-        className={cn(
-          "font-medium leading-[20px]",
-          variant === "mini" ? "text-sm mt-4" : "text-sm max-w-[184px]",
-        )}
+        className={cn("font-medium text-sm leading-5", {
+          "max-w-67.5 md:max-w-46": variant === "large",
+          "mt-4": variant === "mini",
+        })}
       >
         {description}
       </p>
@@ -58,4 +55,4 @@ function StatsCard({
   )
 }
 
-export { StatsCard, statsCardVariants }
+export { StatsCard, type StatsCardVariant }

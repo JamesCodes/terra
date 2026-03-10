@@ -5,7 +5,7 @@ import { declareComponent } from "@webflow/react"
 
 import "../../../app/globals.css"
 
-const levelMap = {
+export const levelMap = {
   "Heading 1": 1,
   "Heading 2": 2,
   "Heading 3": 3,
@@ -25,8 +25,7 @@ const WebflowHeading: React.FC<WebflowHeadingProps> = ({ children, level }) => {
 
 export default declareComponent(WebflowHeading, {
   name: "Heading",
-  description:
-    "A semantic heading with four levels (h1-h4) and matching typography",
+  description: "A semantic heading with four levels (h1-h4) and matching typography",
   group: "Data Display",
   props: {
     children: props.TextNode({

@@ -69,8 +69,7 @@ const WebflowAnnouncementBar: React.FC<WebflowAnnouncementBarProps> = ({
 
 export default declareComponent(WebflowAnnouncementBar, {
   name: "Announcement Bar",
-  description:
-    "A full-width dark banner that cycles through announcements with arrow navigation",
+  description: "A full-width dark banner that cycles through announcements with arrow navigation",
   group: "Navigation",
   props: {
     text1: props.Text({

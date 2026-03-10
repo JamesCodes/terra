@@ -1,7 +1,7 @@
-import * as React from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { cn } from "@/lib/utils"
+import * as React from "react"
 import { Button } from "@/components/ui/Button/button"
+import { cn } from "@/lib/utils"
 
 interface Announcement {
   text: string
@@ -94,16 +94,13 @@ function AnnouncementBar({
           </Button>
         )}
         <span
-          className={cn(
-            "flex-1 text-center transition-all duration-200 ease-in-out",
-            {
-              "translate-x-4 opacity-0": exiting && direction === "right",
-              "-translate-x-4 opacity-0": exiting && direction === "left",
-              "animate-slide-in-left": entering && direction === "right",
-              "animate-slide-in-right": entering && direction === "left",
-              "translate-x-0 opacity-100": !isAnimating,
-            },
-          )}
+          className={cn("flex-1 text-center transition-all duration-200 ease-in-out", {
+            "translate-x-4 opacity-0": exiting && direction === "right",
+            "-translate-x-4 opacity-0": exiting && direction === "left",
+            "animate-slide-in-left": entering && direction === "right",
+            "animate-slide-in-right": entering && direction === "left",
+            "translate-x-0 opacity-100": !isAnimating,
+          })}
         >
           {current.href ? (
             <a

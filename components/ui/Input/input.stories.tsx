@@ -1,36 +1,34 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { Search, X } from "lucide-react"
 import { useRef, useState } from "react"
+import { booleanArg, selectArg } from "@/lib/storybook"
 import { Input } from "./input"
+import { typeMap, variantMap } from "./input.webflow"
 import "../../../app/globals.css"
 
-const meta: Meta<typeof Input> = {
+const meta = {
   title: "UI/Input",
   component: Input,
   parameters: {
     layout: "centered",
+    controls: { include: ["variant", "type", "placeholder", "disabled"] },
   },
   tags: ["autodocs"],
-  argTypes: {
-    variant: {
-      control: { type: "select" },
-      options: ["default", "search"],
-    },
-    type: {
-      control: { type: "select" },
-      options: ["text", "email", "password", "number", "tel", "url", "search"],
-    },
-    placeholder: {
-      control: { type: "text" },
-    },
-    disabled: {
-      control: { type: "boolean" },
-    },
+  args: {
+    variant: "Default" as any,
+    type: "text" as any,
+    placeholder: "Enter text...",
+    disabled: false,
   },
-}
+  argTypes: {
+    variant: selectArg("Style", variantMap),
+    type: selectArg("Type", typeMap),
+    disabled: booleanArg("Disabled"),
+  },
+} satisfies Meta<typeof Input>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<any>
 
 export const Default: Story = {
   args: {
@@ -86,6 +84,21 @@ export const SearchWithoutIcon: Story = {
   ),
 }
 
+export const Inline: Story = {
+  args: {
+    variant: "Inline",
+    type: "email",
+    placeholder: "Email address",
+  },
+  decorators: [
+    (Story) => (
+      <div className="w-80">
+        <Story />
+      </div>
+    ),
+  ],
+}
+
 export const WithLabel: Story = {
   render: () => (
     <div className="space-y-2">
@@ -121,12 +134,7 @@ export const Disabled: Story = {
 export const DisabledSearch: Story = {
   render: () => (
     <div className="relative flex w-80 items-center">
-      <Input
-        variant="search"
-        placeholder="Search articles"
-        disabled
-        className="pr-8"
-      />
+      <Input variant="search" placeholder="Search articles" disabled className="pr-8" />
       <div className="absolute right-0 bottom-3 flex size-5 items-center justify-center">
         <Search className="pointer-events-none size-5 text-muted-foreground" />
       </div>

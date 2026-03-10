@@ -6,7 +6,7 @@ import { FeatureCard } from "./feature-card"
 
 import "../../../app/globals.css"
 
-const layoutMap = {
+export const layoutMap = {
   Large: "large",
   Grid: "grid",
 } as const
@@ -40,9 +40,7 @@ const WebflowFeatureCard: React.FC<WebflowFeatureCardProps> = ({
       label={showLabel ? label : undefined}
       title={title}
       description={description}
-      image={
-        showImage && image?.src ? { src: image.src, alt: image.alt } : undefined
-      }
+      image={showImage && image?.src ? { src: image.src, alt: image.alt } : undefined}
       icon={icon}
     />
   )
@@ -64,8 +62,7 @@ export default declareComponent(WebflowFeatureCard, {
       name: "Label",
       defaultValue: "Always-on",
       group: "Content",
-      tooltip:
-        "Accent-colored label above the title (e.g. Always-on, On-demand)",
+      tooltip: "Accent-colored label above the title (e.g. Always-on, On-demand)",
     }),
     showLabel: props.Visibility({
       name: "Show Label",

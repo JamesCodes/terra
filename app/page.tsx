@@ -1,14 +1,6 @@
 import { AlertCircle } from "lucide-react"
-import {
-  Alert,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/Alert/alert"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/Avatar/avatar"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/Alert/alert"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/Avatar/avatar"
 import { Badge } from "@/components/ui/Badge/badge"
 import { Button } from "@/components/ui/Button/button"
 import {
@@ -26,9 +18,7 @@ export default function Home() {
       <div className="container mx-auto px-4 py-8">
         <header className="text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Lightweight Design System</h1>
-          <p className="text-xl text-muted-foreground">
-            Built with ShadCN/UI Components
-          </p>
+          <p className="text-xl text-muted-foreground">Built with ShadCN/UI Components</p>
         </header>
 
         <div className="grid gap-8 max-w-4xl mx-auto">
@@ -36,18 +26,14 @@ export default function Home() {
           <Card>
             <CardHeader>
               <CardTitle>Button Component</CardTitle>
-              <CardDescription>
-                Various button styles and variants
-              </CardDescription>
+              <CardDescription>Various button styles and variants</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-4">
                 <Button>Default Button</Button>
-                <Button variant="secondary">Secondary</Button>
                 <Button variant="outline">Outline</Button>
                 <Button variant="ghost">Ghost</Button>
                 <Button variant="link">Link</Button>
-                <Button variant="destructive">Destructive</Button>
               </div>
             </CardContent>
           </Card>
@@ -63,9 +49,7 @@ export default function Home() {
                 <Card>
                   <CardHeader>
                     <CardTitle>Sample Card 1</CardTitle>
-                    <CardDescription>
-                      This is a sample card description
-                    </CardDescription>
+                    <CardDescription>This is a sample card description</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <p>Card content goes here with some example text.</p>
@@ -94,19 +78,11 @@ export default function Home() {
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="space-y-2">
                   <label htmlFor="email">Email</label>
-                  <Input
-                    type="email"
-                    id="email"
-                    placeholder="Enter your email"
-                  />
+                  <Input type="email" id="email" placeholder="Enter your email" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="password">Password</label>
-                  <Input
-                    type="password"
-                    id="password"
-                    placeholder="Enter password"
-                  />
+                  <Input type="password" id="password" placeholder="Enter password" />
                 </div>
                 <div className="space-y-2">
                   <label htmlFor="search">Search</label>
@@ -129,16 +105,15 @@ export default function Home() {
             <CardContent>
               <div className="flex flex-wrap gap-4">
                 <Badge>Default</Badge>
-                <Badge variant="secondary">Secondary</Badge>
-                <Badge variant="outline">Outline</Badge>
-                <Badge variant="destructive">Destructive</Badge>
+                <Badge>Featured</Badge>
+                <Badge>Security</Badge>
                 <div className="flex items-center gap-2">
                   <span>Status:</span>
-                  <Badge variant="secondary">Active</Badge>
+                  <Badge>Active</Badge>
                 </div>
                 <div className="flex items-center gap-2">
                   <span>Version:</span>
-                  <Badge variant="outline">v1.0.0</Badge>
+                  <Badge>v1.0.0</Badge>
                 </div>
               </div>
             </CardContent>
@@ -148,23 +123,16 @@ export default function Home() {
           <Card>
             <CardHeader>
               <CardTitle>Avatar Component</CardTitle>
-              <CardDescription>
-                User profile pictures and fallbacks
-              </CardDescription>
+              <CardDescription>User profile pictures and fallbacks</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap items-center gap-6">
                 <div className="flex flex-col items-center gap-2">
                   <Avatar>
-                    <AvatarImage
-                      src="https://github.com/shadcn.png"
-                      alt="@shadcn"
-                    />
+                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
                     <AvatarFallback>CN</AvatarFallback>
                   </Avatar>
-                  <span className="text-sm text-muted-foreground">
-                    With Image
-                  </span>
+                  <span className="text-sm text-muted-foreground">With Image</span>
                 </div>
 
                 <div className="flex flex-col items-center gap-2">
@@ -172,9 +140,7 @@ export default function Home() {
                     <AvatarImage src="/nonexistent.jpg" alt="Broken" />
                     <AvatarFallback>JD</AvatarFallback>
                   </Avatar>
-                  <span className="text-sm text-muted-foreground">
-                    Fallback
-                  </span>
+                  <span className="text-sm text-muted-foreground">Fallback</span>
                 </div>
 
                 <div className="flex flex-col items-center gap-2">
@@ -191,9 +157,7 @@ export default function Home() {
           <Card>
             <CardHeader>
               <CardTitle>Alert Component</CardTitle>
-              <CardDescription>
-                Notifications and important messages
-              </CardDescription>
+              <CardDescription>Notifications and important messages</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -201,8 +165,7 @@ export default function Home() {
                   <AlertCircle className="h-4 w-4" />
                   <AlertTitle>Default Alert</AlertTitle>
                   <AlertDescription>
-                    This is a default alert message with some important
-                    information.
+                    This is a default alert message with some important information.
                   </AlertDescription>
                 </Alert>
 

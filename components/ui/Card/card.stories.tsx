@@ -1,26 +1,20 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { Button } from "../Button/button"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "./card"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card"
 import "../../../app/globals.css"
 
-const meta: Meta<typeof Card> = {
+const meta = {
   title: "UI/Card",
   component: Card,
   parameters: {
     layout: "centered",
+    controls: { include: [] },
   },
   tags: ["autodocs"],
-}
+} satisfies Meta<typeof Card>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<any>
 
 export const Default: Story = {
   render: () => (
@@ -82,14 +76,10 @@ export const CardGrid: Story = {
         <Card key={title}>
           <CardHeader>
             <CardTitle>{title}</CardTitle>
-            <CardDescription>
-              Description for {title.toLowerCase()}
-            </CardDescription>
+            <CardDescription>Description for {title.toLowerCase()}</CardDescription>
           </CardHeader>
           <CardContent>
-            <p className="text-sm text-muted-foreground">
-              Content for {title.toLowerCase()}.
-            </p>
+            <p className="text-sm text-muted-foreground">Content for {title.toLowerCase()}.</p>
           </CardContent>
         </Card>
       ))}

@@ -16,9 +16,7 @@ const WebflowNumberedListItem: React.FC<WebflowNumberedListItemProps> = ({
   title = "Item Title",
   description = "Item description goes here.",
 }) => {
-  return (
-    <NumberedListItem number={number} title={title} description={description} />
-  )
+  return <NumberedListItem number={number} title={title} description={description} />
 }
 
 export default declareComponent(WebflowNumberedListItem, {

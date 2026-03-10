@@ -1,6 +1,6 @@
 import type * as React from "react"
-import { cn } from "@/lib/utils"
 import { tv, type VariantProps } from "tailwind-variants"
+import { cn } from "@/lib/utils"
 
 const featureCardVariants = tv({
   base: "flex rounded-2xl",
@@ -42,20 +42,12 @@ function FeatureCard({
         className={cn(featureCardVariants({ variant }), className)}
         {...props}
       >
-        {label && (
-          <span className="text-sm font-semibold text-accent">{label}</span>
-        )}
+        {label && <span className="text-sm font-semibold text-accent">{label}</span>}
         <h3 className="font-serif text-[28px] leading-tight">{title}</h3>
-        <p className="text-sm text-foreground leading-relaxed max-w-md grow">
-          {description}
-        </p>
+        <p className="text-sm text-foreground leading-relaxed max-w-md grow">{description}</p>
         {image && (
           <div className="overflow-hidden rounded-lg">
-            <img
-              src={image.src}
-              alt={image.alt ?? title}
-              className="w-full object-cover"
-            />
+            <img src={image.src} alt={image.alt ?? title} className="w-full object-cover" />
           </div>
         )}
       </div>
@@ -71,9 +63,7 @@ function FeatureCard({
     >
       {icon && <div data-slot="feature-card-icon">{icon}</div>}
       <h3 className="font-serif text-xl font-medium">{title}</h3>
-      <p className="text-sm text-muted-foreground leading-relaxed">
-        {description}
-      </p>
+      <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
     </div>
   )
 }

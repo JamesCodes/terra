@@ -11,6 +11,8 @@ const inputVariants = tv({
         "h-9 rounded-md border border-input px-3 py-1 shadow-xs placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
       search:
         "h-8 border-b border-border pb-3 text-sm font-medium placeholder:text-muted-foreground/75 focus-visible:border-foreground [&::-webkit-search-cancel-button]:hidden [&::-webkit-search-decoration]:hidden",
+      inline:
+        "h-12 rounded-full bg-background py-2 pr-2 pl-6 text-sm font-medium placeholder:text-foreground/75 focus-visible:ring-ring/50 focus-visible:ring-[3px]",
     },
   },
   defaultVariants: {

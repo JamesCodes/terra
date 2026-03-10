@@ -2,15 +2,18 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { AnnouncementBar } from "./announcement-bar"
 import "../../../app/globals.css"
 
-const meta: Meta<typeof AnnouncementBar> = {
+const meta = {
   title: "UI/AnnouncementBar",
   component: AnnouncementBar,
-  parameters: { layout: "fullscreen" },
+  parameters: {
+    layout: "fullscreen",
+    controls: { include: [] },
+  },
   tags: ["autodocs"],
-}
+} satisfies Meta<typeof AnnouncementBar>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<any>
 
 export const Single: Story = {
   args: {

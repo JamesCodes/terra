@@ -1,16 +1,24 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
+import { numberArg } from "@/lib/storybook"
 import { NumberedListItem } from "./numbered-list"
 import "../../../app/globals.css"
 
-const meta: Meta<typeof NumberedListItem> = {
+const meta = {
   title: "UI/NumberedListItem",
   component: NumberedListItem,
-  parameters: { layout: "fullscreen" },
+  parameters: {
+    layout: "fullscreen",
+    controls: { include: ["number", "title", "description"] },
+  },
   tags: ["autodocs"],
+  args: {
+    number: 1,
+    title: "Do Not Run Unknown Tools Blindly",
+    description:
+      "Treat agentic tools as untrusted code. Allowing an agent to execute or analyze a repository effectively grants it filesystem visibility, execution capability, environment access, and contextual influence.",
+  },
   argTypes: {
-    number: { control: { type: "number", min: 1, max: 99 } },
-    title: { control: "text" },
-    description: { control: "text" },
+    number: numberArg("Number", { min: 1, max: 99, defaultValue: 1 }),
   },
   decorators: [
     (Story) => (
@@ -21,19 +29,12 @@ const meta: Meta<typeof NumberedListItem> = {
       </div>
     ),
   ],
-}
+} satisfies Meta<typeof NumberedListItem>
 
 export default meta
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<any>
 
-export const Default: Story = {
-  args: {
-    number: 1,
-    title: "Do Not Run Unknown Tools Blindly",
-    description:
-      "Treat agentic tools as untrusted code. Allowing an agent to execute or analyze a repository effectively grants it filesystem visibility, execution capability, environment access, and contextual influence. Review the tool's source code to understand its intended functionality and trust boundaries, and assume any external content may attempt to influence the agent.",
-  },
-}
+export const Default: Story = {}
 
 export const DoubleDigit: Story = {
   args: {

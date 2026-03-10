@@ -1,0 +1,21 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "webflow:bundle": {
+      "outputs": ["dist/**"]
+    },
+    "webflow:share": {
+      "outputs": ["dist/**"]
+    },
+    "storybook:dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "format": { "cache": false },
+    "lint": {},
+    "lint:fix": { "cache": false }
+  },
+  "globalDependencies": ["package.json", "pnpm-lock.yaml"],
+  "globalEnv": []
+}

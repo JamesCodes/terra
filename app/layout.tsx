@@ -9,7 +9,7 @@ const dmSans = DM_Sans({
 })
 
 const seasonMix = localFont({
-  src: "../public/fonts/SeasonMix-Regular.woff2",
+  src: "../public/fonts/SeasonMix-Medium.woff2",
   variable: "--font-season-mix",
 })
 
@@ -30,9 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${dmSans.variable} ${seasonMix.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${dmSans.variable} ${seasonMix.variable} ${geistMono.variable}`}>
         {children}
       </body>
     </html>
