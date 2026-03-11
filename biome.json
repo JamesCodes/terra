@@ -37,7 +37,7 @@
   },
   "overrides": [
     {
-      "includes": ["**/*.stories.tsx"],
+      "includes": ["**/*.stories.tsx", "**/*.svg"],
       "linter": {
         "rules": {
           "a11y": {

@@ -17,7 +17,7 @@ interface HeroProps extends Omit<React.ComponentProps<"section">, "children"> {
 
 function Hero({
   className,
-  theme = "dark",
+  theme = "light",
   eyebrow,
   heading = "Offensive security built for the AI era.",
   description,
@@ -108,17 +108,22 @@ function Hero({
         )}
 
         {(backgroundImage?.src || children) && (
-          <div className="col-span-4 mt-6 md:col-span-10 md:col-start-2 md:mt-10">
+          <div className="relative col-span-4 mt-6 md:col-span-10 md:col-start-2 md:mt-10">
             {backgroundImage?.src && (
               <div className="overflow-hidden rounded-t-3xl bg-[#260700] md:rounded-3xl">
                 <img
+                  id="hero-image"
                   src={backgroundImage.src}
                   alt={backgroundImage.alt ?? ""}
-                  className="pointer-events-none h-72 w-full select-none object-cover md:h-120"
+                  className="pointer-events-none h-72 w-full select-none object-cover md:h-120 object-bottom"
                 />
               </div>
             )}
-            {children}
+            {children && (
+              <div className="absolute inset-0 flex items-end justify-center rounded-t-3xl md:rounded-3xl">
+                {children}
+              </div>
+            )}
           </div>
         )}
       </div>

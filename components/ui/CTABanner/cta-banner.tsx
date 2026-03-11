@@ -1,8 +1,8 @@
 import { ArrowRight } from "lucide-react"
-import * as React from "react"
 import { Button } from "@/components/ui/Button/button"
 import { Heading } from "@/components/ui/Heading/heading"
 import { Input } from "@/components/ui/Input/input"
+import { responsiveStyles } from "@/lib/responsive-props"
 import { cn } from "@/lib/utils"
 
 interface CTABannerProps extends Omit<React.ComponentProps<"section">, "children" | "onSubmit"> {
@@ -21,6 +21,7 @@ interface CTABannerProps extends Omit<React.ComponentProps<"section">, "children
 
 function CTABanner({
   className,
+  style,
   theme = "light",
   heading = "Be the first to experience the future of security.",
   description = "Secure your spot and join dozens of security teams that already enjoy the future of pentesting.",
@@ -45,16 +46,18 @@ function CTABanner({
     <section
       data-slot="cta-banner"
       className={cn(
-        "relative flex flex-col items-center overflow-hidden px-5 py-16 md:px-20 md:py-24 responsive-height",
+        "relative flex flex-col items-center overflow-hidden px-5 py-16 md:px-20 md:py-24 h-[calc(var(--height)*1px)] max-lg:h-[calc(var(--height-tablet)*1px)] max-md:h-[calc(var(--height-mobile)*1px)]",
         { "bg-secondary": theme === "light", "bg-[#370e02]": theme === "dark" },
         className,
       )}
       style={
         {
-          "--height-sm":
-            (heightMobile ?? height) != null ? `${heightMobile ?? height}px` : undefined,
-          "--height-md":
-            (height ?? heightMobile) != null ? `${height ?? heightMobile}px` : undefined,
+          ...(height != null || heightMobile != null
+            ? responsiveStyles({
+                height: [(height ?? heightMobile)!, undefined, heightMobile],
+              })
+            : undefined),
+          ...style,
         } as React.CSSProperties
       }
       {...props}

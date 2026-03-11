@@ -3,6 +3,7 @@ import { booleanArg, selectArg, textArg } from "@/lib/storybook"
 import { Hero } from "./hero"
 import { propLabels, themeMap } from "./hero.webflow"
 import "../../../app/globals.css"
+import { HeroVisual } from "./hero-visual"
 
 const meta = {
   title: "UI/Hero",
@@ -87,7 +88,7 @@ export const DarkWithImage: Story = {
   args: {
     theme: "Dark",
     backgroundImage: {
-      src: "/images/desert-dunes.png",
+      src: "/images/hero-dunes.png",
       alt: "Desert dunes",
     },
   },
@@ -97,7 +98,7 @@ export const LightWithImage: Story = {
   args: {
     theme: "Light",
     backgroundImage: {
-      src: "/images/desert-dunes.png",
+      src: "/images/hero-dunes.png",
       alt: "Desert dunes",
     },
   },
@@ -107,7 +108,7 @@ export const AccentWithImage: Story = {
   args: {
     theme: "Accent",
     backgroundImage: {
-      src: "/images/desert-dunes.png",
+      src: "/images/hero-dunes.png",
       alt: "Desert dunes",
     },
   },
@@ -121,8 +122,38 @@ export const ProductHero: Story = {
     showDescription: false,
     showButton: false,
     backgroundImage: {
-      src: "/images/desert-dunes.png",
+      src: "/images/hero-dunes.png",
       alt: "Desert dunes",
     },
   },
+}
+
+export const WithVisual: Story = {
+  args: {
+    theme: "light",
+    backgroundImage: {
+      src: "/images/hero-dunes.png",
+      alt: "Desert dunes",
+    },
+  },
+  render: ({
+    showEyebrow,
+    showDescription,
+    showButton,
+    eyebrow,
+    description,
+    buttonLabel,
+    ...args
+  }: any) => (
+    <div className="min-h-[300vh]">
+      <Hero
+        {...args}
+        eyebrow={showEyebrow ? eyebrow : undefined}
+        description={showDescription ? description : undefined}
+        buttonLabel={showButton ? buttonLabel : undefined}
+      >
+        <HeroVisual />
+      </Hero>
+    </div>
+  ),
 }

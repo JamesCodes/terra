@@ -156,6 +156,37 @@
   }
 }
 
+@utility gradient-border-diagonal {
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--color-accent) 8%, transparent),
+    transparent
+  );
+  &::before {
+    @apply pointer-events-none absolute inset-0 rounded-3xl p-px;
+    content: "";
+    background: linear-gradient(to bottom left, #E65C32, #FBFAF5);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+}
+
+@utility gradient-border-pill {
+  &::before {
+    @apply pointer-events-none absolute inset-0 rounded-full p-px;
+    content: "";
+    background: linear-gradient(to top right, #F2F5EA, #E65C32);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50 antialiased;

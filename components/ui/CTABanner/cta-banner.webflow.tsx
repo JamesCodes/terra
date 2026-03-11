@@ -4,6 +4,7 @@ import type React from "react"
 import { CTABanner } from "./cta-banner"
 
 import "../../../app/globals.css"
+import { responsiveProps, responsiveStyles } from "@/lib/responsive-props"
 
 export const themeMap = {
   Light: "light",
@@ -37,6 +38,7 @@ interface WebflowCTABannerProps {
   backgroundPosition?: keyof typeof backgroundPositionMap
   backgroundPositionMobile?: keyof typeof backgroundPositionMap
   height?: number
+  heightTablet?: number
   heightMobile?: number
 }
 
@@ -50,6 +52,7 @@ const WebflowCTABanner: React.FC<WebflowCTABannerProps> = ({
   backgroundPosition = "Center",
   backgroundPositionMobile,
   height,
+  heightTablet,
   heightMobile,
 }) => {
   const mappedTheme = themeMap[theme]
@@ -66,8 +69,13 @@ const WebflowCTABanner: React.FC<WebflowCTABannerProps> = ({
       backgroundPositionMobile={
         backgroundPositionMobile ? backgroundPositionMap[backgroundPositionMobile] : undefined
       }
-      height={height}
-      heightMobile={heightMobile}
+      style={
+        height != null
+          ? responsiveStyles({
+              height: [height, heightTablet, heightMobile],
+            })
+          : undefined
+      }
     />
   )
 }
@@ -148,14 +156,9 @@ export default declareComponent(WebflowCTABanner, {
       tooltip: "Background image alignment on mobile. Defaults to desktop value if not set.",
       group: "Background",
     }),
-    height: props.Number({
+    ...responsiveProps("height", props.Number, {
       name: "Height",
-      tooltip: "Section height in pixels (desktop/tablet)",
-      group: "Size",
-    }),
-    heightMobile: props.Number({
-      name: "Height (Mobile)",
-      tooltip: "Section height in pixels on mobile. Falls back to desktop value if not set.",
+      tooltip: "Section height in pixels",
       group: "Size",
     }),
   },
