@@ -91,6 +91,7 @@ function HeroVisual() {
           duration: 0.8,
           ease: "power2.out",
           stagger: 0.15,
+          clearProps: "transform",
         },
       )
 
