@@ -14,7 +14,7 @@ const buttonVariants = tv({
       link: "text-foreground font-medium hover:underline underline-offset-4",
     },
     size: {
-      default: "h-11 px-6",
+      default: "h-12.5 px-6",
       sm: "h-9 px-5",
       lg: "h-12 px-8",
       icon: "size-10",

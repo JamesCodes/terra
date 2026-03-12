@@ -15,12 +15,12 @@
   --font-geist-mono: "Geist Mono", monospace;
   --grid-columns: 4;
   --grid-gap: 12px;
-  --grid-gutter: 24px;
+  --grid-gutter: 20px;
 }
 
 @media (min-width: 768px) {
   :root {
-    --grid-columns: 12;
+    --grid-columns: 9;
     --grid-gap: 20px;
     --grid-gutter: 40px;
   }
@@ -28,6 +28,7 @@
 
 @media (min-width: 992px) {
   :root {
+    --grid-columns: 12;
     --grid-gutter: 80px;
   }
 }

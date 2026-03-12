@@ -3,6 +3,8 @@ import { booleanArg, selectArg, textArg } from "@/lib/storybook"
 import { Hero } from "./hero"
 import { propLabels, themeMap } from "./hero.webflow"
 import "../../../app/globals.css"
+import { WebflowSlot } from "@/lib/storybook-webflow"
+import { absoluteFillDecorator } from "@/lib/webflow"
 import { HeroVisual } from "./hero-visual"
 
 const meta = {
@@ -152,7 +154,9 @@ export const WithVisual: Story = {
         description={showDescription ? description : undefined}
         buttonLabel={showButton ? buttonLabel : undefined}
       >
-        <HeroVisual />
+        <WebflowSlot decorator={absoluteFillDecorator}>
+          <HeroVisual />
+        </WebflowSlot>
       </Hero>
     </div>
   ),

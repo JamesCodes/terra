@@ -1,4 +1,3 @@
-import type React from "react"
 import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import { Hero } from "./hero"

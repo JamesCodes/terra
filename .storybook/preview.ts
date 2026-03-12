@@ -30,7 +30,7 @@ const preview: Preview = {
         },
         tablet: {
           name: "Tablet",
-          styles: { width: "992px", height: "1024px" },
+          styles: { width: "991px", height: "1024px" },
           type: "tablet",
         },
         desktop: {

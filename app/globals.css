@@ -54,7 +54,7 @@
 :root,
 .dark {
   --radius: 0.625rem;
-  --background: oklch(0.983 0.005 95);
+  --background: oklch(98.449% 0.00657 97.462);
   --foreground: oklch(0.208 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.208 0 0);
@@ -131,7 +131,7 @@
 }
 
 @utility brand-grid {
-  @apply grid grid-cols-4 gap-3 md:grid-cols-12 md:gap-5;
+  @apply grid grid-cols-4 gap-3 md:grid-cols-9 lg:grid-cols-12 md:gap-5;
 }
 
 @utility page-grid {
@@ -185,6 +185,38 @@
     -webkit-mask-composite: xor;
     mask-composite: exclude;
   }
+}
+
+@utility brand-h1 {
+  @apply font-serif text-5xl leading-12.5 lg:text-[64px] lg:leading-18;
+}
+
+@utility brand-h2 {
+  @apply font-serif text-[32px] leading-10.5 lg:text-5xl lg:leading-15;
+}
+
+@utility brand-h3 {
+  @apply font-serif text-2xl leading-8 lg:text-[32px] lg:leading-10.5;
+}
+
+@utility brand-h4 {
+  @apply font-serif text-xl leading-7 lg:text-[28px] lg:leading-8.5;
+}
+
+@utility brand-body1 {
+  @apply text-base leading-6 lg:text-lg lg:leading-7.5;
+}
+
+@utility brand-body2 {
+  @apply text-sm leading-5 lg:text-base lg:leading-6;
+}
+
+@utility brand-caption {
+  @apply text-xs leading-4.5;
+}
+
+@utility brand-tags {
+  @apply font-semibold text-[10px] leading-3.5;
 }
 
 @layer base {

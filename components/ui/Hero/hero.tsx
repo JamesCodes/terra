@@ -33,7 +33,7 @@ function Hero({
     <section
       data-slot="hero"
       className={cn(
-        "relative overflow-hidden py-37.5",
+        "relative py-10 md:mb-16 md:pt-12 lg:pb-25",
         {
           "bg-[#370e02]": theme === "dark",
           "bg-background": theme === "light",
@@ -43,11 +43,11 @@ function Hero({
       )}
       {...props}
     >
-      <div className="page-grid gap-y-4 pt-10 md:gap-y-6 md:pt-16">
+      <div className="page-grid gap-y-6">
         {eyebrow && (
           <p
             className={cn(
-              "col-span-4 text-center text-sm font-medium md:col-span-6 md:col-start-4 md:text-lg",
+              "col-span-4 text-center font-medium text-sm md:col-span-7 md:col-start-2 md:text-lg lg:col-span-8 lg:col-start-4",
               {
                 "text-primary": isLight,
                 "text-background": !isLight,
@@ -60,10 +60,13 @@ function Hero({
 
         <Heading
           level={1}
-          className={cn("col-span-4 text-center md:col-span-8 md:col-start-3", {
-            "text-primary": isLight,
-            "text-background": !isLight,
-          })}
+          className={cn(
+            "col-span-4 text-center md:col-start-3 md:col-span-5 lg:col-span-8 lg:col-start-3",
+            {
+              "text-primary": isLight,
+              "text-background": !isLight,
+            },
+          )}
         >
           {heading}
         </Heading>
@@ -71,7 +74,7 @@ function Hero({
         {description && (
           <p
             className={cn(
-              "col-span-4 text-center text-sm leading-relaxed md:col-span-6 md:col-start-4 md:text-lg md:font-medium md:leading-8",
+              "col-span-4 text-center brand-body1 md:col-span-7 lg:col-span-6 md:col-start-2 lg:col-start-4",
               {
                 "text-primary": isLight,
                 "text-background": !isLight,
@@ -83,7 +86,7 @@ function Hero({
         )}
 
         {buttonLabel && (
-          <div className="col-span-4 flex justify-center md:col-span-12">
+          <div className="col-span-4 flex justify-center md:col-span-full">
             {buttonLink?.href ? (
               <Button
                 asChild
@@ -108,22 +111,18 @@ function Hero({
         )}
 
         {(backgroundImage?.src || children) && (
-          <div className="relative col-span-4 mt-6 md:col-span-10 md:col-start-2 md:mt-10">
+          <div className="relative col-span-full mt-2 lg:col-span-10 lg:col-start-2">
             {backgroundImage?.src && (
-              <div className="overflow-hidden rounded-t-3xl bg-[#260700] md:rounded-3xl">
+              <div className="overflow-hidden rounded-3xl bg-[#260700]">
                 <img
                   id="hero-image"
                   src={backgroundImage.src}
                   alt={backgroundImage.alt ?? ""}
-                  className="pointer-events-none h-72 w-full select-none object-cover md:h-120 object-bottom"
+                  className="pointer-events-none h-110 w-full select-none object-cover object-bottom md:h-120"
                 />
               </div>
             )}
-            {children && (
-              <div className="absolute inset-0 flex items-end justify-center rounded-t-3xl md:rounded-3xl">
-                {children}
-              </div>
-            )}
+            {children && <div className="absolute inset-0 rounded-3xl">{children}</div>}
           </div>
         )}
       </div>

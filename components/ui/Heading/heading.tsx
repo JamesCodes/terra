@@ -1,4 +1,3 @@
-import * as React from "react"
 import { tv, type VariantProps } from "tailwind-variants"
 
 import { cn } from "@/lib/utils"
@@ -7,10 +6,10 @@ const headingVariants = tv({
   base: "font-serif tracking-tight",
   variants: {
     level: {
-      1: "text-5xl leading-[1.05] font-medium md:text-7xl md:leading-[1.06]",
-      2: "text-[32px] leading-[1.25] font-medium md:text-5xl md:leading-[1.4]",
-      3: "text-2xl leading-[1.33] font-medium md:text-[32px] md:leading-[1.25]",
-      4: "text-xl leading-[1.33] font-medium md:text-2xl md:leading-[1.33]",
+      1: "brand-h1",
+      2: "brand-h2",
+      3: "brand-h3",
+      4: "brand-h4",
     },
   },
   defaultVariants: {
