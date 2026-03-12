@@ -53,9 +53,16 @@
 
 :root,
 .dark {
+  --brand-color-chalk: oklch(98.449% 0.00657 97.462);
+  --brand-color-terracotta: oklch(64.699% 0.18061 37.081);
+  --brand-color-obsidian: oklch(17.727% 0.0081 95.523);
+  --brand-color-destructive: oklch(56.645% 0.19776 32.713);
+  --brand-color-granite: oklch(35.618% 0.00004 271.152);
+  --brand-color-sand: oklch(93.788% 0.03075 96.901);
+
   --radius: 0.625rem;
-  --background: oklch(98.449% 0.00657 97.462);
-  --foreground: oklch(0.208 0 0);
+  --background: var(--brand-color-chalk);
+  --foreground: oklch(0% 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.208 0 0);
   --popover: oklch(1 0 0);
