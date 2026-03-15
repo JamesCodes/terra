@@ -14,10 +14,16 @@ export const headlineSizeMap = {
   Small: "small",
 } as const
 
+export const eyebrowVariantMap = {
+  Accent: "accent",
+  White: "white",
+} as const
+
 export const propLabels = {
   variant: "Variant",
   headlineSize: "Headline Size",
   eyebrow: "Eyebrow",
+  eyebrowVariant: "Eyebrow Style",
   showEyebrow: "Show Eyebrow",
   heading: "Heading",
   description: "Description",
@@ -31,6 +37,7 @@ interface WebflowHeroProps {
   variant?: string
   headlineSize?: string
   eyebrow?: string
+  eyebrowVariant?: keyof typeof eyebrowVariantMap
   showEyebrow?: boolean
   heading?: string
   description?: string
@@ -47,6 +54,7 @@ const WebflowHero: React.FC<WebflowHeroProps> = ({
   variant,
   headlineSize,
   eyebrow,
+  eyebrowVariant = "Accent",
   showEyebrow = false,
   heading,
   description,
@@ -68,6 +76,7 @@ const WebflowHero: React.FC<WebflowHeroProps> = ({
       variant={mappedVariant}
       headlineSize={mappedHeadlineSize}
       eyebrow={showEyebrow ? eyebrow : undefined}
+      eyebrowVariant={eyebrowVariantMap[eyebrowVariant]}
       heading={heading}
       description={showDescription ? description : undefined}
       buttonLabel={showButton ? buttonLabel : undefined}
@@ -104,6 +113,13 @@ export default declareComponent(WebflowHero, {
       defaultValue: "Meet ATLAS",
       tooltip: "Small text displayed above the heading",
       group: "Content",
+    }),
+    eyebrowVariant: props.Variant({
+      name: "Eyebrow Style",
+      options: Object.keys(eyebrowVariantMap),
+      defaultValue: "Accent",
+      tooltip: "Eyebrow text colour — Accent (terracotta) or White",
+      group: "Layout",
     }),
     showEyebrow: props.Visibility({
       name: "Show Eyebrow",

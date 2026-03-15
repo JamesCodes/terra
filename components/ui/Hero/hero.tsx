@@ -8,7 +8,7 @@ const heroVariants = tv({
     root: "relative max-w-screen bg-background max-md:overflow-hidden",
     grid: "page-grid appear-up blur-in",
     eyebrow:
-      "col-span-4 text-center text-sm text-terracotta md:col-span-7 md:col-start-2 md:text-lg lg:col-span-8 lg:col-start-3",
+      "col-span-4 text-center text-sm md:col-span-7 md:col-start-2 md:text-lg lg:col-span-8 lg:col-start-3",
     heading:
       "col-span-4 text-balance text-center md:col-span-5 md:col-start-3 lg:col-span-8 lg:col-start-3",
     imageContainer: "relative col-span-full lg:col-span-10 lg:col-start-2",
@@ -36,6 +36,10 @@ const heroVariants = tv({
         image: "h-120 md:h-180",
       },
     },
+    eyebrowVariant: {
+      accent: { eyebrow: "text-terracotta" },
+      white: { eyebrow: "text-white" },
+    },
     hasEyebrow: {
       true: {},
       false: {},
@@ -59,6 +63,7 @@ const heroVariants = tv({
   ],
   defaultVariants: {
     variant: "default",
+    eyebrowVariant: "accent",
     hasEyebrow: false,
   },
 })
@@ -67,6 +72,7 @@ interface HeroProps extends Omit<React.ComponentProps<"section">, "children"> {
   variant?: "default" | "product"
   headlineSize?: "large" | "small"
   eyebrow?: string
+  eyebrowVariant?: "accent" | "white"
   heading?: string
   description?: string
   buttonLabel?: string
@@ -80,6 +86,7 @@ function Hero({
   headlineSize = "large",
   className,
   eyebrow,
+  eyebrowVariant = "accent",
   heading = "Offensive security built for the AI era.",
   description,
   buttonLabel,
@@ -88,7 +95,7 @@ function Hero({
   children,
   ...props
 }: HeroProps) {
-  const styles = heroVariants({ variant, hasEyebrow: !!eyebrow })
+  const styles = heroVariants({ variant, eyebrowVariant, hasEyebrow: !!eyebrow })
 
   return (
     <section data-slot="hero" className={cn(styles.root(), className)} {...props}>

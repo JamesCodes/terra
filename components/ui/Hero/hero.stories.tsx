@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { booleanArg, selectArg, textArg } from "@/lib/storybook"
 import { Hero } from "./hero"
-import { headlineSizeMap, propLabels, variantMap } from "./hero.webflow"
+import { eyebrowVariantMap, headlineSizeMap, propLabels, variantMap } from "./hero.webflow"
 import "../../../app/globals.css"
 import { WebflowSlot } from "@/lib/storybook-webflow"
 import { absoluteFillDecorator } from "@/lib/webflow"
-import { HeroVisual } from "./hero-visual"
+import { HeroVisual } from "@/components/ui/HeroVisual/hero-visual"
 
 const meta = {
   title: "Sections/Hero",
@@ -21,6 +21,7 @@ const meta = {
     variant: "Default",
     headlineSize: "Large",
     eyebrow: "Meet ATLAS",
+    eyebrowVariant: "Accent" as any,
     showEyebrow: false,
     heading: "Offensive security built for the AI era.",
     description: "Pentest at the pace of AI with Terra's continuous agentic platform.",
@@ -33,6 +34,7 @@ const meta = {
     variant: selectArg(propLabels.variant, variantMap, "Default"),
     headlineSize: selectArg(propLabels.headlineSize, headlineSizeMap, "Large"),
     eyebrow: textArg(propLabels.eyebrow),
+    eyebrowVariant: selectArg(propLabels.eyebrowVariant, eyebrowVariantMap),
     showEyebrow: booleanArg(propLabels.showEyebrow),
     heading: textArg(propLabels.heading),
     description: textArg(propLabels.description),
@@ -127,6 +129,68 @@ export const WithVisual: Story = {
       >
         <WebflowSlot decorator={absoluteFillDecorator}>
           <HeroVisual />
+        </WebflowSlot>
+      </Hero>
+    </div>
+  ),
+}
+
+export const WithVisualVariantB: Story = {
+  args: {
+    ...WithVisual.args,
+  },
+  render: ({
+    showEyebrow,
+    showDescription,
+    showButton,
+    showImage,
+    eyebrow,
+    description,
+    buttonLabel,
+    image,
+    ...args
+  }: any) => (
+    <div className="min-h-[300vh]">
+      <Hero
+        {...args}
+        eyebrow={showEyebrow ? eyebrow : undefined}
+        description={showDescription ? description : undefined}
+        buttonLabel={showButton ? buttonLabel : undefined}
+        image={showImage ? image : undefined}
+      >
+        <WebflowSlot decorator={absoluteFillDecorator}>
+          <HeroVisual variant="VariantB" />
+        </WebflowSlot>
+      </Hero>
+    </div>
+  ),
+}
+
+export const WithVisualVariantC: Story = {
+  args: {
+    ...WithVisual.args,
+  },
+  render: ({
+    showEyebrow,
+    showDescription,
+    showButton,
+    showImage,
+    eyebrow,
+    description,
+    buttonLabel,
+    image,
+    ...args
+  }: any) => (
+    <div className="min-h-[300vh]">
+      <Hero
+        {...args}
+        eyebrow={showEyebrow ? eyebrow : undefined}
+        description={showDescription ? description : undefined}
+        buttonLabel={showButton ? buttonLabel : undefined}
+        image={showImage ? image : undefined}
+      >
+        <WebflowSlot decorator={absoluteFillDecorator}>
+          <HeroVisual variant="VariantC" />
         </WebflowSlot>
       </Hero>
     </div>
