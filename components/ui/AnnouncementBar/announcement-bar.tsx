@@ -77,7 +77,7 @@ function AnnouncementBar({
     <div
       data-slot="announcement-bar"
       className={cn(
-        "flex h-10 w-full items-center bg-primary text-[12px] font-medium leading-6 tracking-[-0.12px] text-primary-foreground",
+        "flex w-full items-center text-balance bg-primary py-2 font-medium text-[12px] text-primary-foreground leading-[150%] tracking-[-0.12px]",
         className,
       )}
     >
@@ -87,7 +87,7 @@ function AnnouncementBar({
             variant="ghost"
             size="icon"
             onClick={() => cycle("left")}
-            className="size-6 opacity-50 hover:opacity-100 hover:bg-transparent"
+            className="size-6 opacity-50 hover:bg-transparent hover:opacity-100"
             aria-label="Previous announcement"
           >
             <ChevronLeft className="size-6" />
@@ -106,7 +106,7 @@ function AnnouncementBar({
             <a
               href={current.href}
               target={current.target}
-              className="hover:opacity-80 transition-opacity"
+              className="contents transition-opacity hover:opacity-80"
             >
               {current.text}
             </a>
@@ -119,7 +119,7 @@ function AnnouncementBar({
             variant="ghost"
             size="icon"
             onClick={() => cycle("right")}
-            className="size-6 opacity-50 hover:opacity-100 hover:bg-transparent"
+            className="size-6 opacity-50 hover:bg-transparent hover:opacity-100"
             aria-label="Next announcement"
           >
             <ChevronRight className="size-6" />

@@ -1,4 +1,4 @@
-import * as React from "react"
+import type * as React from "react"
 import { Heading } from "@/components/ui/Heading/heading"
 import { cn } from "@/lib/utils"
 
@@ -19,14 +19,14 @@ function NumberedListItem({
     <div
       data-slot="numbered-list-item"
       className={cn(
-        "grid grid-cols-[auto_1fr] gap-x-4 border-t border-border pt-8 pb-12 md:grid-cols-8 md:gap-x-5",
+        "grid grid-cols-[auto_1fr] gap-x-4 border-border border-t pt-8 pb-12 md:grid-cols-8 md:gap-x-5",
         className,
       )}
       {...props}
     >
       <span
         data-slot="numbered-list-number"
-        className="row-span-2 font-sans text-[80px] font-extralight leading-[72px] text-primary md:col-span-2"
+        className="row-span-2 font-extralight font-sans text-[80px] text-primary leading-18 md:col-span-2"
       >
         {number}
       </span>
@@ -35,7 +35,7 @@ function NumberedListItem({
       </Heading>
       <p
         data-slot="numbered-list-description"
-        className="mt-6 text-lg leading-8 tracking-[-0.36px] text-primary md:col-span-6 md:col-start-3"
+        className="mt-6 text-lg text-primary leading-8 tracking-[-0.36px] md:col-span-6 md:col-start-3"
       >
         {description}
       </p>

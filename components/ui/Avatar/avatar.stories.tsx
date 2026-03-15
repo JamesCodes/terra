@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "./avatar"
 import "../../../app/globals.css"
 
 const meta = {
-  title: "UI/Avatar",
+  title: "Media/Avatar",
   component: Avatar,
   parameters: {
     layout: "centered",

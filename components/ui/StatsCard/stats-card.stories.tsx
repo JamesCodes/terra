@@ -1,27 +1,25 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
-import { selectArg, textArg } from "@/lib/storybook"
+import { textArg } from "@/lib/storybook"
 import { StatsCard } from "./stats-card"
-import { propLabels, sizeMap } from "./stats-card.webflow"
+import { propLabels } from "./stats-card.webflow"
 import { WebflowStatWrapper } from "./stats-card-wrapper.webflow"
 import "../../../app/globals.css"
 import { Section } from "@/components/ui/Section/section"
 
 const meta = {
-  title: "UI/StatsCard",
+  title: "Cards/Stats Card",
   component: StatsCard,
   parameters: {
-    layout: "centered",
-    controls: { include: ["variant", "value", "suffix", "description"] },
+    layout: "fullscreen",
+    controls: { include: ["value", "suffix", "description"] },
   },
   tags: ["autodocs"],
   args: {
-    variant: "Large" as any,
     value: "100",
     suffix: "%",
     description: "Attack surface coverage with continuous pentesting",
   },
   argTypes: {
-    variant: selectArg(propLabels.size, sizeMap),
     value: textArg(propLabels.value),
     suffix: textArg(propLabels.suffix),
     description: textArg(propLabels.description),
@@ -29,71 +27,28 @@ const meta = {
 } satisfies Meta<typeof StatsCard>
 
 export default meta
-type Story = StoryObj<any>
+type Story = StoryObj<typeof StatsCard>
 
-export const Large: Story = {
+export const Default: Story = {
   render: () => (
     <Section variant="moss">
       <WebflowStatWrapper>
         <StatsCard
-          variant="large"
           value="100"
           suffix="%"
-          description="Attack surface coverage with continuous pentesting compared to quarterly snapshots"
+          description="Attack surface coverage, on pace with attack surface development."
         />
         <StatsCard
-          variant="large"
-          value="0"
-          description="False positives delivered— only spend time fixing the truly critical things that could really disrupt or hurt the business"
-        />
-        <StatsCard
-          variant="large"
-          value="10"
+          value="250"
           suffix="x"
-          description="ROI by reducing money and time spent on repetitive pentesting tasks"
+          description="Faster than traditional pentesting approaches (from 4-6 weeks to 2-4 hours). "
         />
         <StatsCard
-          variant="large"
           value="24"
           suffix="/7"
-          description="Always-on vulnerability analysis to make sure your business stays ahead of today's most advanced threats"
+          description="Always-on vulnerability analysis compared to point-in-time snapshots."
         />
       </WebflowStatWrapper>
     </Section>
-  ),
-}
-
-export const Mini: Story = {
-  render: () => (
-    <div className="bg-card p-8 rounded-2xl border shadow-sm">
-      <div className="flex gap-4">
-        <StatsCard
-          variant="mini"
-          value="10"
-          description="Vulnerable Endpoints"
-          className="w-[180px]"
-        />
-        <StatsCard
-          variant="mini"
-          value="7"
-          description="Sensitive Endpoints"
-          className="w-[180px]"
-        />
-        <StatsCard variant="mini" value="3" description="Clear Endpoints" className="w-[180px]" />
-      </div>
-    </div>
-  ),
-}
-
-export const Single: Story = {
-  render: () => (
-    <div className="bg-[#133224] p-8 rounded-2xl">
-      <StatsCard
-        variant="large"
-        value="100%"
-        description="Attack surface coverage with continuous pentesting"
-        className="w-[260px]"
-      />
-    </div>
   ),
 }

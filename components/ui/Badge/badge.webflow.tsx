@@ -7,7 +7,7 @@ import "../../../app/globals.css"
 export default declareComponent(Badge, {
   name: "Badge",
   description: "A small pill-shaped label for tags and categories",
-  group: "Data Display",
+  group: "Elements",
   props: {
     children: props.Text({
       name: "Label",

@@ -27,7 +27,7 @@ const WebflowAvatar: React.FC<WebflowAvatarProps> = ({
 export default declareComponent(WebflowAvatar, {
   name: "Avatar",
   description: "An avatar component with image and fallback support",
-  group: "Data Display",
+  group: "Media",
   props: {
     image: props.Image({
       name: "Image",

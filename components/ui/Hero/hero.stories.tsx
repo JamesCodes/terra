@@ -1,24 +1,25 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { booleanArg, selectArg, textArg } from "@/lib/storybook"
 import { Hero } from "./hero"
-import { propLabels, themeMap } from "./hero.webflow"
+import { headlineSizeMap, propLabels, variantMap } from "./hero.webflow"
 import "../../../app/globals.css"
 import { WebflowSlot } from "@/lib/storybook-webflow"
 import { absoluteFillDecorator } from "@/lib/webflow"
 import { HeroVisual } from "./hero-visual"
 
 const meta = {
-  title: "UI/Hero",
+  title: "Sections/Hero",
   component: Hero,
   parameters: {
     layout: "fullscreen",
     controls: {
-      exclude: ["className", "children", "backgroundImage"],
+      exclude: ["className", "children", "image"],
     },
   },
   tags: ["autodocs"],
   args: {
-    theme: "Dark" as any,
+    variant: "Default",
+    headlineSize: "Large",
     eyebrow: "Meet ATLAS",
     showEyebrow: false,
     heading: "Offensive security built for the AI era.",
@@ -26,9 +27,11 @@ const meta = {
     showDescription: true,
     buttonLabel: "Book a Demo",
     showButton: true,
+    showImage: true,
   },
   argTypes: {
-    theme: selectArg(propLabels.theme, themeMap),
+    variant: selectArg(propLabels.variant, variantMap, "Default"),
+    headlineSize: selectArg(propLabels.headlineSize, headlineSizeMap, "Large"),
     eyebrow: textArg(propLabels.eyebrow),
     showEyebrow: booleanArg(propLabels.showEyebrow),
     heading: textArg(propLabels.heading),
@@ -36,14 +39,17 @@ const meta = {
     showDescription: booleanArg(propLabels.showDescription),
     buttonLabel: textArg(propLabels.buttonLabel),
     showButton: booleanArg(propLabels.showButton),
+    showImage: booleanArg(propLabels.showImage),
   },
   render: ({
     showEyebrow,
     showDescription,
     showButton,
+    showImage,
     eyebrow,
     description,
     buttonLabel,
+    image,
     ...args
   }) => (
     <Hero
@@ -51,6 +57,7 @@ const meta = {
       eyebrow={showEyebrow ? eyebrow : undefined}
       description={showDescription ? description : undefined}
       buttonLabel={showButton ? buttonLabel : undefined}
+      image={showImage ? image : undefined}
     />
   ),
 } satisfies Meta<any>
@@ -58,27 +65,10 @@ const meta = {
 export default meta
 type Story = StoryObj<any>
 
-export const Dark: Story = {
-  args: {
-    theme: "Dark",
-  },
-}
-
-export const Light: Story = {
-  args: {
-    theme: "Light",
-  },
-}
-
-export const Accent: Story = {
-  args: {
-    theme: "Accent",
-  },
-}
+export const Default: Story = {}
 
 export const WithEyebrow: Story = {
   args: {
-    theme: "Dark",
     showEyebrow: true,
     heading: "Where human + agent security teams really work.",
     showDescription: false,
@@ -86,30 +76,9 @@ export const WithEyebrow: Story = {
   },
 }
 
-export const DarkWithImage: Story = {
+export const WithImage: Story = {
   args: {
-    theme: "Dark",
-    backgroundImage: {
-      src: "/images/hero-dunes.png",
-      alt: "Desert dunes",
-    },
-  },
-}
-
-export const LightWithImage: Story = {
-  args: {
-    theme: "Light",
-    backgroundImage: {
-      src: "/images/hero-dunes.png",
-      alt: "Desert dunes",
-    },
-  },
-}
-
-export const AccentWithImage: Story = {
-  args: {
-    theme: "Accent",
-    backgroundImage: {
+    image: {
       src: "/images/hero-dunes.png",
       alt: "Desert dunes",
     },
@@ -118,12 +87,12 @@ export const AccentWithImage: Story = {
 
 export const ProductHero: Story = {
   args: {
-    theme: "Dark",
+    variant: "Product",
+    headlineSize: "Small",
     showEyebrow: true,
+    eyebrow: "Terra Portal™",
     heading: "Where human + agent security teams really work.",
-    showDescription: false,
-    showButton: false,
-    backgroundImage: {
+    image: {
       src: "/images/hero-dunes.png",
       alt: "Desert dunes",
     },
@@ -132,8 +101,7 @@ export const ProductHero: Story = {
 
 export const WithVisual: Story = {
   args: {
-    theme: "light",
-    backgroundImage: {
+    image: {
       src: "/images/hero-dunes.png",
       alt: "Desert dunes",
     },
@@ -142,9 +110,11 @@ export const WithVisual: Story = {
     showEyebrow,
     showDescription,
     showButton,
+    showImage,
     eyebrow,
     description,
     buttonLabel,
+    image,
     ...args
   }: any) => (
     <div className="min-h-[300vh]">
@@ -153,6 +123,7 @@ export const WithVisual: Story = {
         eyebrow={showEyebrow ? eyebrow : undefined}
         description={showDescription ? description : undefined}
         buttonLabel={showButton ? buttonLabel : undefined}
+        image={showImage ? image : undefined}
       >
         <WebflowSlot decorator={absoluteFillDecorator}>
           <HeroVisual />

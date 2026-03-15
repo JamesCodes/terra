@@ -47,7 +47,7 @@ const WebflowAnimatedIcon: React.FC<WebflowAnimatedIconProps> = ({
 export default declareComponent(WebflowAnimatedIcon, {
   name: "Animated Icon",
   description: "Terracotta animated SVG icons — target, infinity, half-circle, and shield variants",
-  group: "Data Display",
+  group: "Media",
   props: {
     icon: props.Variant({
       name: "Icon",

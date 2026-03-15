@@ -19,8 +19,10 @@ export function WebflowSlot({ children, decorator }: WebflowSlotProps) {
     const host = hostRef.current
     if (!host || host.shadowRoot) return
 
+    host.setAttribute("slot", "temp")
     const shadow = host.attachShadow({ mode: "open" })
     const slot = document.createElement("slot")
+    host.className = "contents"
     shadow.appendChild(slot)
   }, [])
 
@@ -28,7 +30,7 @@ export function WebflowSlot({ children, decorator }: WebflowSlotProps) {
     const Inner = () => <>{children}</>
     const Decorated = decorator(Inner)
     return (
-      <div ref={hostRef}>
+      <div slot="" ref={hostRef}>
         <Decorated />
       </div>
     )

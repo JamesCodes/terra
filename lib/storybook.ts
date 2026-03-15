@@ -48,3 +48,24 @@ export function booleanArg(name: string) {
 export function textArg(name: string) {
   return { name, control: "text" as const }
 }
+
+/**
+ * Generates breakpoint-specific Storybook argTypes from a single argType.
+ * Mirrors `responsiveProps` for Webflow — spread into the `argTypes` object.
+ *
+ * @example
+ * ```tsx
+ * argTypes: {
+ *   ...responsiveArgs("paddingTop", numberArg("Padding Top", { min: -1, max: 200 })),
+ * }
+ * // → paddingTop, paddingTopTablet, paddingTopMobile
+ * ```
+ */
+export function responsiveArgs(name: string, argType: { name: string } & Record<string, unknown>) {
+  const label = argType.name
+  return {
+    [name]: argType,
+    [`${name}Tablet`]: { ...argType, name: `${label} (Tablet)` },
+    [`${name}Mobile`]: { ...argType, name: `${label} (Mobile)` },
+  }
+}

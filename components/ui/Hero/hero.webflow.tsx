@@ -4,14 +4,19 @@ import { Hero } from "./hero"
 
 import "../../../app/globals.css"
 
-export const themeMap = {
-  Dark: "dark",
-  Light: "light",
-  Accent: "accent",
+export const variantMap = {
+  Default: "default",
+  Product: "product",
+} as const
+
+export const headlineSizeMap = {
+  Large: "large",
+  Small: "small",
 } as const
 
 export const propLabels = {
-  theme: "Theme",
+  variant: "Variant",
+  headlineSize: "Headline Size",
   eyebrow: "Eyebrow",
   showEyebrow: "Show Eyebrow",
   heading: "Heading",
@@ -19,10 +24,12 @@ export const propLabels = {
   showDescription: "Show Description",
   buttonLabel: "Button Label",
   showButton: "Show Button",
+  showImage: "Show Image",
 } as const
 
 interface WebflowHeroProps {
-  theme?: keyof typeof themeMap
+  variant?: string
+  headlineSize?: string
   eyebrow?: string
   showEyebrow?: boolean
   heading?: string
@@ -31,12 +38,14 @@ interface WebflowHeroProps {
   buttonLabel?: string
   buttonLink?: { href: string; target?: string }
   showButton?: boolean
-  backgroundImage?: { src: string; alt?: string }
+  showImage?: boolean
+  image?: { src: string; alt?: string }
   visual?: React.ReactNode
 }
 
 const WebflowHero: React.FC<WebflowHeroProps> = ({
-  theme = "Dark",
+  variant,
+  headlineSize,
   eyebrow,
   showEyebrow = false,
   heading,
@@ -45,18 +54,25 @@ const WebflowHero: React.FC<WebflowHeroProps> = ({
   buttonLabel,
   buttonLink,
   showButton = true,
-  backgroundImage,
+  showImage = true,
+  image,
   visual,
 }) => {
+  const mappedVariant =
+    (variantMap[variant as keyof typeof variantMap] as "default" | "product") ?? "default"
+  const mappedHeadlineSize =
+    (headlineSizeMap[headlineSize as keyof typeof headlineSizeMap] as "large" | "small") ?? "large"
+
   return (
     <Hero
-      theme={themeMap[theme]}
+      variant={mappedVariant}
+      headlineSize={mappedHeadlineSize}
       eyebrow={showEyebrow ? eyebrow : undefined}
       heading={heading}
       description={showDescription ? description : undefined}
       buttonLabel={showButton ? buttonLabel : undefined}
       buttonLink={buttonLink}
-      backgroundImage={backgroundImage}
+      image={showImage ? image : undefined}
     >
       {visual}
     </Hero>
@@ -67,14 +83,21 @@ export default declareComponent(WebflowHero, {
   name: "Hero",
   description:
     "A full-width hero section with eyebrow, heading, description, CTA button, and optional background image with visual slot",
-  group: "Layout",
+  group: "Sections",
   props: {
-    theme: props.Variant({
-      name: "Theme",
-      options: ["Dark", "Light", "Accent"],
-      defaultValue: "Dark",
-      tooltip:
-        "Dark: deep brown background, Light: chalk background, Accent: terracotta background",
+    variant: props.Variant({
+      name: "Variant",
+      options: Object.keys(variantMap),
+      defaultValue: "Default",
+      tooltip: "Hero layout — Default for homepage, Product for product pages",
+      group: "Layout",
+    }),
+    headlineSize: props.Variant({
+      name: "Headline Size",
+      options: Object.keys(headlineSizeMap),
+      defaultValue: "Large",
+      tooltip: "Controls the headline text size — Large (h1) or Small (h2)",
+      group: "Layout",
     }),
     eyebrow: props.TextNode({
       name: "Eyebrow",
@@ -125,14 +148,20 @@ export default declareComponent(WebflowHero, {
       tooltip: "Toggle CTA button visibility",
       group: "Visibility",
     }),
-    backgroundImage: props.Image({
-      name: "Background Image",
+    showImage: props.Visibility({
+      name: "Show Image",
+      defaultValue: true,
+      tooltip: "Toggle image visibility",
+      group: "Visibility",
+    }),
+    image: props.Image({
+      name: "Image",
       tooltip: "Image displayed in the visual canvas area",
       group: "Visual",
     }),
     visual: props.Slot({
       name: "Visual",
-      tooltip: "Content area for decorative elements overlaid on the background image",
+      tooltip: "Content area for decorative elements overlaid on the image",
       group: "Visual",
     }),
   },

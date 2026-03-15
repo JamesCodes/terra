@@ -7,7 +7,7 @@ import { typeMap, variantMap } from "./input.webflow"
 import "../../../app/globals.css"
 
 const meta = {
-  title: "UI/Input",
+  title: "Elements/Input",
   component: Input,
   parameters: {
     layout: "centered",

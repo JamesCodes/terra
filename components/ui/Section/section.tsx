@@ -1,83 +1,137 @@
+import { lazy } from "react"
 import { tv, type VariantProps } from "tailwind-variants"
-
-import { Heading } from "@/components/ui/Heading/heading"
+import { SectionHeading } from "@/components/ui/SectionHeading/section-heading"
+import { type ResponsiveProps, responsiveClass, responsiveStyles } from "@/lib/responsive-props"
 import { cn } from "@/lib/utils"
 
+const BgPattern = lazy(() => import("./bg-pattern.svg"))
+
 const sectionVariants = tv({
-  base: "w-full",
+  slots: {
+    root: "relative w-full",
+    pattern:
+      "absolute top-0 left-0 h-full w-full [&>svg]:absolute [&>svg]:top-0 [&>svg]:left-0 [&>svg]:h-full [&>svg]:w-full",
+    textCardHeading: "",
+  },
   variants: {
     variant: {
-      white: "bg-card text-primary",
-      chalk: "bg-background text-primary",
-      moss: "bg-[#133224] text-[#fbfaf5]",
+      chalk: {
+        root: "bg-background text-primary",
+        pattern: "text-sand",
+        textCardHeading: "var(--color-accent)",
+      },
+      moss: { root: "bg-moss text-chalk", pattern: "text-[#289664]" },
+      obsidian: { root: "bg-obsidian text-chalk", pattern: "text-granite" },
+      magma: { root: "bg-light-magma text-chalk", pattern: "text-[#6F2F1C] opacity-60" },
     },
   },
   defaultVariants: {
-    variant: "white",
+    variant: "chalk",
   },
 })
 
-type SectionVariant = "white" | "chalk" | "moss"
+import type { HeadingLevel } from "@/components/ui/Heading/heading"
+import type { SectionHeadingProps } from "@/components/ui/SectionHeading/section-heading"
+
+type SectionVariant = "chalk" | "moss" | "obsidian" | "magma"
 
 interface SectionProps
   extends React.ComponentProps<"section">,
-    VariantProps<typeof sectionVariants> {
+    VariantProps<typeof sectionVariants>,
+    ResponsiveProps<{
+      gap: number
+      paddingTop: number
+      paddingBottom: number
+    }> {
+  label?: string
   heading?: string
+  headingLevel?: HeadingLevel
   text?: string
-  paddingTop?: number
-  paddingBottom?: number
+  buttonText?: SectionHeadingProps["buttonText"]
+  buttonLink?: SectionHeadingProps["buttonLink"]
+  buttonVariant?: SectionHeadingProps["buttonVariant"]
+  showDivider?: boolean
+  showPattern?: boolean
+  fadePattern?: boolean
 }
 
 function Section({
   className,
   style,
-  variant = "white",
+  variant = "chalk",
+  label,
   heading,
+  headingLevel = 2,
   text,
+  buttonText,
+  buttonLink,
+  buttonVariant,
+  gap = 80,
+  gapTablet = 64,
+  gapMobile = 48,
   paddingTop = 80,
+  paddingTopTablet = -1,
+  paddingTopMobile = -1,
   paddingBottom = 80,
+  paddingBottomTablet = -1,
+  paddingBottomMobile = -1,
+  showDivider = true,
+  showPattern = false,
+  fadePattern = true,
   children,
   ...props
 }: SectionProps) {
+  const { root, pattern, textCardHeading } = sectionVariants({ variant })
+
+  console.log({ h3: textCardHeading() })
+
   return (
-    <section
-      data-slot="section"
-      className={cn(
-        sectionVariants({ variant }),
-        "pt-[calc(var(--pt)*1px)] max-lg:pt-[calc(var(--pt-tablet)*1px)] max-md:pt-[calc(var(--pt-mobile)*1px)] pb-[calc(var(--pb)*1px)] max-lg:pb-[calc(var(--pb-tablet)*1px)] max-md:pb-[calc(var(--pb-mobile)*1px)]",
-        className,
-      )}
-      style={
-        {
-          "--pt": paddingTop,
-          "--pt-tablet": paddingTop,
-          "--pt-mobile": paddingTop,
-          "--pb": paddingBottom,
-          "--pb-tablet": paddingBottom,
-          "--pb-mobile": paddingBottom,
+    <>
+      <section
+        data-slot="section"
+        className={cn(root(), responsiveClass("pt", "pt"), responsiveClass("pb", "pb"), className)}
+        style={{
+          ...responsiveStyles({
+            "gap-y": [gap, gapTablet, gapMobile, "px"],
+            pt: [paddingTop, paddingTopTablet, paddingTopMobile, "px"],
+            pb: [paddingBottom, paddingBottomTablet, paddingBottomMobile, "px"],
+          }),
+          ...{
+            "--text-card-heading": textCardHeading(),
+          },
           ...style,
-        } as React.CSSProperties
-      }
-      {...props}
-    >
-      <div className="container flex flex-col md:gap-6">
-        {(heading || text) && (
-          <div className="flex flex-col items-center gap-4 text-center">
-            {heading && <Heading level={2}>{heading}</Heading>}
-            {text && (
-              <p
-                className={cn("md:basis-8/12 text-lg leading-normal", {
-                  "text-[#3c3c3c]": variant !== "moss",
-                })}
-              >
-                {text}
-              </p>
-            )}
+        }}
+        {...props}
+      >
+        <div
+          className={cn(
+            `container relative z-10 flex flex-col ${responsiveClass("gap-y", "gap-y")}`,
+          )}
+        >
+          <SectionHeading
+            label={label}
+            heading={heading}
+            headingLevel={headingLevel}
+            text={text}
+            buttonText={buttonText}
+            buttonLink={buttonLink}
+            buttonVariant={buttonVariant}
+            variant={variant === "chalk" ? "light" : "dark"}
+          />
+          {children}
+        </div>
+        {showPattern && (
+          <div className={cn(pattern(), { "mask-t-from-0% mask-t-to-90%": fadePattern })}>
+            <BgPattern />
           </div>
         )}
-        {children}
-      </div>
-    </section>
+      </section>
+      {showDivider && (
+        <div className="container px-10">
+          <div className="border-b" />
+        </div>
+      )}
+    </>
   )
 }
 

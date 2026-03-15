@@ -56,7 +56,7 @@ const WebflowAlert: React.FC<WebflowAlertProps> = ({
 export default declareComponent(WebflowAlert, {
   name: "Alert",
   description: "A callout component for important messages",
-  group: "Feedback",
+  group: "Elements",
   props: {
     className: props.Text({
       name: "Class Name",

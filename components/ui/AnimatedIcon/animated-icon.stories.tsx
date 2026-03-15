@@ -5,7 +5,7 @@ import { iconMap, modeMap, sizeMap } from "./animated-icon.webflow"
 import "../../../app/globals.css"
 
 const meta = {
-  title: "UI/AnimatedIcon",
+  title: "Media/Animated Icon",
   component: AnimatedIcon,
   parameters: { layout: "centered" },
   tags: ["autodocs"],
@@ -29,21 +29,21 @@ type Story = StoryObj<any>
 export const Target: Story = {
   args: {
     icon: "Target",
-    speed: 9
+    speed: 9,
   },
 }
 
 export const Infinity: Story = {
   args: {
     icon: "Infinity",
-    speed: 8
+    speed: 8,
   },
 }
 
 export const HalfCircle: Story = {
   args: {
     icon: "Half Circle",
-    speed: 8
+    speed: 8,
   },
 }
 
@@ -99,15 +99,15 @@ export const SpeedVariations: Story = {
     <div className="flex items-center gap-8">
       <div className="flex flex-col items-center gap-2">
         <AnimatedIcon icon="infinity" size="lg" speed={2} />
-        <span className="text-xs text-muted-foreground">Slow (2)</span>
+        <span className="text-muted-foreground text-xs">Slow (2)</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <AnimatedIcon icon="infinity" size="lg" speed={5} />
-        <span className="text-xs text-muted-foreground">Medium (5)</span>
+        <span className="text-muted-foreground text-xs">Medium (5)</span>
       </div>
       <div className="flex flex-col items-center gap-2">
         <AnimatedIcon icon="infinity" size="lg" speed={9} />
-        <span className="text-xs text-muted-foreground">Fast (9)</span>
+        <span className="text-muted-foreground text-xs">Fast (9)</span>
       </div>
     </div>
   ),

@@ -3,7 +3,7 @@ import { AnnouncementBar } from "./announcement-bar"
 import "../../../app/globals.css"
 
 const meta = {
-  title: "UI/AnnouncementBar",
+  title: "Navigation/Announcement Bar",
   component: AnnouncementBar,
   parameters: {
     layout: "fullscreen",

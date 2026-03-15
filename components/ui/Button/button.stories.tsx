@@ -6,7 +6,7 @@ import { sizeMap, variantMap } from "./button.webflow"
 import "../../../app/globals.css"
 
 const meta = {
-  title: "UI/Button",
+  title: "Elements/Button",
   component: Button,
   parameters: {
     layout: "centered",
@@ -14,8 +14,8 @@ const meta = {
   },
   tags: ["autodocs"],
   args: {
-    variant: "Primary" as any,
-    size: "Medium" as any,
+    variant: "default",
+    size: "default",
     children: "Button",
     disabled: false,
   },
@@ -30,28 +30,54 @@ export default meta
 type Story = StoryObj<any>
 
 export const Default: Story = {
-  args: {
-    children: "View All Stories",
-  },
+  render: () => (
+    <div className="flex flex-wrap items-center gap-4">
+      <Button variant="default">View All Stories</Button>
+      <Button variant="default" disabled>
+        View All Stories
+      </Button>
+    </div>
+  ),
 }
 
 export const Outline: Story = {
-  args: {
-    variant: "Outline",
-    children: "Read the Full Story",
-  },
+  render: () => (
+    <div className="flex flex-wrap items-center gap-4">
+      <Button variant="outline">View All Stories</Button>
+      <Button variant="outline" disabled>
+        View All Stories
+      </Button>
+    </div>
+  ),
 }
 
 export const Ghost: Story = {
   args: {
-    variant: "Ghost",
+    variant: "ghost",
     children: "Ghost",
   },
 }
 
 export const Link: Story = {
   args: {
-    variant: "Link",
+    variant: "link",
+    children: "Product",
+  },
+}
+
+export const Nav: Story = {
+  args: {
+    variant: "nav",
+    size: "link",
+    children: "Product",
+  },
+}
+
+export const NavActive: Story = {
+  args: {
+    variant: "nav",
+    size: "link",
+    state: "active",
     children: "Product",
   },
 }
@@ -63,6 +89,9 @@ export const AllVariants: Story = {
       <Button variant="outline">Read the Full Story</Button>
       <Button variant="ghost">Ghost</Button>
       <Button variant="link">Product</Button>
+      <Button variant="nav" size="link">
+        <span>Nav Item</span>
+      </Button>
     </div>
   ),
 }
@@ -83,6 +112,9 @@ export const AllSizes: Story = {
       <Button size="lg">Large</Button>
       <Button size="icon">
         <ArrowRight className="size-4" />
+      </Button>
+      <Button variant="link" size="link">
+        Link
       </Button>
     </div>
   ),

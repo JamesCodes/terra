@@ -101,7 +101,7 @@ function WebflowInput({
 export default declareComponent(WebflowInput, {
   name: "Input",
   description: "A text input field with default, search, and inline variants",
-  group: "Form",
+  group: "Elements",
   props: {
     variant: props.Variant({
       name: "Style",

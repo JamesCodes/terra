@@ -5,7 +5,7 @@ import { levelMap } from "./heading.webflow"
 import "../../../app/globals.css"
 
 const meta = {
-  title: "UI/Heading",
+  title: "Content Blocks/Heading",
   component: Heading,
   parameters: {
     layout: "centered",
@@ -25,23 +25,27 @@ export default meta
 type Story = StoryObj<any>
 
 export const H1: Story = {
+  name: "H1",
   args: {
-    level: "Heading 1",
+    level: 1,
     children: "Offensive security built for the AI era.",
   },
 }
 
 export const H2: Story = {
-  args: { level: "Heading 2", children: "Leave nothing unvalidated." },
+  name: "H2",
+  args: { level: 2, children: "Leave nothing unvalidated." },
 }
 
 export const H3: Story = {
+  name: "H3",
   args: {
-    level: "Heading 3",
+    level: 3,
     children: "Work with what's already happening.",
   },
 }
 
 export const H4: Story = {
-  args: { level: "Heading 4", children: "AI-powered, human-driven." },
+  name: "H4",
+  args: { level: 4, children: "AI-powered, human-driven." },
 }

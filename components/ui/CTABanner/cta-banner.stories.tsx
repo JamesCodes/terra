@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
-import { selectArg, numberArg } from "@/lib/storybook"
+import { numberArg, responsiveArgs, selectArg } from "@/lib/storybook"
 import { CTABanner } from "./cta-banner"
-import { themeMap, backgroundSizeMap, backgroundPositionMap } from "./cta-banner.webflow"
+import { backgroundPositionMap, backgroundSizeMap, themeMap } from "./cta-banner.webflow"
 import "../../../app/globals.css"
 
 const meta = {
-  title: "UI/CTABanner",
+  title: "Sections/CTA Banner",
   component: CTABanner,
   parameters: {
     layout: "fullscreen",
@@ -26,12 +26,7 @@ const meta = {
     backgroundSize: selectArg("Background Size", backgroundSizeMap),
     backgroundPosition: selectArg("Background Position", backgroundPositionMap),
     backgroundPositionMobile: selectArg("Background Position (Mobile)", backgroundPositionMap),
-    height: numberArg("Height", { min: 200, max: 1200, step: 10 }),
-    heightMobile: numberArg("Height (Mobile)", {
-      min: 200,
-      max: 1200,
-      step: 10,
-    }),
+    ...responsiveArgs("height", numberArg("Height", { min: -1, max: 1200, step: 10 })),
   },
 } satisfies Meta<typeof CTABanner>
 

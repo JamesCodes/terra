@@ -10,7 +10,11 @@ export const levelMap = {
   "Heading 2": 2,
   "Heading 3": 3,
   "Heading 4": 4,
+  "Heading 5": 5,
+  "Heading 6": 6,
+  "Heading 7": 7,
 } as const
+
 
 interface WebflowHeadingProps {
   children: string
@@ -25,8 +29,8 @@ const WebflowHeading: React.FC<WebflowHeadingProps> = ({ children, level }) => {
 
 export default declareComponent(WebflowHeading, {
   name: "Heading",
-  description: "A semantic heading with four levels (h1-h4) and matching typography",
-  group: "Data Display",
+  description: "A semantic heading with seven levels (h1-h7) and matching typography",
+  group: "Content Blocks",
   props: {
     children: props.TextNode({
       name: "Text",
@@ -35,9 +39,17 @@ export default declareComponent(WebflowHeading, {
     }),
     level: props.Variant({
       name: "Level",
-      options: ["Heading 1", "Heading 2", "Heading 3", "Heading 4"],
+      options: [
+        "Heading 1",
+        "Heading 2",
+        "Heading 3",
+        "Heading 4",
+        "Heading 5",
+        "Heading 6",
+        "Heading 7",
+      ],
       defaultValue: "Heading 1",
-      tooltip: "The semantic heading level (h1-h4) — also controls size",
+      tooltip: "The heading level (h1-h7) — controls tag and size",
     }),
   },
 })

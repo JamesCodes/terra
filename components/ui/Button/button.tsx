@@ -5,19 +5,27 @@ import { tv, type VariantProps } from "tailwind-variants"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = tv({
-  base: "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+  base: "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap font-semibold text-sm outline-none transition-all disabled:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   variants: {
     variant: {
-      default: "bg-accent text-accent-foreground shadow-xs hover:bg-accent/90",
-      outline: "border border-accent text-accent hover:bg-accent/10",
-      ghost: "hover:bg-accent/10",
-      link: "text-foreground font-medium hover:underline underline-offset-4",
+      default:
+        "interacting rounded-full bg-accent text-accent-foreground shadow-xs active:bg-magma disabled:bg-disabled",
+      outline:
+        "interacting rounded-full border border-accent text-accent active:border-dark-terracotta active:text-dark-terracotta disabled:border-0 disabled:bg-disabled disabled:text-chalk",
+      ghost: "",
+      link: "font-medium text-foreground underline-offset-4 hover:underline",
+      nav: "nav-indicator flex cursor-pointer items-center gap-1.5 whitespace-nowrap font-medium text-foreground [&>span]:relative [&>span]:block lg:hover:[&>span]:after:-bottom-2 lg:[&>span]:hover:after:bg-accent",
     },
     size: {
       default: "h-12.5 px-6",
       sm: "h-9 px-5",
       lg: "h-12 px-8",
       icon: "size-10",
+      link: "",
+    },
+    state: {
+      default: "",
+      active: "lg:[&>span]:after:-bottom-2 lg:[&>span]:after:bg-accent",
     },
   },
   defaultVariants: {
@@ -31,6 +39,7 @@ function Button({
   variant,
   size,
   asChild = false,
+  state,
   ...props
 }: React.ComponentProps<"button"> &
   VariantProps<typeof buttonVariants> & {
@@ -41,7 +50,7 @@ function Button({
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, class: className }))}
+      className={cn(buttonVariants({ variant, size, state, class: className }))}
       {...props}
     />
   )

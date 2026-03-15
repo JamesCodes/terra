@@ -7,8 +7,8 @@ const blogPostCardVariants = tv({
   variants: {
     variant: {
       grid: "flex-col gap-4",
-      featured: "flex-col md:flex-row gap-10 items-center",
-      list: "items-center justify-between gap-4 py-4 border-b border-border",
+      featured: "flex-col items-center gap-10 md:flex-row",
+      list: "items-center justify-between gap-4 border-border border-b py-4",
     },
   },
   defaultVariants: {
@@ -48,7 +48,7 @@ function BlogPostCard({
         {...props}
       >
         <p className="font-serif text-lg">{title}</p>
-        <div className="flex items-center gap-4 shrink-0 text-sm">
+        <div className="flex shrink-0 items-center gap-4 text-sm">
           {category && <span className="text-muted-foreground">{category}</span>}
           {date && <span className="text-muted-foreground">{date}</span>}
         </div>
@@ -64,13 +64,13 @@ function BlogPostCard({
         {...props}
       >
         {image && (
-          <div className="md:basis-3/5 shrink-0 overflow-hidden rounded-3xl bg-secondary aspect-[17/10]">
+          <div className="aspect-[17/10] shrink-0 overflow-hidden rounded-3xl bg-secondary md:basis-3/5">
             <img src={image.src} alt={image.alt ?? title} className="size-full object-cover" />
           </div>
         )}
         <div className="flex flex-col gap-5 md:basis-2/5">
           {category && (
-            <span className="inline-flex items-center justify-center self-start rounded-full bg-secondary/50 px-3 py-1.5 text-xs font-medium">
+            <span className="inline-flex items-center justify-center self-start rounded-full bg-secondary/50 px-3 py-1.5 font-medium text-xs">
               {category}
             </span>
           )}
@@ -91,12 +91,12 @@ function BlogPostCard({
       {...props}
     >
       {image && (
-        <div className="overflow-hidden rounded-lg aspect-[3/2]">
+        <div className="aspect-[3/2] overflow-hidden rounded-lg">
           <img src={image.src} alt={image.alt ?? title} className="size-full object-cover" />
         </div>
       )}
       {category && (
-        <span className="inline-flex items-center justify-center self-start rounded-full bg-secondary/50 px-3 py-1.5 text-xs font-medium">
+        <span className="inline-flex items-center justify-center self-start rounded-full bg-secondary/50 px-3 py-1.5 font-medium text-xs">
           {category}
         </span>
       )}
@@ -124,11 +124,11 @@ function BlogPostLink({ href, filled }: { href: string; filled?: boolean }) {
       data-slot="blog-post-link"
       href={href}
       className={cn(
-        "inline-flex items-center justify-center self-start rounded-full px-5 py-2.5 text-sm font-semibold transition-colors",
+        "inline-flex items-center justify-center self-start rounded-full px-5 py-2.5 font-semibold text-sm transition-colors",
         {
           "bg-accent text-background hover:bg-accent/90": filled,
           "border border-accent text-accent hover:bg-accent/10": !filled,
-        }
+        },
       )}
     >
       Read the Full Story

@@ -5,7 +5,7 @@ import { propLabels, variantMap } from "./blog-post-card.webflow"
 import "../../../app/globals.css"
 
 const meta = {
-  title: "UI/BlogPostCard",
+  title: "Cards/Blog Post Card",
   component: BlogPostCard,
   parameters: {
     layout: "centered",
@@ -37,7 +37,7 @@ type Story = StoryObj<any>
 
 export const Grid: Story = {
   render: () => (
-    <div className="grid grid-cols-3 gap-8 max-w-4xl divide-x divide-border">
+    <div className="grid max-w-4xl grid-cols-3 gap-8 divide-x divide-border">
       <BlogPostCard
         variant="grid"
         category="Featured"
@@ -83,7 +83,8 @@ export const GridWithImage: Story = {
     title: "White Box Pentesting with Code & Business Context",
     author: "The Terra Team",
     date: "February 11, 2026",
-    description: "Go beyond surface testing—white-box pentesting grounded in source code and business logic.",
+    description:
+      "Go beyond surface testing—white-box pentesting grounded in source code and business logic.",
     href: "#",
     className: "max-w-sm",
   },
@@ -109,7 +110,7 @@ export const Featured: Story = {
 
 export const List: Story = {
   render: () => (
-    <div className="flex flex-col max-w-2xl">
+    <div className="flex max-w-2xl flex-col">
       <BlogPostCard
         variant="list"
         title="API Security in AI-Enabled Platforms: Strategy, Risks, and Tactics"

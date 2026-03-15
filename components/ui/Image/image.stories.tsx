@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { Image } from "./image"
 
 const meta: Meta<typeof Image> = {
-  title: "Components/Image",
+  title: "Media/Image",
   component: Image,
   tags: ["autodocs"],
 }

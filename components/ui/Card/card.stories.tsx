@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import "../../../app/globals.css"
 
 const meta = {
-  title: "UI/Card",
+  title: "Cards/Card",
   component: Card,
   parameters: {
     layout: "centered",

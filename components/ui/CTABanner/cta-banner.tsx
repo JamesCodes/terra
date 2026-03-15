@@ -2,10 +2,14 @@ import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/Button/button"
 import { Heading } from "@/components/ui/Heading/heading"
 import { Input } from "@/components/ui/Input/input"
-import { responsiveStyles } from "@/lib/responsive-props"
+import { type ResponsiveProps, responsiveClass, responsiveStyles } from "@/lib/responsive-props"
 import { cn } from "@/lib/utils"
 
-interface CTABannerProps extends Omit<React.ComponentProps<"section">, "children" | "onSubmit"> {
+interface CTABannerProps
+  extends Omit<React.ComponentProps<"section">, "children" | "onSubmit">,
+    ResponsiveProps<{
+      height: number
+    }> {
   heading?: string
   description?: string
   placeholder?: string
@@ -14,8 +18,6 @@ interface CTABannerProps extends Omit<React.ComponentProps<"section">, "children
   backgroundSize?: "cover" | "contain"
   backgroundPosition?: string
   backgroundPositionMobile?: string
-  height?: number
-  heightMobile?: number
   onSubmit?: (email: string) => void
 }
 
@@ -31,6 +33,7 @@ function CTABanner({
   backgroundPosition = "center",
   backgroundPositionMobile,
   height,
+  heightTablet,
   heightMobile,
   onSubmit,
   ...props
@@ -46,15 +49,15 @@ function CTABanner({
     <section
       data-slot="cta-banner"
       className={cn(
-        "relative flex flex-col items-center overflow-hidden px-5 py-16 md:px-20 md:py-24 h-[calc(var(--height)*1px)] max-lg:h-[calc(var(--height-tablet)*1px)] max-md:h-[calc(var(--height-mobile)*1px)]",
+        `relative flex flex-col items-center overflow-hidden px-5 py-16 md:px-20 md:py-24 ${responsiveClass("h", "height")}`,
         { "bg-secondary": theme === "light", "bg-[#370e02]": theme === "dark" },
         className,
       )}
       style={
         {
-          ...(height != null || heightMobile != null
+          ...(height != null
             ? responsiveStyles({
-                height: [(height ?? heightMobile)!, undefined, heightMobile],
+                height: [height, heightTablet, heightMobile, "px"],
               })
             : undefined),
           ...style,

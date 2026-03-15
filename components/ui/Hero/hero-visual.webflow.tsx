@@ -8,7 +8,7 @@ export default declareComponent(HeroVisual, {
   name: "Hero Visual",
   description:
     "Decorative floating dashboard cards with mouse and scroll parallax. Drop into the Hero visual slot.",
-  group: "Visual",
+  group: "Sections",
   props: {},
   decorators: [absoluteFillDecorator],
   options: {

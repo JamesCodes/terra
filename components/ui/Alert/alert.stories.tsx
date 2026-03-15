@@ -5,7 +5,7 @@ import { variantMap } from "./alert.webflow"
 import "../../../app/globals.css"
 
 const meta = {
-  title: "UI/Alert",
+  title: "Elements/Alert",
   component: Alert,
   parameters: {
     layout: "centered",

@@ -57,7 +57,7 @@ const WebflowButton: React.FC<WebflowButtonProps> = ({
 export default declareComponent(WebflowButton, {
   name: "Button",
   description: "A versatile button component with multiple variants and sizes",
-  group: "Interaction",
+  group: "Elements",
   props: {
     variant: props.Variant({
       name: "Style",

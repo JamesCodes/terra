@@ -4,7 +4,7 @@ import { NumberedListItem } from "./numbered-list"
 import "../../../app/globals.css"
 
 const meta = {
-  title: "UI/NumberedListItem",
+  title: "Content Blocks/Numbered List",
   component: NumberedListItem,
   parameters: {
     layout: "fullscreen",

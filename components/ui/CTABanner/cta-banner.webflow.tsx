@@ -4,7 +4,7 @@ import type React from "react"
 import { CTABanner } from "./cta-banner"
 
 import "../../../app/globals.css"
-import { responsiveProps, responsiveStyles } from "@/lib/responsive-props"
+import { responsiveProps } from "@/lib/responsive-props"
 
 export const themeMap = {
   Light: "light",
@@ -69,13 +69,9 @@ const WebflowCTABanner: React.FC<WebflowCTABannerProps> = ({
       backgroundPositionMobile={
         backgroundPositionMobile ? backgroundPositionMap[backgroundPositionMobile] : undefined
       }
-      style={
-        height != null
-          ? responsiveStyles({
-              height: [height, heightTablet, heightMobile],
-            })
-          : undefined
-      }
+      height={height}
+      heightTablet={heightTablet}
+      heightMobile={heightMobile}
     />
   )
 }
@@ -84,7 +80,7 @@ export default declareComponent(WebflowCTABanner, {
   name: "CTA Banner",
   description:
     "A full-width call-to-action section with heading, subtitle, email input, and decorative background image",
-  group: "Layout",
+  group: "Sections",
   props: {
     theme: props.Variant({
       name: "Theme",

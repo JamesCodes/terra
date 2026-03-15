@@ -63,7 +63,7 @@ export default declareComponent(WebflowBlogPostCard, {
   name: "Blog Post Card",
   description:
     "A card for displaying blog post previews with image, category, title, author, and date",
-  group: "Data Display",
+  group: "Cards",
   props: {
     variant: props.Variant({
       name: "Layout",

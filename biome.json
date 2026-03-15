@@ -58,10 +58,11 @@
         "rules": {
           "nursery": {
             "useSortedClasses": {
+              "fix": "safe",
               "level": "warn",
               "options": {
                 "attributes": ["classList"],
-                "functions": ["clsx", "cva", "tw", "tw.*"]
+                "functions": ["clsx", "cva", "tw", "tw.*", "tv"]
               }
             }
           },

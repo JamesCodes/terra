@@ -23,7 +23,7 @@ export default declareComponent(WebflowNumberedListItem, {
   name: "Numbered List Item",
   description:
     "A numbered list item with a large styled number, title, and description. Stack multiple instances to build a numbered list.",
-  group: "Data Display",
+  group: "Content Blocks",
   props: {
     number: props.Number({
       name: "Number",

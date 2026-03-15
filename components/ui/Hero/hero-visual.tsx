@@ -5,6 +5,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { ArrowDown, ArrowUp, Minus } from "lucide-react"
 import * as React from "react"
 import { cn } from "tailwind-variants"
+import TerraIcon from "@/components/icons/terra-icon.svg"
+import { AnimatedIcon } from "@/components/ui/AnimatedIcon/animated-icon"
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -139,55 +141,32 @@ function HeroVisual() {
 
   return (
     <div ref={containerRef} className="relative mx-auto h-full w-full origin-top lg:block">
-      <div className="absolute top-[30%] left-[22%] h-[40%] w-[30%] rounded-full bg-[#6b1a00] blur-[90px]" />
+      <div className="absolute inset-0 overflow-hidden rounded-3xl">
+        <div
+          className={cn(
+            "absolute rounded-full bg-[#6b1a00] blur-[90px]",
+            "bottom-0 left-0 size-83 -translate-x-1/2 translate-y-1/2",
+            "md:right-0 md:left-auto md:translate-x-1/2",
+            "lg:size-105",
+          )}
+        />
+      </div>
 
       <div data-depth="0.5" className="absolute inset-0">
         <div
           className={cn(
-            "absolute items-center gap-4 rounded-3xl bg-[#260700]",
+            "absolute items-center gap-4 rounded-3xl bg-magma",
             "top-12 -left-3 flex w-55.5 p-5",
             "md:top-30 md:left-20 md:w-71.5",
             "lg:top-12 lg:left-53 lg:w-86 lg:p-7",
           )}
         >
-          <svg
-            viewBox="0 0 78 78"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-16 shrink-0"
-            aria-hidden="true"
-          >
-            <circle cx="39" cy="39" r="10" fill="#E65C32" />
-            <circle
-              cx="39"
-              cy="39"
-              r="18.375"
-              stroke="#E65C32"
-              strokeOpacity={0.6}
-              strokeWidth={1.25}
-            />
-            <circle
-              cx="39"
-              cy="39"
-              r="28.375"
-              stroke="#E65C32"
-              strokeOpacity={0.3}
-              strokeWidth={1.25}
-            />
-            <circle
-              cx="39"
-              cy="39"
-              r="38.375"
-              stroke="#E65C32"
-              strokeOpacity={0.1}
-              strokeWidth={1.25}
-            />
-          </svg>
+          <AnimatedIcon icon="target" speed={9.5} />
           <div className="flex flex-col justify-center">
             <p className="font-medium text-primary-foreground text-xs lg:text-sm">
               Signals Received
             </p>
-            <p className="shrink font-medium text-[#FBFAF5] text-[40px] leading-tight lg:text-5xl">
+            <p className="shrink font-medium text-[40px] text-chalk leading-tight lg:text-5xl">
               148
             </p>
           </div>
@@ -197,15 +176,15 @@ function HeroVisual() {
       <div data-depth="2.5" className="absolute inset-0">
         <div
           className={cn(
-            "gradient-border-diagonal absolute rounded-3xl shadow-2xl backdrop-blur-2xl backdrop-saturate-90",
+            "gradient-border-diagonal absolute rounded-3xl bg-glass shadow-2xl",
             "top-32 left-6.5 h-62.5 w-97.5",
             "md:top-54 md:left-1/2 md:h-72.5 md:w-102 md:-translate-x-1/2",
             "lg:top-35 lg:h-87 lg:w-122.5",
           )}
         >
           <div className="absolute top-0 left-0 h-full w-full p-10">
-            <h3 className="font-medium text-[#FBFAF5] text-[32px]">Findings</h3>
-            <span className="mt-2 inline-block rounded-full bg-[#F0EBD4] px-3 py-1.5 font-medium text-[#12110D] text-xs">
+            <h3 className="font-medium text-[32px] text-chalk">Findings</h3>
+            <span className="mt-2 inline-block rounded-full bg-chalk px-3 py-1.5 font-medium text-obsidian text-xs">
               Past 30 days
             </span>
           </div>
@@ -221,8 +200,8 @@ function HeroVisual() {
                   style={{ backgroundColor: f.color }}
                 />
                 <div className="min-w-0 flex-1 text-xs md:text-sm">
-                  <span className="font-semibold text-[#202020]">{f.count}</span>
-                  <span className="ml-1 text-[#202020]">{f.label}</span>
+                  <span className="font-semibold text-neutral">{f.count}</span>
+                  <span className="ml-1 text-neutral">{f.label}</span>
                 </div>
                 <div
                   className="absolute -right-6 flex shrink-0 items-center gap-1 rounded-full border px-2"
@@ -243,29 +222,18 @@ function HeroVisual() {
       <div data-depth="4" className="absolute inset-0">
         <div
           className={cn(
-            "gradient-border-pill absolute flex items-center gap-3 rounded-full shadow-2xl backdrop-blur-xl backdrop-saturate-90",
+            "gradient-border-pill absolute flex items-center gap-3 rounded-full bg-glass shadow-2xl",
             "top-71.5 -left-4 w-48 p-2",
             "md:top-34 md:-right-7 md:left-auto md:w-60 md:px-3 md:py-2.5",
             "lg:top-12 lg:-right-12 lg:w-71",
           )}
         >
-          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#E65C32]">
-            <svg
-              viewBox="903 116 26 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6"
-              aria-hidden="true"
-            >
-              <path
-                fill="white"
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M912.037 120.329a8.7 8.7 0 0 0 .662-3.329h7.546a16.23 16.23 0 0 1-2.356 8.424c-.133.219.151.517.376.395 2.349-1.267 5.018-1.927 7.735-1.927v7.545c-2.307 0-4.541.896-6.172 2.527a8.7 8.7 0 0 0-2.476 5.036h-7.579a16.24 16.24 0 0 1 2.316-7.309c.133-.22-.15-.517-.376-.396q-.729.394-1.496.712a16.3 16.3 0 0 1-6.217 1.236v-7.545a8.7 8.7 0 0 0 6.151-2.548 8.7 8.7 0 0 0 1.886-2.821"
-              />
-            </svg>
+          <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent">
+            <div className="size-6">
+              <TerraIcon />
+            </div>
           </div>
-          <span className="grow md:text-center font-medium text-[#FBFAF5] text-sm md:text-xl">
+          <span className="grow font-medium text-chalk text-sm md:text-center md:text-xl">
             Explore Terrain
           </span>
         </div>

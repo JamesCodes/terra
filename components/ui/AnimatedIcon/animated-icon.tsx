@@ -87,10 +87,10 @@ function TargetIcon({
       })
 
       gsap.utils.toArray<Element>("[data-ring]").forEach((ring, i) => {
-        const offset = ringDuration + i * ringDuration * 0.6
-        tl.to(ring, { opacity: 1, duration: ringDuration, ease: "sine.in" }, offset)
+        const offset = ringDuration + i * ringDuration * 0.4
+        tl.to(ring, { opacity: 1, duration: ringDuration + 0.35, ease: "sine.in" }, offset)
         if (loop) {
-          tl.to(ring, { opacity: 0, duration: ringDuration, ease: "sine.out" }, `>`)
+          tl.to(ring, { opacity: 0, duration: ringDuration + 0.35, ease: "sine.out" }, `>`)
         }
       })
 

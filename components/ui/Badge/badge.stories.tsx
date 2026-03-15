@@ -3,7 +3,7 @@ import { Badge } from "./badge"
 import "../../../app/globals.css"
 
 const meta = {
-  title: "UI/Badge",
+  title: "Elements/Badge",
   component: Badge,
   parameters: {
     layout: "centered",

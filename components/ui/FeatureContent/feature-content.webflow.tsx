@@ -11,19 +11,12 @@ export const variantMap = {
   "Image Right": "imageRight",
 } as const
 
-export const imageVariantMap = {
-  Default: "default",
-  "Full Bleed": "fullBleed",
-} as const
-
 export const propLabels = {
   variant: "Layout",
   title: "Title",
   description: "Description",
   icon: "Icon",
   image: "Image",
-  imageVariant: "Image Layout",
-  imageClassName: "Image Class Name",
 } as const
 
 interface WebflowFeatureContentProps {
@@ -32,7 +25,6 @@ interface WebflowFeatureContentProps {
   description?: string
   icon?: ReactNode
   image?: { src: string; alt?: string }
-  imageVariant: keyof typeof imageVariantMap
 }
 
 const WebflowFeatureContent: React.FC<WebflowFeatureContentProps> = ({
@@ -41,10 +33,8 @@ const WebflowFeatureContent: React.FC<WebflowFeatureContentProps> = ({
   description,
   icon,
   image,
-  imageVariant,
 }) => {
   const mappedVariant = variantMap[variant]
-  const mappedImageVariant = imageVariantMap[imageVariant]
 
   return (
     <FeatureContent
@@ -53,7 +43,6 @@ const WebflowFeatureContent: React.FC<WebflowFeatureContentProps> = ({
       description={description}
       icon={icon}
       image={image}
-      imageVariant={mappedImageVariant}
     />
   )
 }
@@ -61,7 +50,7 @@ const WebflowFeatureContent: React.FC<WebflowFeatureContentProps> = ({
 export default declareComponent(WebflowFeatureContent, {
   name: "Feature Content",
   description: "A two-column feature section with title, description, icon, and image",
-  group: "Data Display",
+  group: "Content Blocks",
   props: {
     variant: props.Variant({
       name: propLabels.variant,
@@ -91,13 +80,6 @@ export default declareComponent(WebflowFeatureContent, {
       name: propLabels.image,
       tooltip: "The feature image",
       group: "Image",
-    }),
-    imageVariant: props.Variant({
-      name: propLabels.imageVariant,
-      options: Object.keys(imageVariantMap),
-      defaultValue: Object.keys(imageVariantMap)[0],
-      tooltip:
-        "The default layout will nest the image in the container, the Full Bleed layout fills to the edges of the container",
     }),
   },
 })
