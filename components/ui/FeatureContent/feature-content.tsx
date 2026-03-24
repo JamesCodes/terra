@@ -1,5 +1,9 @@
-import type { ReactNode } from "react"
 import { tv, type VariantProps } from "tailwind-variants"
+import {
+  AnimatedIcon,
+  type AnimationMode,
+  type IconVariant,
+} from "@/components/ui/AnimatedIcon/animated-icon"
 import { Heading } from "@/components/ui/Heading/heading"
 import { cn } from "@/lib/utils"
 
@@ -33,7 +37,9 @@ interface FeatureContentProps
     VariantProps<typeof featuredContentVariants> {
   title?: string
   description?: string
-  icon?: ReactNode
+  icon?: IconVariant
+  iconMode?: AnimationMode
+  iconSpeed?: number
   image?: { src: string; alt?: string }
 }
 
@@ -44,6 +50,8 @@ function FeatureContent({
   title,
   description,
   icon,
+  iconMode = "loop",
+  iconSpeed = 5,
   image,
   ...props
 }: FeatureContentProps) {
@@ -53,7 +61,7 @@ function FeatureContent({
 
   const contentColumn = (
     <div className={contentWrapper()}>
-      {icon}
+      {!!icon && <AnimatedIcon icon={icon} size="lg" mode={iconMode} speed={iconSpeed} />}
       {!!title && (
         <Heading className="text-balance text-accent max-md:text-center" level={3}>
           {title}
@@ -82,4 +90,4 @@ function FeatureContent({
   )
 }
 
-export { FeatureContent }
+export { FeatureContent, featuredContentVariants }

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { selectArg } from "@/lib/storybook"
+import { iconArgTypes } from "@/components/ui/AnimatedIcon/animated-icon.webflow"
 import { FeatureCard } from "./feature-card"
 import { layoutMap } from "./feature-card.webflow"
 import "../../../app/globals.css"
@@ -22,6 +23,7 @@ const meta = {
   },
   argTypes: {
     variant: selectArg("Layout", layoutMap),
+    ...iconArgTypes(),
   },
 } satisfies Meta<typeof FeatureCard>
 
@@ -94,7 +96,7 @@ export const Small: Story = {
             />
             <FeatureCard
               variant="small"
-              icon="half-circle"
+              icon="scan"
               title="Governable by design"
               description="Terra lets you configure guardrails at the system level, rather than leaving security solely for operators to enforce."
             />
@@ -114,5 +116,73 @@ export const Single: Story = {
       icon="target"
       className="max-w-xs"
     />
+  ),
+}
+
+export const Simple: Story = {
+  render: () => (
+    <Section variant="chalk">
+      <WebflowSlot>
+        <ItemFlex
+          useAspectRatio={false}
+          itemMaxWidthUnit="%"
+          itemMaxWidth={33.33}
+          itemMaxWidthTablet={33}
+          itemMaxWidthMobile={100}
+        >
+          <WebflowSlot>
+            <FeatureCard
+              variant="simple"
+              icon="onboarding"
+              title={"Technical onboarding\nand enablement"}
+              description=""
+            />
+            <FeatureCard
+              variant="simple"
+              icon="market"
+              title={"Go-to-market\ncollaboration"}
+              description=""
+              showDividers
+            />
+            <FeatureCard
+              variant="simple"
+              icon="support"
+              title={"Ongoing support and\naccess to Terra expertise"}
+              description=""
+            />
+          </WebflowSlot>
+        </ItemFlex>
+      </WebflowSlot>
+    </Section>
+  ),
+}
+
+export const WithSlot: Story = {
+  render: () => (
+    <Section variant="chalk">
+      <WebflowSlot>
+        <ItemFlex
+          useAspectRatio={false}
+          itemMaxWidthUnit="%"
+          itemMaxWidth={50}
+          itemMaxWidthTablet={49}
+          itemMaxWidthMobile={100}
+        >
+          <WebflowSlot>
+            <FeatureCard
+              variant="large"
+              label="Always-on"
+              title="4x your monitoring with Ambient Agents"
+              description="Keep an up-to-date, prioritized view of your attack surface."
+              showSlot
+            >
+              <div className="flex items-center justify-center rounded-lg bg-muted p-8">
+                <span className="text-muted-foreground">Slot content</span>
+              </div>
+            </FeatureCard>
+          </WebflowSlot>
+        </ItemFlex>
+      </WebflowSlot>
+    </Section>
   ),
 }

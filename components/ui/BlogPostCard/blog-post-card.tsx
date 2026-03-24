@@ -1,18 +1,58 @@
 import type * as React from "react"
 import { tv, type VariantProps } from "tailwind-variants"
+import { Badge } from "@/components/ui/Badge/badge"
+import { Button } from "@/components/ui/Button/button"
 import { cn } from "@/lib/utils"
 
 const blogPostCardVariants = tv({
-  base: "flex text-foreground",
+  slots: {
+    container: "flex text-foreground",
+    imageWrap: "overflow-hidden",
+    content: "flex grow flex-col",
+    title: "",
+    description: "",
+    meta: "brand-caption flex items-center gap-4",
+  },
   variants: {
     variant: {
-      grid: "flex-col gap-4",
-      featured: "flex-col items-center gap-10 md:flex-row",
-      list: "items-center justify-between gap-4 border-border border-b py-4",
+      highlight: {
+        container:
+          "w-full flex-col gap-8 nth-[3n]:pr-0 nth-[3n+1]:pl-0 max-lg:pb-10 md:px-5 lg:px-10",
+        imageWrap: "aspect-3/2 rounded-lg",
+        content: "gap-5 md:max-w-50 lg:max-w-85",
+        title: "brand-h3 text-balance",
+        description: "brand-body2 grow text-balance",
+        meta: "flex-row max-lg:md:flex-col max-lg:md:items-start max-lg:md:gap-0",
+      },
+      listing: {
+        container: "w-full flex-col gap-4 nth-[3n]:pr-0 nth-[3n+1]:pl-0 max-lg:pb-10",
+        imageWrap: "aspect-video rounded-lg transition-all group-hover/story:opacity-70",
+        content: "gap-5",
+        title:
+          "brand-h4 line-clamp-2 overflow-hidden text-balance transition-all group-hover/story:text-accent",
+        description: "hidden",
+        meta: "flex-row max-lg:md:flex-col max-lg:md:items-start max-lg:md:gap-0",
+      },
+      featured: {
+        container: "flex-col items-center gap-10 md:flex-row",
+        imageWrap: "aspect-17/10 shrink-0 rounded-3xl bg-secondary md:basis-3/5",
+        content: "gap-5 md:basis-2/5",
+        title: "font-serif text-5xl leading-14.5",
+        description: "text-sm leading-normal",
+        meta: "flex-row max-lg:md:flex-col max-lg:md:items-start max-lg:md:gap-0",
+      },
+      list: {
+        imageWrap: "hidden",
+        container: "p5-4 border-border border-b pb-9 lg:py-10",
+        content: "justify-between gap-4 md:flex-row md:items-center",
+        title:
+          "brand-h5 w-full whitespace-normal text-left transition-colors group-hover/story:text-accent md:line-clamp-1 md:overflow-hidden",
+        meta: "w-full shrink-0 md:max-w-1/6 lg:max-w-1/3 lg:justify-between",
+      },
     },
   },
   defaultVariants: {
-    variant: "grid",
+    variant: "highlight",
   },
 })
 
@@ -20,7 +60,7 @@ interface BlogPostCardProps
   extends React.ComponentProps<"article">,
     VariantProps<typeof blogPostCardVariants> {
   image?: { src: string; alt?: string }
-  category?: string
+  category?: { name: string; url?: string }
   title: string
   description?: string
   author?: string
@@ -40,98 +80,81 @@ function BlogPostCard({
   href,
   ...props
 }: BlogPostCardProps) {
-  if (variant === "list") {
-    return (
-      <article
-        data-slot="blog-post-card"
-        className={cn(blogPostCardVariants({ variant }), className)}
-        {...props}
-      >
-        <p className="font-serif text-lg">{title}</p>
-        <div className="flex shrink-0 items-center gap-4 text-sm">
-          {category && <span className="text-muted-foreground">{category}</span>}
-          {date && <span className="text-muted-foreground">{date}</span>}
-        </div>
-      </article>
-    )
-  }
+  const styles = blogPostCardVariants({ variant })
+  const isLink = ["list", "listing"].includes(variant ?? "")
 
-  if (variant === "featured") {
-    return (
-      <article
-        data-slot="blog-post-card"
-        className={cn(blogPostCardVariants({ variant }), className)}
-        {...props}
-      >
-        {image && (
-          <div className="aspect-[17/10] shrink-0 overflow-hidden rounded-3xl bg-secondary md:basis-3/5">
-            <img src={image.src} alt={image.alt ?? title} className="size-full object-cover" />
-          </div>
-        )}
-        <div className="flex flex-col gap-5 md:basis-2/5">
-          {category && (
-            <span className="inline-flex items-center justify-center self-start rounded-full bg-secondary/50 px-3 py-1.5 font-medium text-xs">
-              {category}
-            </span>
-          )}
-          <h3 className="font-serif text-5xl leading-[58px]">{title}</h3>
-          <BlogPostMeta author={author} date={date} />
-          {description && <p className="text-sm leading-normal">{description}</p>}
-          {href && <BlogPostLink href={href} filled />}
-        </div>
-      </article>
-    )
-  }
+  const titleEl = (
+    <h3
+      className={styles.title()}
+      data-floating-src={variant === "list" && image ? image.src : undefined}
+      data-floating-alt={variant === "list" && image ? image.alt : undefined}
+    >
+      {title}
+    </h3>
+  )
 
-  // Default: grid variant
+  const metaEl = (author || date) && (
+    <div data-slot="blog-post-meta" className={styles.meta()}>
+      {author && <span className="font-bold">{author}</span>}
+      {date && <span className="text-granite">{date}</span>}
+    </div>
+  )
+
+  const innerContent = isLink ? (
+    <Button asChild variant="ghost" className="contents cursor-pointer font-normal">
+      <a href={href}>
+        {titleEl}
+        {metaEl}
+      </a>
+    </Button>
+  ) : (
+    <>
+      {titleEl}
+      {metaEl}
+      {description && <p className={styles.description()}>{description}</p>}
+      {href && <BlogPostLink href={href} />}
+    </>
+  )
+
   return (
     <article
       data-slot="blog-post-card"
-      className={cn(blogPostCardVariants({ variant }), className)}
+      className={cn(styles.container(), { "group/story": isLink }, className)}
       {...props}
     >
       {image && (
-        <div className="aspect-[3/2] overflow-hidden rounded-lg">
+        <div className={styles.imageWrap()}>
           <img src={image.src} alt={image.alt ?? title} className="size-full object-cover" />
         </div>
       )}
-      {category && (
-        <span className="inline-flex items-center justify-center self-start rounded-full bg-secondary/50 px-3 py-1.5 font-medium text-xs">
-          {category}
-        </span>
-      )}
-      <h3 className="font-serif text-[28px] leading-[36px]">{title}</h3>
-      <BlogPostMeta author={author} date={date} />
-      {description && <p className="text-sm leading-relaxed">{description}</p>}
-      {href && <BlogPostLink href={href} />}
+      <div className={styles.content()}>
+        {category && (
+          <div className={cn({ "relative z-10 md:max-w-41 lg:w-full": isLink })}>
+            <CategoryBadge name={category.name} url={category.url} />
+          </div>
+        )}
+        {innerContent}
+      </div>
     </article>
   )
 }
 
-function BlogPostMeta({ author, date }: { author?: string; date?: string }) {
-  if (!author && !date) return null
-  return (
-    <div data-slot="blog-post-meta" className="flex items-center gap-4 text-xs">
-      {author && <span className="font-bold">{author}</span>}
-      {date && <span className="text-foreground/75">{date}</span>}
-    </div>
-  )
+function CategoryBadge({ name, url }: { name: string; url?: string }) {
+  const badge = <Badge>{name}</Badge>
+  if (url) return <a href={url}>{badge}</a>
+  return badge
 }
 
-function BlogPostLink({ href, filled }: { href: string; filled?: boolean }) {
+function BlogPostLink({ href }: { href: string }) {
   return (
     <a
       data-slot="blog-post-link"
       href={href}
-      className={cn(
-        "inline-flex items-center justify-center self-start rounded-full px-5 py-2.5 font-semibold text-sm transition-colors",
-        {
-          "bg-accent text-background hover:bg-accent/90": filled,
-          "border border-accent text-accent hover:bg-accent/10": !filled,
-        },
-      )}
+      className="inline-flex items-center justify-center self-start"
     >
-      Read the Full Story
+      <Button variant="outline" size="md">
+        Read the Full Story
+      </Button>
     </a>
   )
 }

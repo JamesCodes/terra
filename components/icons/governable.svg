@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 48 48">
+  <defs>
+    <linearGradient id="gov-grad-1" x1="33.78" y1="9.92" x2="33.78" y2="38.08" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E65C32"/>
+      <stop offset="1" stop-color="#FBFAF5"/>
+    </linearGradient>
+    <linearGradient id="gov-grad-2" x1="23.86" y1="0" x2="23.86" y2="28.16" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E65C32"/>
+      <stop offset="1" stop-color="#FBFAF5"/>
+    </linearGradient>
+  </defs>
+  <!-- Top-right: gradient fill -->
+  <circle cx="33.78" cy="24" r="14.08" fill="url(#gov-grad-1)"/>
+  <!-- Top-center: gradient fill -->
+  <circle cx="23.86" cy="14.08" r="14.08" fill="url(#gov-grad-2)"/>
+  <!-- Bottom-center: stroked -->
+  <circle cx="23.86" cy="33.93" r="13.33" stroke="#E65C32" stroke-width="1.5"/>
+  <!-- Left-center: stroked -->
+  <circle cx="13.94" cy="24" r="13.33" stroke="#E65C32" stroke-width="1.5"/>
+</svg>

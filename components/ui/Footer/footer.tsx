@@ -3,6 +3,7 @@ import TerraIcon from "@/components/icons/terra-icon.svg"
 import TerraName from "@/components/icons/terra-name.svg"
 import YouTubeIcon from "@/components/icons/youtube.svg"
 import { Button } from "@/components/ui/Button/button"
+import { ItemFlex } from "@/components/ui/ItemFlex/item-flex"
 import { cn } from "@/lib/utils"
 
 const socialIconMap = {
@@ -39,7 +40,7 @@ function Footer({
     <footer data-slot="footer" className={cn("bg-primary text-white", className)}>
       <div className="">
         {/* Nav area + social */}
-        <div className="flex lg:items-start lg:pt-18.5">
+        <div className="flex pt-12 lg:items-start lg:pt-18.5">
           <div data-slot="footer-nav-columns" className="page-grid gap-y-0 md:max-lg:grid-cols-4">
             {navColumns}
             {socialLinks.length > 0 && (
@@ -77,13 +78,15 @@ function Footer({
               <TerraName className="h-12 text-white md:h-19" />
 
               {badges && (
-                <div
+                <ItemFlex
                   data-slot="footer-badges"
-                  className="mt-12.5 flex items-center gap-3"
-                  style={{ "--item-max-width": "44px" } as React.CSSProperties}
+                  className="mt-12.5 w-full justify-start"
+                  itemMaxWidth={60}
+                  itemMaxWidthTablet={50}
+                  itemMaxWidthMobile={36}
                 >
                   {badges}
-                </div>
+                </ItemFlex>
               )}
             </div>
 
@@ -98,14 +101,11 @@ function Footer({
           <div className="border-white/10 border-t" />
 
           {/* Legal + copyright */}
-          <div className="flex flex-col py-8 md:flex-row md:items-center md:py-10">
-            <p className="order-last mt-6 text-white/35 text-xs md:order-first md:mt-0">
-              {copyright}
-            </p>
+          <div className="flex flex-col py-8 md:flex-row md:items-center md:py-10 lg:justify-between">
             {legalLinks && (
               <nav
                 data-slot="footer-legal"
-                className="flex gap-6 md:ml-auto md:gap-10 lg:gap-12"
+                className="flex gap-6 md:gap-10 lg:gap-12"
                 style={
                   {
                     "--link-font-size": "12px",
@@ -116,6 +116,7 @@ function Footer({
                 {legalLinks}
               </nav>
             )}
+            <p className="mt-6 text-white/35 text-xs md:mt-0">{copyright}</p>
           </div>
 
           {/* Mobile-only: extra divider + symbol at bottom */}

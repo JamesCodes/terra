@@ -1,0 +1,51 @@
+<svg viewBox="0 0 673 246" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Separator lines -->
+  <line x1="39.5" y1="41" x2="39.5" y2="137" stroke="#9b9b9b"/>
+  <line x1="214.7" y1="41" x2="214.7" y2="137" stroke="#f3822d"/>
+  <line x1="388.7" y1="41" x2="388.7" y2="180" stroke="#f25917"/>
+  <line x1="563.4" y1="41" x2="563.4" y2="215" stroke="#e51700"/>
+
+  <!-- Values -->
+  <text x="46" y="53" fill="#fbfaf5" font-weight="600" font-size="24" dominant-baseline="central" font-family="'DM Sans', sans-serif">1,000</text>
+  <text x="222" y="53" fill="#fbfaf5" font-weight="600" font-size="24" dominant-baseline="central" font-family="'DM Sans', sans-serif">500</text>
+  <text x="397" y="53" fill="#fbfaf5" font-weight="600" font-size="24" dominant-baseline="central" font-family="'DM Sans', sans-serif">300</text>
+  <text x="570" y="53" fill="#fbfaf5" font-weight="600" font-size="24" dominant-baseline="central" font-family="'DM Sans', sans-serif">50</text>
+
+  <!-- Labels -->
+  <text x="46" y="75" fill="#fbfaf5" fill-opacity="0.8" font-weight="500" font-size="10" dominant-baseline="central" font-family="'DM Sans', sans-serif">Signals</text>
+  <text x="222" y="75" fill="#fbfaf5" fill-opacity="0.8" font-weight="500" font-size="10" dominant-baseline="central" font-family="'DM Sans', sans-serif">Analyzed</text>
+  <text x="397" y="75" fill="#fbfaf5" fill-opacity="0.8" font-weight="500" font-size="10" dominant-baseline="central" font-family="'DM Sans', sans-serif">Flagged</text>
+  <text x="570" y="75" fill="#fbfaf5" fill-opacity="0.8" font-weight="500" font-size="10" dominant-baseline="central" font-family="'DM Sans', sans-serif">Confirmed</text>
+
+  <!-- Gradient funnel fills (exact Figma paths) -->
+  <g transform="translate(45.4, 111.44)">
+    <path opacity="0.24" d="M0 0L163.278 16.051V103.961H0V0Z" fill="url(#grad-sa)"/>
+  </g>
+  <g transform="translate(220.55, 127.43)">
+    <path opacity="0.24" d="M0 0L163.278 38.575V87.967H0V0Z" fill="url(#grad-af)"/>
+  </g>
+  <g transform="translate(395.27, 165.92)">
+    <path opacity="0.24" d="M0 0L162.149 34.077V49.481H0V0Z" fill="url(#grad-fc)"/>
+  </g>
+
+  <!-- Solid bars -->
+  <rect x="33.4" y="111.44" width="12" height="103.961" fill="#9b9b9b"/>
+  <rect x="208.67" y="127.43" width="12" height="87.967" fill="#f3822d"/>
+  <rect x="383.27" y="165.92" width="12" height="49.481" fill="#f25917"/>
+  <rect x="557.42" y="199.54" width="12" height="15.86" fill="#e51700"/>
+
+  <defs>
+    <linearGradient id="grad-sa" x1="163.278" y1="51.98" x2="0" y2="51.98" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F3822D"/>
+      <stop offset="1" stop-color="#9B9B9B"/>
+    </linearGradient>
+    <linearGradient id="grad-af" x1="163.278" y1="43.98" x2="0" y2="43.98" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F25917"/>
+      <stop offset="1" stop-color="#F3822D"/>
+    </linearGradient>
+    <linearGradient id="grad-fc" x1="162.149" y1="24.74" x2="0" y2="24.74" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E51700"/>
+      <stop offset="1" stop-color="#F25917"/>
+    </linearGradient>
+  </defs>
+</svg>

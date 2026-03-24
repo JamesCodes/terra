@@ -1,32 +1,34 @@
 import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import type React from "react"
+import { createVariantMap } from "@/lib/utils"
 import { CTABanner } from "./cta-banner"
 
 import "../../../app/globals.css"
 import { responsiveProps } from "@/lib/responsive-props"
 
-export const themeMap = {
-  Light: "light",
-  Dark: "dark",
-} as const
+export const themeMap = createVariantMap<"light" | "dark">(["light", "dark"])
 
-export const backgroundSizeMap = {
-  Cover: "cover",
-  Contain: "contain",
-} as const
+export const backgroundSizeMap = createVariantMap<"cover" | "contain">(["cover", "contain"])
 
-export const backgroundPositionMap = {
-  Center: "center",
-  Top: "top",
-  Bottom: "bottom",
-  Left: "left",
-  Right: "right",
-  "Top Left": "top left",
-  "Top Right": "top right",
-  "Bottom Left": "bottom left",
-  "Bottom Right": "bottom right",
-} as const
+const bgPositions = [
+  "center",
+  "top",
+  "bottom",
+  "left",
+  "right",
+  "top left",
+  "top right",
+  "bottom left",
+  "bottom right",
+] as const
+
+export const backgroundPositionMap = createVariantMap<(typeof bgPositions)[number]>(bgPositions, {
+  "top left": "Top Left",
+  "top right": "Top Right",
+  "bottom left": "Bottom Left",
+  "bottom right": "Bottom Right",
+})
 
 interface WebflowCTABannerProps {
   theme?: keyof typeof themeMap
@@ -84,8 +86,8 @@ export default declareComponent(WebflowCTABanner, {
   props: {
     theme: props.Variant({
       name: "Theme",
-      options: ["Light", "Dark"],
-      defaultValue: "Light",
+      options: Object.keys(themeMap),
+      defaultValue: Object.keys(themeMap)[0],
       tooltip: "Light for sand background, Dark for dark brown background",
     }),
     heading: props.TextNode({
@@ -113,42 +115,22 @@ export default declareComponent(WebflowCTABanner, {
     }),
     backgroundSize: props.Variant({
       name: "Background Size",
-      options: ["Cover", "Contain"],
-      defaultValue: "Cover",
+      options: Object.keys(backgroundSizeMap),
+      defaultValue: Object.keys(backgroundSizeMap)[0],
       tooltip: "How the background image fills the section",
       group: "Background",
     }),
     backgroundPosition: props.Variant({
       name: "Background Position",
-      options: [
-        "Center",
-        "Top",
-        "Bottom",
-        "Left",
-        "Right",
-        "Top Left",
-        "Top Right",
-        "Bottom Left",
-        "Bottom Right",
-      ],
-      defaultValue: "Center",
+      options: Object.keys(backgroundPositionMap),
+      defaultValue: Object.keys(backgroundPositionMap)[0],
       tooltip: "Background image alignment (desktop/tablet)",
       group: "Background",
     }),
     backgroundPositionMobile: props.Variant({
       name: "Background Position (Mobile)",
-      options: [
-        "Center",
-        "Top",
-        "Bottom",
-        "Left",
-        "Right",
-        "Top Left",
-        "Top Right",
-        "Bottom Left",
-        "Bottom Right",
-      ],
-      defaultValue: "Center",
+      options: Object.keys(backgroundPositionMap),
+      defaultValue: Object.keys(backgroundPositionMap)[0],
       tooltip: "Background image alignment on mobile. Defaults to desktop value if not set.",
       group: "Background",
     }),

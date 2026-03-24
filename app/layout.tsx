@@ -9,7 +9,10 @@ const dmSans = DM_Sans({
 })
 
 const seasonMix = localFont({
-  src: "../public/fonts/SeasonMix-Medium.woff2",
+  src: [
+    { path: "../public/fonts/SeasonMix-Medium.woff2", weight: "400", style: "normal" },
+    { path: "../public/fonts/SeasonMix-MediumItalic.woff2", weight: "400", style: "italic" },
+  ],
   variable: "--font-season-mix",
 })
 

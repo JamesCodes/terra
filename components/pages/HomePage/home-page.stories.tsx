@@ -1,9 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import "../../../app/globals.css"
 
-import { AnimatedIcon } from "@/components/ui/AnimatedIcon/animated-icon"
 import { AnnouncementBar } from "@/components/ui/AnnouncementBar/announcement-bar"
-import { Button } from "@/components/ui/Button/button"
 import { CTABanner } from "@/components/ui/CTABanner/cta-banner"
 import { FeatureContent } from "@/components/ui/FeatureContent/feature-content"
 import { Hero } from "@/components/ui/Hero/hero"
@@ -14,11 +12,9 @@ import { SiteNav } from "@/components/ui/SiteNav/site-nav"
 import { SiteNavLink } from "@/components/ui/SiteNavLink/site-nav-link"
 import { SiteNavSubLink } from "@/components/ui/SiteNavSubLink/site-nav-sub-link"
 import { StatsCard } from "@/components/ui/StatsCard/stats-card"
-import { WebflowStatWrapper } from "@/components/ui/StatsCard/stats-card-wrapper.webflow"
 import { textArg } from "@/lib/storybook"
 import { WebflowSlot } from "@/lib/storybook-webflow"
 import { absoluteFillDecorator } from "@/lib/webflow"
-import * as BlogPostCardStories from "../../ui/BlogPostCard/blog-post-card.stories"
 import * as CTABannerStories from "../../ui/CTABanner/cta-banner.stories"
 import * as FooterStories from "../../ui/Footer/footer.stories"
 import * as HeroStories from "../../ui/Hero/hero.stories"
@@ -169,7 +165,13 @@ export const Default: Story = {
           heading={args.heroHeading}
           description={args.heroDescription}
           buttonLabel={args.heroButtonLabel}
-          image={(HeroStories.WithVisual.args as any)?.image}
+          imageSlot={
+            <img
+              src="/images/hero-dunes.png"
+              alt="Desert dunes"
+              className="h-full w-full object-cover object-bottom"
+            />
+          }
         >
           <WebflowSlot decorator={absoluteFillDecorator}>
             <HeroVisual />
@@ -192,7 +194,7 @@ export const Default: Story = {
             title={args.feature1Title}
             description={args.feature1Description}
             image={{ src: "/images/findings.svg", alt: "Findings" }}
-            icon={<AnimatedIcon icon="target" />}
+            icon="target"
           />
         </Section>
       </WebflowSlot>
@@ -205,7 +207,7 @@ export const Default: Story = {
             title={args.feature2Title}
             description={args.feature2Description}
             image={{ src: "/images/diagram.svg", alt: "Flow Diagram" }}
-            icon={<AnimatedIcon icon="half-circle" />}
+            icon="scan"
           />
         </Section>
       </WebflowSlot>
@@ -218,7 +220,7 @@ export const Default: Story = {
             title={args.feature3Title}
             description={args.feature3Description}
             image={{ src: "/images/signals-pipeline.svg", alt: "Signals Pipeline" }}
-            icon={<AnimatedIcon icon="shield" />}
+            icon="shield"
           />
         </Section>
       </WebflowSlot>
@@ -231,7 +233,7 @@ export const Default: Story = {
             title={args.feature4Title}
             description={args.feature4Description}
             image={{ src: "/images/ai-assistant.svg", alt: "AI Assistant" }}
-            icon={<AnimatedIcon icon="target" />}
+            icon="target"
           />
         </Section>
       </WebflowSlot>

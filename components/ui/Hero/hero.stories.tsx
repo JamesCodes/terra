@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
-import { booleanArg, selectArg, textArg } from "@/lib/storybook"
+import { booleanArg, numberArg, responsiveArgs, selectArg, textArg } from "@/lib/storybook"
 import { Hero } from "./hero"
 import { eyebrowVariantMap, headlineSizeMap, propLabels, variantMap } from "./hero.webflow"
 import "../../../app/globals.css"
+import { HeroVisual } from "@/components/ui/HeroVisual/hero-visual"
 import { WebflowSlot } from "@/lib/storybook-webflow"
 import { absoluteFillDecorator } from "@/lib/webflow"
-import { HeroVisual } from "@/components/ui/HeroVisual/hero-visual"
 
 const meta = {
   title: "Sections/Hero",
@@ -13,7 +13,7 @@ const meta = {
   parameters: {
     layout: "fullscreen",
     controls: {
-      exclude: ["className", "children", "image"],
+      exclude: ["className", "children", "imageSlot"],
     },
   },
   tags: ["autodocs"],
@@ -29,6 +29,8 @@ const meta = {
     buttonLabel: "Book a Demo",
     showButton: true,
     showImage: true,
+    showVisual: true,
+    height: 480,
   },
   argTypes: {
     variant: selectArg(propLabels.variant, variantMap, "Default"),
@@ -42,6 +44,8 @@ const meta = {
     buttonLabel: textArg(propLabels.buttonLabel),
     showButton: booleanArg(propLabels.showButton),
     showImage: booleanArg(propLabels.showImage),
+    showVisual: booleanArg(propLabels.showVisual),
+    ...responsiveArgs("height", numberArg("Height", { min: -1, max: 1000, defaultValue: 480 })),
   },
   render: ({
     showEyebrow,
@@ -51,7 +55,6 @@ const meta = {
     eyebrow,
     description,
     buttonLabel,
-    image,
     ...args
   }) => (
     <Hero
@@ -59,7 +62,15 @@ const meta = {
       eyebrow={showEyebrow ? eyebrow : undefined}
       description={showDescription ? description : undefined}
       buttonLabel={showButton ? buttonLabel : undefined}
-      image={showImage ? image : undefined}
+      imageSlot={
+        showImage ? (
+          <img
+            src="/images/hero-dunes.png"
+            alt="Desert dunes"
+            className="h-full w-full object-cover object-bottom"
+          />
+        ) : undefined
+      }
     />
   ),
 } satisfies Meta<any>
@@ -78,14 +89,7 @@ export const WithEyebrow: Story = {
   },
 }
 
-export const WithImage: Story = {
-  args: {
-    image: {
-      src: "/images/hero-dunes.png",
-      alt: "Desert dunes",
-    },
-  },
-}
+export const WithImage: Story = {}
 
 export const ProductHero: Story = {
   args: {
@@ -94,19 +98,26 @@ export const ProductHero: Story = {
     showEyebrow: true,
     eyebrow: "Terra Portal™",
     heading: "Where human + agent security teams really work.",
-    image: {
-      src: "/images/hero-dunes.png",
-      alt: "Desert dunes",
-    },
+    height: 720,
   },
 }
 
-export const WithVisual: Story = {
+export const Compact: Story = {
   args: {
-    image: {
-      src: "/images/hero-dunes.png",
-      alt: "Desert dunes",
-    },
+    variant: "Compact",
+    showButton: false,
+    showImage: false,
+    visual: null,
+    headlineSize: "Small",
+    heading: "The leader in Agentic AI-powered continuous penetration testing",
+    description:
+      "Learn how we supercharge the value security teams receive from their pentest program.",
+  },
+}
+
+export const WithVisualHome: Story = {
+  args: {
+    heightMobile: 443,
   },
   render: ({
     showEyebrow,
@@ -116,7 +127,6 @@ export const WithVisual: Story = {
     eyebrow,
     description,
     buttonLabel,
-    image,
     ...args
   }: any) => (
     <div className="min-h-[300vh]">
@@ -125,7 +135,15 @@ export const WithVisual: Story = {
         eyebrow={showEyebrow ? eyebrow : undefined}
         description={showDescription ? description : undefined}
         buttonLabel={showButton ? buttonLabel : undefined}
-        image={showImage ? image : undefined}
+        imageSlot={
+          showImage ? (
+            <img
+              src="/images/hero-dunes.png"
+              alt="Desert dunes"
+              className="h-full w-full object-cover object-bottom"
+            />
+          ) : undefined
+        }
       >
         <WebflowSlot decorator={absoluteFillDecorator}>
           <HeroVisual />
@@ -135,9 +153,19 @@ export const WithVisual: Story = {
   ),
 }
 
-export const WithVisualVariantB: Story = {
+export const WithVisualPlatform: Story = {
   args: {
-    ...WithVisual.args,
+    variant: "Product",
+    headlineSize: "Small",
+    showEyebrow: true,
+    eyebrow: "Terra Platform™",
+    eyebrowVariant: "White",
+    heading: "The enterprise-ready platform for continuous agentic pentesting.",
+    showDescription: false,
+    showButton: false,
+    height: 731,
+    heightTablet: 563,
+    heightMobile: 526,
   },
   render: ({
     showEyebrow,
@@ -147,7 +175,6 @@ export const WithVisualVariantB: Story = {
     eyebrow,
     description,
     buttonLabel,
-    image,
     ...args
   }: any) => (
     <div className="min-h-[300vh]">
@@ -156,19 +183,37 @@ export const WithVisualVariantB: Story = {
         eyebrow={showEyebrow ? eyebrow : undefined}
         description={showDescription ? description : undefined}
         buttonLabel={showButton ? buttonLabel : undefined}
-        image={showImage ? image : undefined}
+        imageSlot={
+          showImage ? (
+            <img
+              src="/images/terra-platform-hero.png"
+              alt="Desert dunes"
+              className="h-full w-full object-cover object-bottom"
+            />
+          ) : undefined
+        }
       >
         <WebflowSlot decorator={absoluteFillDecorator}>
-          <HeroVisual variant="VariantB" />
+          <HeroVisual variant="platform" />
         </WebflowSlot>
       </Hero>
     </div>
   ),
 }
 
-export const WithVisualVariantC: Story = {
+export const WithVisualPortal: Story = {
   args: {
-    ...WithVisual.args,
+    variant: "Product",
+    headlineSize: "Small",
+    showEyebrow: true,
+    eyebrow: "Terra Portal™",
+    eyebrowVariant: "Accent",
+    heading: "Where human + agent security teams really work.",
+    showDescription: false,
+    showButton: false,
+    height: 731,
+    heightTablet: 563,
+    heightMobile: 526,
   },
   render: ({
     showEyebrow,
@@ -178,7 +223,6 @@ export const WithVisualVariantC: Story = {
     eyebrow,
     description,
     buttonLabel,
-    image,
     ...args
   }: any) => (
     <div className="min-h-[300vh]">
@@ -187,10 +231,18 @@ export const WithVisualVariantC: Story = {
         eyebrow={showEyebrow ? eyebrow : undefined}
         description={showDescription ? description : undefined}
         buttonLabel={showButton ? buttonLabel : undefined}
-        image={showImage ? image : undefined}
+        imageSlot={
+          showImage ? (
+            <img
+              src="/images/terra-portal-hero.png"
+              alt="Desert dunes"
+              className="h-full w-full object-cover object-bottom"
+            />
+          ) : undefined
+        }
       >
         <WebflowSlot decorator={absoluteFillDecorator}>
-          <HeroVisual variant="VariantC" />
+          <HeroVisual variant="portal" />
         </WebflowSlot>
       </Hero>
     </div>

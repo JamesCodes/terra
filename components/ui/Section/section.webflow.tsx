@@ -2,20 +2,19 @@ import { type PropType, type PropValues, props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import type React from "react"
 import type { ReactNode } from "react"
-import { levelMap } from "@/components/ui/Heading/heading.webflow"
 import { variantMap as buttonVariantMap } from "@/components/ui/Button/button.webflow"
-import { headingTextProps, propLabels as headingPropLabels } from "@/components/ui/SectionHeading/section-heading.webflow"
-import { Section } from "./section"
+import { levelMap } from "@/components/ui/Heading/heading.webflow"
+import {
+  propLabels as headingPropLabels,
+  headingTextProps,
+} from "@/components/ui/SectionHeading/section-heading.webflow"
+import { createVariantMap } from "@/lib/utils"
+import { Section, type SectionVariant, sectionVariants } from "./section"
 
 import "../../../app/globals.css"
 import { responsiveProps } from "@/lib/responsive-props"
 
-export const variantMap = {
-  Chalk: "chalk",
-  Moss: "moss",
-  Obsidian: "obsidian",
-  Magma: "magma",
-} as const
+export const variantMap = createVariantMap<SectionVariant>(sectionVariants.variants.variant)
 
 export const propLabels = {
   ...headingPropLabels,
@@ -38,6 +37,7 @@ interface WebflowSectionProps {
   buttonVariant?: keyof typeof buttonVariantMap
   showButton?: boolean
   showDivider?: boolean
+  pattern?: PropValues[PropType.Image]
   showPattern?: boolean
   fadePattern?: boolean
   variant?: keyof typeof variantMap
@@ -63,8 +63,9 @@ const WebflowSection: React.FC<WebflowSectionProps> = ({
   showText = false,
   buttonText,
   buttonLink,
-  buttonVariant = "Primary",
+  buttonVariant = "Default",
   showButton = false,
+  pattern,
   showDivider = true,
   showPattern = false,
   fadePattern = true,
@@ -91,8 +92,11 @@ const WebflowSection: React.FC<WebflowSectionProps> = ({
       headingLevel={mappedHeadingLevel}
       text={showText ? text : undefined}
       buttonText={showButton ? buttonText : undefined}
-      buttonLink={buttonLink?.href ? { href: buttonLink.href, target: buttonLink.target } : undefined}
+      buttonLink={
+        buttonLink?.href ? { href: buttonLink.href, target: buttonLink.target } : undefined
+      }
       buttonVariant={buttonVariantMap[buttonVariant]}
+      pattern={pattern?.src}
       showDivider={showDivider}
       showPattern={showPattern}
       fadePattern={fadePattern}
@@ -122,24 +126,28 @@ export default declareComponent(WebflowSection, {
       name: "Show Divider",
       defaultValue: true,
       tooltip: "Toggle the bottom divider line",
-      group: "Visibility",
+    }),
+    pattern: props.Image({
+      name: "Pattern",
+      tooltip: "Background pattern overlay (SVG only — colors inherit from the section style)",
+      group: "Pattern",
     }),
     showPattern: props.Visibility({
       name: "Show Pattern",
       defaultValue: false,
       tooltip: "Toggle the background pattern overlay",
-      group: "Visibility",
+      group: "Pattern",
     }),
     fadePattern: props.Visibility({
-      name: "Fade Background",
+      name: "Fade Pattern",
       defaultValue: true,
       tooltip: "Apply a gradient mask to fade the pattern from bottom to top",
-      group: "Visibility",
+      group: "Pattern",
     }),
     variant: props.Variant({
       name: "Style",
-      options: ["Chalk", "Moss", "Obsidian", "Magma"],
-      defaultValue: "Chalk",
+      options: Object.keys(variantMap),
+      defaultValue: Object.keys(variantMap)[0],
       tooltip: "Controls the section background and text colors",
     }),
     ...responsiveProps("gap", props.Number, {

@@ -30,4 +30,7 @@ export default declareComponent(WaypointSection, {
       name: "Content",
     }),
   },
+  options: {
+    ssr: false,
+  },
 })

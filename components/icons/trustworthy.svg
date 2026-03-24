@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="trust-grad" x1="70.24" y1="6.37" x2="70.24" y2="77.28" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E65C32"/>
+      <stop offset="1" stop-color="#FBFAF5"/>
+    </linearGradient>
+  </defs>
+  <path d="M49.2 15.08C60.82 3.46 79.66 3.46 91.29 15.08 101.56 25.35 102.75 41.26 94.86 52.85L96.66 59.57C97.12 61.27 95.56 62.83 93.86 62.37L87.19 60.58C75.59 68.63 59.54 67.49 49.2 57.16 37.58 45.54 37.58 26.7 49.2 15.08Z" fill="url(#trust-grad)"/>
+  <path d="M81.8 29.59L67.26 43.23 60.19 37.14" stroke="white" stroke-width="4.55" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M51.37 42.28C39.62 30.53 20.56 30.53 8.81 42.28-1.58 52.67-2.78 68.76 5.21 80.47L3.37 87.31C2.91 89.01 4.47 90.57 6.17 90.11L12.96 88.29C24.69 96.43 40.92 95.27 51.37 84.82 63.12 73.07 63.12 54.03 51.37 42.28Z" fill="#FBFAF5" stroke="#E65C32" stroke-width="2"/>
+  <path d="M39.71 57.35L26.7 69.86 20.37 64.27" stroke="#E65C32" stroke-width="4.55" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

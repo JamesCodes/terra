@@ -52,5 +52,18 @@ export const MultipleAnnouncements: Story = {
         href: "https://example.com/rsa",
       },
     ],
+    dismissible: true,
+  },
+}
+
+export const Dismissible: Story = {
+  args: {
+    announcements: [
+      {
+        text: "Terra Named Winner of the 2025 AWS, Crowdstrike, Nvidia Cybersecurity Accelerator",
+        href: "https://example.com/award",
+      },
+    ],
+    dismissible: true,
   },
 }

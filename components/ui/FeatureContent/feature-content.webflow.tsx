@@ -1,29 +1,33 @@
 import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import type React from "react"
-import type { ReactNode } from "react"
-import { FeatureContent } from "./feature-content"
+import {
+  iconMap,
+  iconWebflowProps,
+  modeMap,
+} from "@/components/ui/AnimatedIcon/animated-icon.webflow"
+import { createVariantMap } from "@/lib/utils"
+import { FeatureContent, featuredContentVariants } from "./feature-content"
 
 import "../../../app/globals.css"
 
-export const variantMap = {
-  "Image Left": "imageLeft",
-  "Image Right": "imageRight",
-} as const
+type FeatureContentVariant = NonNullable<
+  import("tailwind-variants").VariantProps<typeof featuredContentVariants>["variant"]
+>
 
-export const propLabels = {
-  variant: "Layout",
-  title: "Title",
-  description: "Description",
-  icon: "Icon",
-  image: "Image",
-} as const
+export const variantMap = createVariantMap<FeatureContentVariant>(
+  featuredContentVariants.variants.variant,
+  { imageLeft: "Image Left", imageRight: "Image Right" },
+)
 
 interface WebflowFeatureContentProps {
   variant?: keyof typeof variantMap
   title?: string
   description?: string
-  icon?: ReactNode
+  icon?: string
+  iconMode?: string
+  iconSpeed?: number
+  showIcon?: boolean
   image?: { src: string; alt?: string }
 }
 
@@ -31,7 +35,10 @@ const WebflowFeatureContent: React.FC<WebflowFeatureContentProps> = ({
   variant = "Image Left",
   title,
   description,
-  icon,
+  icon = "Target",
+  iconMode = "Loop",
+  iconSpeed = 5,
+  showIcon = true,
   image,
 }) => {
   const mappedVariant = variantMap[variant]
@@ -41,7 +48,9 @@ const WebflowFeatureContent: React.FC<WebflowFeatureContentProps> = ({
       variant={mappedVariant}
       title={title}
       description={description}
-      icon={icon}
+      icon={showIcon ? iconMap[icon] : undefined}
+      iconMode={modeMap[iconMode]}
+      iconSpeed={iconSpeed}
       image={image}
     />
   )
@@ -53,31 +62,27 @@ export default declareComponent(WebflowFeatureContent, {
   group: "Content Blocks",
   props: {
     variant: props.Variant({
-      name: propLabels.variant,
+      name: "Layout",
       options: Object.keys(variantMap),
       defaultValue: Object.keys(variantMap)[0],
       tooltip: "Control image position relative to content",
     }),
     title: props.TextNode({
-      name: propLabels.title,
+      name: "Title",
       defaultValue: "Feature title goes here",
       tooltip: "The feature heading",
       group: "Content",
     }),
     description: props.TextNode({
-      name: propLabels.description,
+      name: "Description",
       defaultValue: "A brief description of this feature and its benefits.",
       multiline: true,
       tooltip: "The feature description text",
       group: "Content",
     }),
-    icon: props.Slot({
-      name: propLabels.icon,
-      tooltip: "Icon or visual element displayed above the title",
-      group: "Content",
-    }),
+    ...iconWebflowProps("Content"),
     image: props.Image({
-      name: propLabels.image,
+      name: "Image",
       tooltip: "The feature image",
       group: "Image",
     }),

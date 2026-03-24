@@ -3,14 +3,12 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { variantMap as buttonVariantMap } from "@/components/ui/Button/button.webflow"
 import { levelMap } from "@/components/ui/Heading/heading.webflow"
+import { createVariantMap } from "@/lib/utils"
 import { SectionHeading } from "./section-heading"
 
 import "../../../app/globals.css"
 
-export const variantMap = {
-  Light: "light",
-  Dark: "dark",
-} as const
+export const variantMap = createVariantMap<"light" | "dark">(["light", "dark"])
 
 export const propLabels = {
   variant: "Style",
@@ -30,7 +28,7 @@ interface WebflowSectionHeadingProps {
   label?: string
   showLabel?: boolean
   heading?: string
-  headingLevel?: Exclude<keyof typeof levelMap, "Heading 1">
+  headingLevel?: keyof typeof levelMap
   showHeading?: boolean
   text?: string
   showText?: boolean
@@ -51,7 +49,7 @@ const WebflowSectionHeading: React.FC<WebflowSectionHeadingProps> = ({
   showText = false,
   buttonText,
   buttonLink,
-  buttonVariant = "Primary",
+  buttonVariant = "Default",
   showButton = false,
   variant = "Light",
 }) => {
@@ -62,7 +60,9 @@ const WebflowSectionHeading: React.FC<WebflowSectionHeadingProps> = ({
       headingLevel={levelMap[headingLevel]}
       text={showText ? text : undefined}
       buttonText={showButton ? buttonText : undefined}
-      buttonLink={buttonLink?.href ? { href: buttonLink.href, target: buttonLink.target } : undefined}
+      buttonLink={
+        buttonLink?.href ? { href: buttonLink.href, target: buttonLink.target } : undefined
+      }
       buttonVariant={buttonVariantMap[buttonVariant]}
       variant={variantMap[variant]}
     />
@@ -89,7 +89,7 @@ export const headingTextProps = {
   }),
   headingLevel: props.Variant({
     name: "Heading Level",
-    options: Object.keys(levelMap).filter((k) => k !== "Heading 1"),
+    options: Object.keys(levelMap),
     defaultValue: "Heading 2",
     tooltip: "The heading size level",
   }),
@@ -125,7 +125,7 @@ export const headingTextProps = {
   buttonVariant: props.Variant({
     name: "Button Style",
     options: Object.keys(buttonVariantMap).filter((k) => k !== "Ghost"),
-    defaultValue: "Primary",
+    defaultValue: "Default",
     tooltip: "Visual style of the button",
     group: "Button",
   }),
@@ -139,14 +139,15 @@ export const headingTextProps = {
 
 export default declareComponent(WebflowSectionHeading, {
   name: "Section Heading",
-  description: "A centered heading and description text block for use within native Webflow sections",
+  description:
+    "A centered heading and description text block for use within native Webflow sections",
   group: "Sections",
   props: {
     ...headingTextProps,
     variant: props.Variant({
       name: "Style",
-      options: ["Light", "Dark"],
-      defaultValue: "Light",
+      options: Object.keys(variantMap),
+      defaultValue: Object.keys(variantMap)[0],
       tooltip: "Light for chalk backgrounds, Dark for moss/obsidian/magma backgrounds",
     }),
   },

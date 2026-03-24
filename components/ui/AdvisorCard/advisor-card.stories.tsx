@@ -42,3 +42,11 @@ export const WithoutRole: Story = {
     role: undefined,
   },
 }
+
+export const WithLink: Story = {
+  args: {
+    name: "Jay Leek",
+    role: "Managing Partner & Co-Founder, Syn Ventures",
+    href: "https://example.com",
+  },
+}

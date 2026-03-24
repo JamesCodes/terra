@@ -2,15 +2,12 @@ import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { responsiveProps } from "@/lib/responsive-props"
+import { createVariantMap } from "@/lib/utils"
 import { type ObjectAlign, StatementBlock } from "./statement-block"
 
 import "../../../app/globals.css"
 
-export const alignMap = {
-  Top: "top",
-  Center: "center",
-  Bottom: "bottom",
-} as const satisfies Record<string, ObjectAlign>
+export const alignMap = createVariantMap<ObjectAlign>(["top", "center", "bottom"])
 
 export const propLabels = {
   children: "Content",

@@ -1,19 +1,21 @@
 import { type PropType, type PropValues, props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import type React from "react"
-import { BlogPostCard } from "./blog-post-card"
+import { createVariantMap } from "@/lib/utils"
+import { BlogPostCard, blogPostCardVariants } from "./blog-post-card"
 
 import "../../../app/globals.css"
 
-export const variantMap = {
-  Grid: "grid",
-  Featured: "featured",
-  List: "list",
-} as const
+type BlogPostCardVariant = NonNullable<
+  import("tailwind-variants").VariantProps<typeof blogPostCardVariants>["variant"]
+>
+
+export const variantMap = createVariantMap<BlogPostCardVariant>(
+  blogPostCardVariants.variants.variant,
+)
 
 export const propLabels = {
   layout: "Layout",
-  category: "Category",
   title: "Title",
   description: "Description",
   author: "Author",
@@ -23,7 +25,8 @@ export const propLabels = {
 interface WebflowBlogPostCardProps {
   variant?: keyof typeof variantMap
   image?: PropValues[PropType.Image]
-  category?: string
+  categoryName?: string
+  categoryUrl?: string
   title?: string
   description?: string
   author?: string
@@ -33,9 +36,10 @@ interface WebflowBlogPostCardProps {
 }
 
 const WebflowBlogPostCard: React.FC<WebflowBlogPostCardProps> = ({
-  variant = "Grid",
+  variant = "Highlight",
   image,
-  category,
+  categoryName,
+  categoryUrl,
   title = "Blog Post Title",
   description,
   author,
@@ -49,7 +53,7 @@ const WebflowBlogPostCard: React.FC<WebflowBlogPostCardProps> = ({
     <BlogPostCard
       variant={mappedVariant}
       image={showImage && image?.src ? { src: image.src, alt: image.alt } : undefined}
-      category={category}
+      category={categoryName ? { name: categoryName, url: categoryUrl } : undefined}
       title={title}
       description={description}
       author={author}
@@ -67,8 +71,8 @@ export default declareComponent(WebflowBlogPostCard, {
   props: {
     variant: props.Variant({
       name: "Layout",
-      options: ["Grid", "Featured", "List"],
-      defaultValue: "Grid",
+      options: Object.keys(variantMap),
+      defaultValue: Object.keys(variantMap)[0],
       tooltip:
         "Card layout style — Grid (image+content), Featured (side-by-side), or List (text row)",
     }),
@@ -83,11 +87,15 @@ export default declareComponent(WebflowBlogPostCard, {
       group: "Media",
       tooltip: "Toggle the cover image",
     }),
-    category: props.Text({
-      name: "Category",
-      defaultValue: "Featured",
+    categoryName: props.Text({
+      name: "Primary Category",
       group: "Content",
-      tooltip: "Category badge label (e.g. Featured, Research)",
+      tooltip: "Category name — used as fallback when the Categories slot is empty",
+    }),
+    categoryUrl: props.Text({
+      name: "Category URL",
+      group: "Content",
+      tooltip: "Link for the primary category badge",
     }),
     title: props.TextNode({
       name: "Title",

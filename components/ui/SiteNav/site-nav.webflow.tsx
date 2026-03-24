@@ -13,6 +13,12 @@ interface WebflowSiteNavProps {
   ctaLabel?: string
   ctaLink?: { href: string; target?: string }
   showCta?: boolean
+  showCtaOnStuck?: boolean
+  showLinkedin?: boolean
+  linkedinLink?: { href: string; target?: string }
+  showYoutube?: boolean
+  youtubeLink?: { href: string; target?: string }
+  stuckText?: string
 }
 
 const WebflowSiteNav: React.FC<WebflowSiteNavProps> = ({
@@ -23,7 +29,14 @@ const WebflowSiteNav: React.FC<WebflowSiteNavProps> = ({
   ctaLabel = "Book a Demo",
   ctaLink,
   showCta = false,
+  showCtaOnStuck = false,
+  showLinkedin,
+  linkedinLink,
+  showYoutube,
+  youtubeLink,
+  stuckText,
 }) => {
+  const ctaVisible = showCta || showCtaOnStuck
   return (
     <SiteNav
       announcementBar={announcementBar}
@@ -31,9 +44,17 @@ const WebflowSiteNav: React.FC<WebflowSiteNavProps> = ({
       navLinks={navLinks}
       panelDescription={panelDescription}
       showCta={showCta}
-      ctaLabel={showCta ? ctaLabel : undefined}
-      ctaHref={showCta ? ctaLink?.href || "#" : undefined}
+      showCtaOnStuck={showCtaOnStuck}
+      ctaLabel={ctaVisible ? ctaLabel : undefined}
+      ctaHref={ctaVisible ? ctaLink?.href || "#" : undefined}
       ctaTarget={ctaLink?.target}
+      showLinkedin={showLinkedin}
+      linkedinHref={linkedinLink?.href}
+      linkedinTarget={linkedinLink?.target}
+      showYoutube={showYoutube}
+      youtubeHref={youtubeLink?.href}
+      youtubeTarget={youtubeLink?.target}
+      stuckText={stuckText}
     />
   )
 }
@@ -52,6 +73,11 @@ export default declareComponent(WebflowSiteNav, {
     logoLink: props.Link({
       name: "Brand Link",
       tooltip: "Where the brand navigates to",
+      group: "Brand",
+    }),
+    stuckText: props.Text({
+      name: "Stuck Text",
+      tooltip: "Text shown next to the icon when the nav is in its stuck (scrolled) position",
       group: "Brand",
     }),
     navLinks: props.Slot({
@@ -80,6 +106,32 @@ export default declareComponent(WebflowSiteNav, {
       name: "Show CTA",
       defaultValue: false,
       group: "CTA",
+    }),
+    showCtaOnStuck: props.Visibility({
+      name: "Show CTA on Stuck",
+      defaultValue: false,
+      tooltip: "Show the CTA button when the nav is in its stuck (scrolled) position",
+      group: "CTA",
+    }),
+    showYoutube: props.Visibility({
+      name: "Show YouTube",
+      defaultValue: false,
+      group: "Social",
+    }),
+    youtubeLink: props.Link({
+      name: "YouTube Link",
+      tooltip: "YouTube channel URL",
+      group: "Social",
+    }),
+    showLinkedin: props.Visibility({
+      name: "Show LinkedIn",
+      defaultValue: false,
+      group: "Social",
+    }),
+    linkedinLink: props.Link({
+      name: "LinkedIn Link",
+      tooltip: "LinkedIn profile URL",
+      group: "Social",
     }),
   },
 })

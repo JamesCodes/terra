@@ -1,10 +1,8 @@
-import { lazy } from "react"
+import SVG from "react-inlinesvg"
 import { tv, type VariantProps } from "tailwind-variants"
 import { SectionHeading } from "@/components/ui/SectionHeading/section-heading"
 import { type ResponsiveProps, responsiveClass, responsiveStyles } from "@/lib/responsive-props"
 import { cn } from "@/lib/utils"
-
-const BgPattern = lazy(() => import("./bg-pattern.svg"))
 
 const sectionVariants = tv({
   slots: {
@@ -17,12 +15,15 @@ const sectionVariants = tv({
     variant: {
       chalk: {
         root: "bg-background text-primary",
-        pattern: "text-sand",
+        pattern: "text-[#f2e6ae]",
         textCardHeading: "var(--color-accent)",
       },
-      moss: { root: "bg-moss text-chalk", pattern: "text-[#289664]" },
-      obsidian: { root: "bg-obsidian text-chalk", pattern: "text-granite" },
+      white: { root: "bg-white text-obsidian", pattern: "" },
+      moss: { root: "bg-moss text-chalk", pattern: "text-[#289664] opacity-20" },
+      obsidian: { root: "bg-obsidian text-chalk", pattern: "text-granite opacity-45" },
       magma: { root: "bg-light-magma text-chalk", pattern: "text-[#6F2F1C] opacity-60" },
+      sand: { root: "bg-sand text-foreground", pattern: "text-[#D4BF5E]" },
+      terracotta: { root: "bg-dark-terracotta text-chalk", pattern: "text-[#e65c32]" },
     },
   },
   defaultVariants: {
@@ -33,7 +34,7 @@ const sectionVariants = tv({
 import type { HeadingLevel } from "@/components/ui/Heading/heading"
 import type { SectionHeadingProps } from "@/components/ui/SectionHeading/section-heading"
 
-type SectionVariant = "chalk" | "moss" | "obsidian" | "magma"
+type SectionVariant = "chalk" | "moss" | "obsidian" | "magma" | "sand" | "terracotta" | "white"
 
 interface SectionProps
   extends React.ComponentProps<"section">,
@@ -51,6 +52,7 @@ interface SectionProps
   buttonLink?: SectionHeadingProps["buttonLink"]
   buttonVariant?: SectionHeadingProps["buttonVariant"]
   showDivider?: boolean
+  pattern?: string
   showPattern?: boolean
   fadePattern?: boolean
 }
@@ -75,15 +77,14 @@ function Section({
   paddingBottom = 80,
   paddingBottomTablet = -1,
   paddingBottomMobile = -1,
+  pattern,
   showDivider = true,
   showPattern = false,
   fadePattern = true,
   children,
   ...props
 }: SectionProps) {
-  const { root, pattern, textCardHeading } = sectionVariants({ variant })
-
-  console.log({ h3: textCardHeading() })
+  const { root, pattern: patternSlot, textCardHeading } = sectionVariants({ variant })
 
   return (
     <>
@@ -120,9 +121,19 @@ function Section({
           />
           {children}
         </div>
-        {showPattern && (
-          <div className={cn(pattern(), { "mask-t-from-0% mask-t-to-90%": fadePattern })}>
-            <BgPattern />
+        {showPattern && pattern?.endsWith(".svg") && (
+          <div className={cn(patternSlot(), { "mask-t-from-0% mask-t-to-90%": fadePattern })}>
+            <SVG
+              src={pattern}
+              className="absolute top-0 left-0 h-full w-full stroke-current"
+              preProcessor={(svg: string) =>
+                svg
+                  .replace(/fill="(?!none)[^"]*"/g, "")
+                  .replace(/stroke="(?!none)[^"]*"/g, 'stroke="currentColor"')
+                  .replace(/preserveAspectRatio="[^"]*"/, "")
+                  .replace("<svg", '<svg preserveAspectRatio="xMidYMid slice"')
+              }
+            />
           </div>
         )}
       </section>

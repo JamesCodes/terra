@@ -9,6 +9,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Seasonmix";
+  src: url("/fonts/SeasonMix-MediumItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 :root {
   --font-dm-sans: "DM Sans", sans-serif;
   --font-season-mix: Seasonmix, "Palatino Linotype", sans-serif;

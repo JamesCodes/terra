@@ -1,9 +1,10 @@
 "use client"
 
+import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react"
 import * as React from "react"
-import { useCallback, useEffect, useMemo } from "react"
+import { useCallback, useMemo } from "react"
 import { createPortal } from "react-dom"
 import { Button } from "@/components/ui/Button/button"
 import type { NavLinkOpenDetail, NavMeasureDetail } from "@/lib/nav-link-events"
@@ -104,67 +105,77 @@ function SiteNavLink({
     }
   }, [id])
 
-  useEffect(() => {
-    const panel = panelRef.current
-    if (!panel) return
+  useGSAP(
+    () => {
+      const panel = panelRef.current
+      if (!panel) return
 
-    tweenRef.current?.kill()
-
-    if (isOpen) {
-      wasOpenRef.current = true
-
-      const measure: NavMeasureDetail = { rowBottom: 0 }
-      window.dispatchEvent(new CustomEvent(NAV_LINK_EVENTS.MEASURE_NAV, { detail: measure }))
-      setNavConfig(measure)
-
-      if (isDesktop) {
-        const top = (triggerRef.current?.getBoundingClientRect().bottom ?? 0) + 24
-        panel.style.top = `${top}px`
-        gsap.set(panel, { display: "block", opacity: 0, y: -8 })
-        tweenRef.current = gsap.to(panel, {
-          opacity: 1,
-          y: 0,
-          duration: 0.2,
-          ease: "power2.out",
-        })
-      } else {
-        panel.style.top = `${measure.rowBottom}px`
-        gsap.set(panel, { display: "block", x: "100%" })
-        tweenRef.current = gsap.to(panel, {
-          x: "0%",
-          duration: 0.3,
-          ease: "power2.out",
-        })
-      }
-    } else if (wasOpenRef.current) {
-      wasOpenRef.current = false
-
-      if (isDesktop) {
-        tweenRef.current = gsap.to(panel, {
-          opacity: 0,
-          y: -8,
-          duration: 0.15,
-          ease: "power2.in",
-          onComplete: () => {
-            gsap.set(panel, { display: "none" })
-          },
-        })
-      } else {
-        tweenRef.current = gsap.to(panel, {
-          x: "100%",
-          duration: 0.25,
-          ease: "power2.in",
-          onComplete: () => {
-            gsap.set(panel, { display: "none" })
-          },
-        })
-      }
-    }
-
-    return () => {
       tweenRef.current?.kill()
-    }
-  }, [isOpen, isDesktop])
+
+      if (isOpen) {
+        wasOpenRef.current = true
+
+        const measure: NavMeasureDetail = { rowBottom: 0 }
+        window.dispatchEvent(new CustomEvent(NAV_LINK_EVENTS.MEASURE_NAV, { detail: measure }))
+        setNavConfig(measure)
+
+        if (isDesktop) {
+          const desiredTop = (triggerRef.current?.getBoundingClientRect().bottom ?? 0) + 21
+          panel.style.top = `${desiredTop}px`
+          gsap.set(panel, { display: "block", opacity: 0, y: -8 })
+          const actualTop = panel.getBoundingClientRect().top
+          const offset = actualTop - desiredTop
+          if (Math.abs(offset) > 1) {
+            panel.style.top = `${desiredTop - offset}px`
+          }
+          tweenRef.current = gsap.to(panel, {
+            opacity: 1,
+            y: 0,
+            duration: 0.2,
+            ease: "power2.out",
+          })
+        } else {
+          const desiredTop = measure.rowBottom
+          panel.style.top = `${desiredTop}px`
+          gsap.set(panel, { display: "block", x: "100%" })
+          const actualTop = panel.getBoundingClientRect().top
+          const offset = actualTop - desiredTop
+          if (Math.abs(offset) > 1) {
+            panel.style.top = `${desiredTop - offset}px`
+          }
+          tweenRef.current = gsap.to(panel, {
+            x: "0%",
+            duration: 0.3,
+            ease: "power2.out",
+          })
+        }
+      } else if (wasOpenRef.current) {
+        wasOpenRef.current = false
+
+        if (isDesktop) {
+          tweenRef.current = gsap.to(panel, {
+            opacity: 0,
+            y: -8,
+            duration: 0.15,
+            ease: "power2.in",
+            onComplete: () => {
+              gsap.set(panel, { display: "none" })
+            },
+          })
+        } else {
+          tweenRef.current = gsap.to(panel, {
+            x: "100%",
+            duration: 0.25,
+            ease: "power2.in",
+            onComplete: () => {
+              gsap.set(panel, { display: "none" })
+            },
+          })
+        }
+      }
+    },
+    { dependencies: [isOpen, isDesktop] },
+  )
 
   // Document-level pointer tracking — bypasses Shadow DOM event boundary issues
   React.useEffect(() => {
@@ -238,7 +249,6 @@ function SiteNavLink({
           <div className="flex flex-col lg:flex-row">
             {(() => {
               const desc = description ?? navConfig?.description
-              const cta = showCta ?? navConfig?.showCta
               const ctaLbl = ctaLabel ?? navConfig?.ctaLabel
               const ctaUrl = ctaHref ?? navConfig?.ctaHref
               const ctaTgt = ctaTarget ?? navConfig?.ctaTarget
@@ -252,7 +262,7 @@ function SiteNavLink({
                     )}
                     <div className="flex flex-col gap-4">
                       {desc && <p className="max-w-45 text-sm">{desc}</p>}
-                      {cta && ctaLbl && ctaUrl && (
+                      {ctaLbl && ctaUrl && (
                         <Button asChild variant="default" size="sm" className="w-fit">
                           <a href={ctaUrl} target={ctaTgt}>
                             {ctaLbl}

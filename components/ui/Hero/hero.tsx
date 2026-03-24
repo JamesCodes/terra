@@ -1,19 +1,19 @@
 import { tv } from "tailwind-variants"
 import { Button } from "@/components/ui/Button/button"
 import { Heading } from "@/components/ui/Heading/heading"
+import { type ResponsiveProps, responsiveClass, responsiveStyles } from "@/lib/responsive-props"
 import { cn } from "@/lib/utils"
 
 const heroVariants = tv({
   slots: {
     root: "relative max-w-screen bg-background max-md:overflow-hidden",
-    grid: "page-grid appear-up blur-in",
+    grid: "page-grid",
     eyebrow:
-      "col-span-4 text-center text-sm md:col-span-7 md:col-start-2 md:text-lg lg:col-span-8 lg:col-start-3",
+      "appear-up fade-in col-span-4 text-center text-sm md:col-span-7 md:col-start-2 md:text-lg lg:col-span-8 lg:col-start-3",
     heading:
-      "col-span-4 text-balance text-center md:col-span-5 md:col-start-3 lg:col-span-8 lg:col-start-3",
+      "appear-up fade-in col-span-4 text-balance text-center md:col-span-7 md:col-start-2 lg:col-span-8 lg:col-start-3",
     imageContainer: "relative col-span-full lg:col-span-10 lg:col-start-2",
-    imageWrapper: "overflow-hidden rounded-3xl",
-    image: "pointer-events-none w-full select-none object-cover object-bottom",
+    imageWrapper: "appear-up fade-in overflow-hidden rounded-3xl",
   },
   variants: {
     variant: {
@@ -24,16 +24,22 @@ const heroVariants = tv({
         heading: "text-primary",
         imageContainer: "mt-2",
         imageWrapper: "bg-[#260700]",
-        image: "h-110 md:h-120",
       },
       product: {
         root: "pt-8 pb-50 md:pt-16 md:pb-40",
         grid: "grid-rows-[auto_auto_1fr] gap-y-3",
         eyebrow: "z-10 col-start-1 row-start-1 pt-12 font-semibold md:pt-16",
-        heading: "z-10 text-primary-foreground",
+        heading: "z-10 px-6 text-primary-foreground",
         imageContainer: "row-span-full row-start-1",
         imageWrapper: "bg-[#370e02]",
-        image: "h-120 md:h-180",
+      },
+      compact: {
+        root: "py-10 md:pt-12 lg:pb-20",
+        grid: "gap-y-6",
+        eyebrow: "font-bold",
+        heading: "text-primary",
+        imageContainer: "mt-2",
+        imageWrapper: "bg-[#260700]",
       },
     },
     eyebrowVariant: {
@@ -68,8 +74,14 @@ const heroVariants = tv({
   },
 })
 
-interface HeroProps extends Omit<React.ComponentProps<"section">, "children"> {
-  variant?: "default" | "product"
+export type HeroVariant = "default" | "product" | "compact"
+
+interface HeroProps
+  extends Omit<React.ComponentProps<"section">, "children">,
+    ResponsiveProps<{
+      height: number
+    }> {
+  variant?: HeroVariant
   headlineSize?: "large" | "small"
   eyebrow?: string
   eyebrowVariant?: "accent" | "white"
@@ -77,7 +89,7 @@ interface HeroProps extends Omit<React.ComponentProps<"section">, "children"> {
   description?: string
   buttonLabel?: string
   buttonLink?: { href: string; target?: string }
-  image?: { src: string; alt?: string }
+  imageSlot?: React.ReactNode
   children?: React.ReactNode
 }
 
@@ -91,11 +103,16 @@ function Hero({
   description,
   buttonLabel,
   buttonLink,
-  image,
+  imageSlot,
   children,
+  height = 480,
+  heightTablet,
+  heightMobile,
   ...props
 }: HeroProps) {
   const styles = heroVariants({ variant, eyebrowVariant, hasEyebrow: !!eyebrow })
+  const heightStyle = responsiveStyles({ height: [height, heightTablet, heightMobile, "px"] })
+  const heightCls = responsiveClass("h", "height")
 
   return (
     <section data-slot="hero" className={cn(styles.root(), className)} {...props}>
@@ -107,13 +124,13 @@ function Hero({
         </Heading>
 
         {variant !== "product" && description && (
-          <p className="brand-body1 col-span-4 text-center text-primary md:col-span-7 md:col-start-2 lg:col-span-6 lg:col-start-4">
+          <p className="appear-up fade-in brand-body1 col-span-4 text-balance text-center text-primary md:col-span-7 md:col-start-2 lg:col-span-8 lg:col-start-3">
             {description}
           </p>
         )}
 
         {variant !== "product" && buttonLabel && (
-          <div className="col-span-4 flex justify-center md:col-span-full">
+          <div className="appear-up fade-in col-span-4 flex justify-center md:col-span-full">
             {buttonLink?.href ? (
               <Button asChild>
                 <a href={buttonLink.href} target={buttonLink.target}>
@@ -126,20 +143,11 @@ function Hero({
           </div>
         )}
 
-        {(variant === "product" || image?.src || children) && (
+        {(variant === "product" || imageSlot || children) && (
           <div className={styles.imageContainer()}>
-            {(image?.src || variant === "product") && (
-              <div className={styles.imageWrapper()}>
-                {image?.src ? (
-                  <img
-                    id="hero-image"
-                    src={image.src}
-                    alt={image.alt ?? ""}
-                    className={styles.image()}
-                  />
-                ) : (
-                  <div className="h-120 md:h-180" />
-                )}
+            {(imageSlot || variant === "product") && (
+              <div className={cn(styles.imageWrapper(), heightCls)} style={heightStyle}>
+                {imageSlot}
               </div>
             )}
 

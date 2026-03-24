@@ -18,7 +18,7 @@ interface ParallaxSceneProps extends React.ComponentProps<"div"> {
 
 function ParallaxScene({
   maxOffset = 10,
-  scrollOffset = 12,
+  scrollOffset = 8,
   entranceDelay = 0.5,
   entranceDuration = 0.8,
   entranceStagger = 0.15,
@@ -37,7 +37,7 @@ function ParallaxScene({
       if (!layers) return
 
       const quickSets = Array.from(layers).map((el) => {
-        const depth = Number(el.getAttribute("data-depth")) || 1
+        const depth = Number(el.getAttribute("data-depth") ?? 1)
         return {
           x: gsap.quickTo(el, "x", { duration: 0.6, ease: "power2.out" }),
           y: gsap.quickTo(el, "y", { duration: 0.6, ease: "power2.out" }),
@@ -49,25 +49,33 @@ function ParallaxScene({
 
       const sorted = Array.from(layers).sort(
         (a, b) =>
-          (Number(a.getAttribute("data-depth")) || 1) - (Number(b.getAttribute("data-depth")) || 1),
+          Number(a.getAttribute("data-depth") ?? 1) - Number(b.getAttribute("data-depth") ?? 1),
       )
+      const depths = sorted.map((layer) => Number(layer.getAttribute("data-depth") ?? 1))
       const innerEls = sorted.map((layer) => layer.children[0])
-      gsap.fromTo(
-        innerEls,
-        { y: 30, opacity: 0 },
-        {
-          delay: entranceDelay,
-          y: 0,
-          opacity: 1,
-          duration: entranceDuration,
-          ease: "power2.out",
-          stagger: entranceStagger,
-          clearProps: "transform",
-        },
-      )
+      innerEls.forEach((el, i) => {
+        gsap.set(el, { opacity: 0, ...(depths[i] > 0 && { y: 30 }) })
+      })
 
-      const onMove = (e: MouseEvent) => {
-        if (!container) return
+      const vSt = ScrollTrigger.create({
+        trigger: container,
+        start: "top 85%",
+        once: true,
+        onEnter: () => {
+          gsap.to(innerEls, {
+            delay: entranceDelay,
+            y: 0,
+            opacity: 1,
+            duration: entranceDuration,
+            ease: "power2.out",
+            stagger: entranceStagger,
+            clearProps: "transform",
+          })
+        },
+      })
+
+      const onMove = (e: PointerEvent) => {
+        if (!container || e.pointerType === "touch") return
         const rect = container.getBoundingClientRect()
         const cx = rect.left + rect.width / 2
         const cy = rect.top + rect.height / 2
@@ -79,28 +87,31 @@ function ParallaxScene({
         }
       }
 
-      window.addEventListener("mousemove", onMove)
+      window.addEventListener("pointermove", onMove)
 
-      for (const layer of layers) {
-        const depth = Number(layer.getAttribute("data-depth")) || 1
-        gsap.fromTo(
+      const tl = gsap.timeline()
+      for (const layer of Array.from(layers)) {
+        const depth = Number(layer.getAttribute("data-depth") ?? 1)
+        tl.fromTo(
           layer,
           { yPercent: scrollOffset * depth },
-          {
-            yPercent: -scrollOffset * depth,
-            ease: "none",
-            scrollTrigger: {
-              trigger: container,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          },
+          { yPercent: -scrollOffset * depth, ease: "none" },
+          0,
         )
       }
 
+      const st = ScrollTrigger.create({
+        trigger: container,
+        start: "top bottom",
+        end: "bottom top",
+        animation: tl,
+        scrub: 1,
+      })
+
       return () => {
-        window.removeEventListener("mousemove", onMove)
+        window.removeEventListener("pointermove", onMove)
+        st.kill()
+        vSt.kill()
       }
     },
     { scope: containerRef, dependencies: [interactive], revertOnUpdate: true },
@@ -109,7 +120,7 @@ function ParallaxScene({
   return (
     <div
       ref={containerRef}
-      className={cn("relative mx-auto h-full w-full origin-top lg:block", className)}
+      className={cn("relative z-1 mx-auto h-full w-full origin-top lg:block", className)}
       {...rest}
     >
       {children}

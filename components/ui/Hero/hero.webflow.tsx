@@ -1,23 +1,22 @@
 import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
-import { Hero } from "./hero"
+import { responsiveProps } from "@/lib/responsive-props"
+import { createVariantMap } from "@/lib/utils"
+import { Hero, type HeroVariant, heroVariants } from "./hero"
 
 import "../../../app/globals.css"
 
-export const variantMap = {
-  Default: "default",
-  Product: "product",
-} as const
+export const variantMap = createVariantMap<HeroVariant>(heroVariants.variants.variant)
 
-export const headlineSizeMap = {
-  Large: "large",
-  Small: "small",
-} as const
+export const headlineSizeMap = createVariantMap<"large" | "small">(["large", "small"])
 
-export const eyebrowVariantMap = {
-  Accent: "accent",
-  White: "white",
-} as const
+type EyebrowVariant = NonNullable<
+  import("tailwind-variants").VariantProps<typeof heroVariants>["eyebrowVariant"]
+>
+
+export const eyebrowVariantMap = createVariantMap<EyebrowVariant>(
+  heroVariants.variants.eyebrowVariant,
+)
 
 export const propLabels = {
   variant: "Variant",
@@ -31,11 +30,12 @@ export const propLabels = {
   buttonLabel: "Button Label",
   showButton: "Show Button",
   showImage: "Show Image",
+  showVisual: "Show Visual",
 } as const
 
 interface WebflowHeroProps {
-  variant?: string
-  headlineSize?: string
+  variant?: keyof typeof variantMap
+  headlineSize?: keyof typeof headlineSizeMap
   eyebrow?: string
   eyebrowVariant?: keyof typeof eyebrowVariantMap
   showEyebrow?: boolean
@@ -46,13 +46,17 @@ interface WebflowHeroProps {
   buttonLink?: { href: string; target?: string }
   showButton?: boolean
   showImage?: boolean
-  image?: { src: string; alt?: string }
+  showVisual?: boolean
+  height?: number
+  heightTablet?: number
+  heightMobile?: number
+  imageSlot?: React.ReactNode
   visual?: React.ReactNode
 }
 
 const WebflowHero: React.FC<WebflowHeroProps> = ({
-  variant,
-  headlineSize,
+  variant = "Default",
+  headlineSize = "Large",
   eyebrow,
   eyebrowVariant = "Accent",
   showEyebrow = false,
@@ -63,13 +67,15 @@ const WebflowHero: React.FC<WebflowHeroProps> = ({
   buttonLink,
   showButton = true,
   showImage = true,
-  image,
+  showVisual = true,
+  height,
+  heightTablet,
+  heightMobile,
+  imageSlot,
   visual,
 }) => {
-  const mappedVariant =
-    (variantMap[variant as keyof typeof variantMap] as "default" | "product") ?? "default"
-  const mappedHeadlineSize =
-    (headlineSizeMap[headlineSize as keyof typeof headlineSizeMap] as "large" | "small") ?? "large"
+  const mappedVariant = variantMap[variant]
+  const mappedHeadlineSize = headlineSizeMap[headlineSize]
 
   return (
     <Hero
@@ -81,9 +87,12 @@ const WebflowHero: React.FC<WebflowHeroProps> = ({
       description={showDescription ? description : undefined}
       buttonLabel={showButton ? buttonLabel : undefined}
       buttonLink={buttonLink}
-      image={showImage ? image : undefined}
+      imageSlot={showImage ? imageSlot : undefined}
+      height={height}
+      heightTablet={heightTablet}
+      heightMobile={heightMobile}
     >
-      {visual}
+      {showVisual ? visual : undefined}
     </Hero>
   )
 }
@@ -167,13 +176,26 @@ export default declareComponent(WebflowHero, {
     showImage: props.Visibility({
       name: "Show Image",
       defaultValue: true,
-      tooltip: "Toggle image visibility",
+      tooltip: "Toggle image area visibility",
       group: "Visibility",
     }),
-    image: props.Image({
+    showVisual: props.Visibility({
+      name: "Show Visual",
+      defaultValue: true,
+      tooltip: "Toggle visual overlay visibility",
+      group: "Visibility",
+    }),
+    ...responsiveProps("height", props.Number, {
+      name: "Height",
+      defaultValue: 480,
+      min: -1,
+      tooltip: "Image area height in pixels",
+      group: "Image",
+    }),
+    imageSlot: props.Slot({
       name: "Image",
-      tooltip: "Image displayed in the visual canvas area",
-      group: "Visual",
+      tooltip: "Content area for the hero image — compose your own image layout here",
+      group: "Image",
     }),
     visual: props.Slot({
       name: "Visual",

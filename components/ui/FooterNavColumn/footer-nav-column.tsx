@@ -12,6 +12,7 @@ interface FooterNavColumnProps {
   label: string
   directLink?: boolean
   children?: React.ReactNode
+  visible?: boolean
 }
 
 function FooterNavColumn({ className, label, directLink, children }: FooterNavColumnProps) {

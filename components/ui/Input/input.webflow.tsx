@@ -2,34 +2,37 @@ import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import { Search, X } from "lucide-react"
 import { useRef, useState } from "react"
-import { Input } from "./input"
+import { createVariantMap } from "@/lib/utils"
+import { Input, inputVariants } from "./input"
 
 import "../../../app/globals.css"
 
-export const variantMap = {
-  Default: "default",
-  Search: "search",
-  Inline: "inline",
-} as const
+type InputVariant = NonNullable<
+  import("tailwind-variants").VariantProps<typeof inputVariants>["variant"]
+>
 
-export const typeMap = {
-  text: "text",
-  email: "email",
-  password: "password",
-  number: "number",
-  tel: "tel",
-  url: "url",
-  search: "search",
-  date: "date",
-  time: "time",
-  "datetime-local": "datetime-local",
-  file: "file",
-} as const
+export const variantMap = createVariantMap<InputVariant>(inputVariants.variants.variant)
+
+const inputTypes = [
+  "text",
+  "email",
+  "password",
+  "number",
+  "tel",
+  "url",
+  "search",
+  "date",
+  "time",
+  "datetime-local",
+  "file",
+] as const
+
+export const typeMap = createVariantMap<(typeof inputTypes)[number]>(inputTypes)
 
 interface WebflowInputProps {
   variant?: keyof typeof variantMap
   placeholder?: string
-  type?: string
+  type?: keyof typeof typeMap
   disabled?: boolean
   required?: boolean
   value?: string
@@ -39,13 +42,14 @@ interface WebflowInputProps {
 function WebflowInput({
   variant = "Default",
   placeholder,
-  type = "text",
+  type = "Text",
   disabled,
   required,
   value,
   showIcon = true,
 }: WebflowInputProps) {
   const mappedVariant = variantMap[variant]
+  const mappedType = typeMap[type]
   const [searchValue, setSearchValue] = useState(value ?? "")
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -89,7 +93,7 @@ function WebflowInput({
   return (
     <Input
       variant="default"
-      type={type}
+      type={mappedType}
       placeholder={placeholder}
       disabled={disabled}
       required={required}
@@ -105,8 +109,8 @@ export default declareComponent(WebflowInput, {
   props: {
     variant: props.Variant({
       name: "Style",
-      options: ["Default", "Search", "Inline"],
-      defaultValue: "Default",
+      options: Object.keys(variantMap),
+      defaultValue: Object.keys(variantMap)[0],
       tooltip: "The visual style of the input",
     }),
     placeholder: props.Text({
@@ -116,20 +120,8 @@ export default declareComponent(WebflowInput, {
     }),
     type: props.Variant({
       name: "Type",
-      options: [
-        "text",
-        "email",
-        "password",
-        "number",
-        "tel",
-        "url",
-        "search",
-        "date",
-        "time",
-        "datetime-local",
-        "file",
-      ],
-      defaultValue: "text",
+      options: Object.keys(typeMap),
+      defaultValue: Object.keys(typeMap)[0],
       tooltip: "The HTML input type",
       group: "Settings",
     }),

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 48 48">
+  <defs>
+    <linearGradient id="comp-grad-1" x1="2.42" y1="4.79" x2="51.29" y2="4.79" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E65C32"/>
+      <stop offset="1" stop-color="#FBFAF5"/>
+    </linearGradient>
+    <linearGradient id="comp-grad-2" x1="2.42" y1="14.48" x2="51.29" y2="14.48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E65C32"/>
+      <stop offset="1" stop-color="#FBFAF5"/>
+    </linearGradient>
+    <linearGradient id="comp-grad-3" x1="2.42" y1="24.18" x2="51.29" y2="24.18" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E65C32"/>
+      <stop offset="1" stop-color="#FBFAF5"/>
+    </linearGradient>
+    <linearGradient id="comp-grad-4" x1="2.42" y1="33.88" x2="25.51" y2="33.88" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E65C32"/>
+      <stop offset="1" stop-color="#FBFAF5"/>
+    </linearGradient>
+    <linearGradient id="comp-grad-5" x1="2.42" y1="44.3" x2="25.51" y2="44.3" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E65C32"/>
+      <stop offset="1" stop-color="#FBFAF5"/>
+    </linearGradient>
+    <clipPath id="comp-clip">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#comp-clip)">
+    <path d="M45.75 4.79H2.42" stroke="url(#comp-grad-1)" stroke-width="4.85" stroke-linecap="round"/>
+    <path d="M45.75 14.48H2.42" stroke="url(#comp-grad-2)" stroke-width="4.85" stroke-linecap="round"/>
+    <path d="M45.75 24.18H2.42" stroke="url(#comp-grad-3)" stroke-width="4.85" stroke-linecap="round"/>
+    <path d="M22.9 33.88H2.42" stroke="url(#comp-grad-4)" stroke-width="4.85" stroke-linecap="round"/>
+    <path d="M22.9 44.3H2.42" stroke="url(#comp-grad-5)" stroke-width="4.85" stroke-linecap="round"/>
+    <path d="M32.12 32.13C35.75 28.5 41.64 28.5 45.27 32.13 48.9 35.76 48.9 41.65 45.27 45.28 41.64 48.91 35.75 48.91 32.12 45.28 28.49 41.65 28.49 35.76 32.12 32.13Z" fill="#E65C32"/>
+    <path d="M42.97 36.02L37.23 41.4 34.44 39" stroke="white" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

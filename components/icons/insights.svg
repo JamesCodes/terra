@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 48.48 48">
+  <defs>
+    <linearGradient id="insights-grad-1" x1="19.74" y1="25.16" x2="19.74" y2="37.7" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E65C32"/>
+      <stop offset="1" stop-color="#FBFAF5"/>
+    </linearGradient>
+    <linearGradient id="insights-grad-2" x1="28.74" y1="19" x2="28.74" y2="37.3" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E65C32"/>
+      <stop offset="1" stop-color="#FBFAF5"/>
+    </linearGradient>
+  </defs>
+  <path d="M24.24 1C37.09 1 47.48 11.31 47.48 24 47.48 36.69 37.09 47 24.24 47 11.4 47 1 36.69 1 24 1 11.31 11.4 1 24.24 1Z" stroke="#E65C32" stroke-width="2"/>
+  <rect x="15.24" y="25.16" width="9" height="9.94" fill="url(#insights-grad-1)"/>
+  <rect x="24.24" y="19" width="9" height="16.1" fill="url(#insights-grad-2)"/>
+  <circle cx="13.44" cy="21.37" r="1.87" fill="#E65C32"/>
+  <circle cx="22.37" cy="11.65" r="1.87" fill="#E65C32"/>
+  <circle cx="35.04" cy="14.81" r="1.87" fill="#E65C32"/>
+  <path d="M13.75 21.1L22.54 11.49 35.07 14.89" stroke="#E65C32" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

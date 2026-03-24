@@ -1,45 +1,46 @@
 import { type PropType, type PropValues, props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import type React from "react"
-import { Button } from "./button"
+import { createVariantMap } from "@/lib/utils"
+import { Button, type ButtonSize, type ButtonState, type ButtonVariant, buttonVariants } from "./button"
 
 import "../../../app/globals.css"
 
-export const variantMap = {
-  Primary: "default",
-  Outline: "outline",
-  Ghost: "ghost",
-  Link: "link",
-} as const
+export const variantMap = createVariantMap<ButtonVariant>(buttonVariants.variants.variant)
 
-export const sizeMap = {
-  Small: "sm",
-  Medium: "default",
-  Large: "lg",
-  "Icon Only": "icon",
-} as const
+export const stateMap = createVariantMap<ButtonState>(buttonVariants.variants.state)
+
+export const sizeMap = createVariantMap<ButtonSize>(buttonVariants.variants.size, {
+  sm: "Small",
+  md: "Medium",
+  lg: "Large",
+  icon: "Icon Only",
+})
 
 interface WebflowButtonProps {
   variant?: keyof typeof variantMap
   size?: keyof typeof sizeMap
+  state?: keyof typeof stateMap
   children?: string
   disabled?: boolean
   link?: PropValues[PropType.Link]
 }
 
 const WebflowButton: React.FC<WebflowButtonProps> = ({
-  variant = "Primary",
-  size = "Medium",
+  variant = "Default",
+  size = "Default",
+  state = "Default",
   children,
   disabled,
   link,
 }) => {
   const mappedVariant = variantMap[variant]
   const mappedSize = sizeMap[size]
+  const mappedState = stateMap[state]
 
   if (link?.href) {
     return (
-      <Button asChild variant={mappedVariant} size={mappedSize}>
+      <Button asChild variant={mappedVariant} size={mappedSize} state={mappedState}>
         <a href={link.href} target={link.target}>
           {children}
         </a>
@@ -48,7 +49,7 @@ const WebflowButton: React.FC<WebflowButtonProps> = ({
   }
 
   return (
-    <Button variant={mappedVariant} size={mappedSize} disabled={disabled}>
+    <Button variant={mappedVariant} size={mappedSize} state={mappedState} disabled={disabled}>
       {children}
     </Button>
   )
@@ -61,15 +62,21 @@ export default declareComponent(WebflowButton, {
   props: {
     variant: props.Variant({
       name: "Style",
-      options: ["Primary", "Outline", "Ghost", "Link"],
-      defaultValue: "Primary",
+      options: Object.keys(variantMap),
+      defaultValue: Object.keys(variantMap)[0],
       tooltip: "The visual style of the button",
     }),
     size: props.Variant({
       name: "Size",
-      options: ["Small", "Medium", "Large", "Icon Only"],
-      defaultValue: "Medium",
+      options: Object.keys(sizeMap),
+      defaultValue: Object.keys(sizeMap)[0],
       tooltip: "The size of the button",
+    }),
+    state: props.Variant({
+      name: "State",
+      options: Object.keys(stateMap),
+      defaultValue: Object.keys(stateMap)[0],
+      tooltip: "The interactive state of the button",
     }),
     children: props.Text({
       name: "Label",

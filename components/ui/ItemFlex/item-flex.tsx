@@ -8,17 +8,13 @@ interface ItemFlexProps
       itemMaxWidth: number
       paddingTop: number
       paddingBottom: number
+      itemAspectRatio: string
     }> {
-  itemAspectRatio?: string
   useAspectRatio?: boolean
   itemMaxWidthUnit?: "px" | "%"
 }
 
-function resolvecascade(
-  base: number,
-  tablet?: number,
-  mobile?: number,
-): [number, number, number] {
+function resolveCascade(base: number, tablet?: number, mobile?: number): [number, number, number] {
   const t = tablet == null || tablet === -1 ? base : tablet
   const m = mobile == null || mobile === -1 ? t : mobile
   return [base, t, m]
@@ -47,14 +43,16 @@ function ItemFlex({
   paddingBottomTablet,
   paddingBottomMobile,
   itemAspectRatio,
+  itemAspectRatioTablet,
+  itemAspectRatioMobile,
   useAspectRatio = true,
   itemMaxWidthUnit = "px",
   style,
   children,
   ...props
 }: ItemFlexProps) {
-  const [gapBase, gapT, gapM] = resolvecascade(gap, gapTablet, gapMobile)
-  const [mwBase, mwT, mwM] = resolvecascade(itemMaxWidth, itemMaxWidthTablet, itemMaxWidthMobile)
+  const [gapBase, gapT, gapM] = resolveCascade(gap, gapTablet, gapMobile)
+  const [mwBase, mwT, mwM] = resolveCascade(itemMaxWidth, itemMaxWidthTablet, itemMaxWidthMobile)
 
   return (
     <div
@@ -69,13 +67,17 @@ function ItemFlex({
           "--item-max-width": calcMaxWidth(mwBase, gapBase, itemMaxWidthUnit),
           "--item-max-width-tablet": calcMaxWidth(mwT, gapT, itemMaxWidthUnit),
           "--item-max-width-mobile": calcMaxWidth(mwM, gapM, itemMaxWidthUnit),
-          "--item-aspect-ratio": useAspectRatio ? itemAspectRatio : undefined,
+          ...(useAspectRatio
+            ? responsiveStyles({
+                "item-aspect-ratio": [itemAspectRatio ?? "", itemAspectRatioTablet, itemAspectRatioMobile],
+              })
+            : {}),
           ...style,
         } as React.CSSProperties
       }
       className={cn(
-        className,
         `flex w-full flex-row flex-wrap items-center justify-center ${responsiveClass("gap", "gap")} ${responsiveClass("pt", "pt")} ${responsiveClass("pb", "pb")} max-2xl:flex-wrap`,
+        className,
       )}
       {...props}
     >

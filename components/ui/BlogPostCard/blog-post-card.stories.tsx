@@ -3,20 +3,22 @@ import { selectArg, textArg } from "@/lib/storybook"
 import { BlogPostCard } from "./blog-post-card"
 import { propLabels, variantMap } from "./blog-post-card.webflow"
 import "../../../app/globals.css"
+import { FloatingPostImage } from "@/components/ui/FloatingPostImage/floating-post-image"
+import { Section } from "@/components/ui/Section/section"
+import { WebflowSlot } from "@/lib/storybook-webflow"
 
 const meta = {
   title: "Cards/Blog Post Card",
   component: BlogPostCard,
   parameters: {
-    layout: "centered",
+    layout: "fullscreen",
     controls: {
       exclude: ["image", "href", "className"],
     },
   },
   tags: ["autodocs"],
   args: {
-    variant: "Grid" as any,
-    category: "Featured",
+    variant: "Highlight" as any,
     title: "Blog Post Title",
     description: "A brief summary of the blog post content.",
     author: "Author Name",
@@ -24,7 +26,6 @@ const meta = {
   },
   argTypes: {
     variant: selectArg(propLabels.layout, variantMap),
-    category: textArg(propLabels.category),
     title: textArg(propLabels.title),
     description: textArg(propLabels.description),
     author: textArg(propLabels.author),
@@ -35,59 +36,85 @@ const meta = {
 export default meta
 type Story = StoryObj<any>
 
-export const Grid: Story = {
+export const Highlight: Story = {
   render: () => (
-    <div className="grid max-w-4xl grid-cols-3 gap-8 divide-x divide-border">
-      <BlogPostCard
-        variant="grid"
-        category="Featured"
-        title="When AI Becomes the Attack Surface: CVE-2026-25724"
-        author="Ofir Hamam"
-        date="February 24, 2026"
-        description="AI isn't just a tool anymore — it's an attack surface. Learn how we uncovered CVE-2026-25724 in an agentic AI coding tool."
-        href="#"
-        className="px-8 first:pl-0"
-      />
-      <BlogPostCard
-        variant="grid"
-        category="Research"
-        title="White Box Pentesting with Code & Business Context"
-        author="The Terra Team"
-        date="February 11, 2026"
-        description="Go beyond surface testing—white-box pentesting grounded in source code and business logic uncovers high-impact vulnerabilities."
-        href="#"
-        className="px-8"
-      />
-      <BlogPostCard
-        variant="grid"
-        category="Essential Guide"
-        title="Offensive Security Training in an AI World: 7 Essentials"
-        author="Shahar Peled"
-        date="January 20, 2026"
-        description="In an AI-powered threat landscape, offensive security training must evolve—explore the seven essential components."
-        href="#"
-        className="px-8"
-      />
-    </div>
+    <Section>
+      <div className="grid divide-border max-lg:divide-y md:grid-cols-3 lg:divide-x">
+        <WebflowSlot>
+          <BlogPostCard
+            variant="highlight"
+            category={{ name: "Featured" }}
+            title="When AI Becomes the Attack Surface: CVE-2026-25724"
+            author="Ofir Hamam"
+            date="February 24, 2026"
+            description="AI isn't just a tool anymore — it's an attack surface. Learn how we uncovered CVE-2026-25724 in an agentic AI coding tool."
+            href="#"
+          />
+        </WebflowSlot>
+        <WebflowSlot>
+          <BlogPostCard
+            variant="highlight"
+            category={{ name: "Research", url: "#" }}
+            title="White Box Pentesting with Code & Business Context"
+            author="The Terra Team"
+            date="February 11, 2026"
+            description="Go beyond surface testing—white-box pentesting grounded in source code and business logic uncovers high-impact vulnerabilities."
+            href="#"
+          />
+        </WebflowSlot>
+        <WebflowSlot>
+          <BlogPostCard
+            variant="highlight"
+            category={{ name: "Essential Guide" }}
+            title="Offensive Security Training in an AI World: 7 Essentials"
+            author="Shahar Peled"
+            date="January 20, 2026"
+            description="In an AI-powered threat landscape, offensive security training must evolve—explore the seven essential components."
+            href="#"
+          />
+        </WebflowSlot>
+      </div>
+    </Section>
   ),
 }
 
-export const GridWithImage: Story = {
-  args: {
-    variant: "Grid" as any,
-    image: {
-      src: "https://picsum.photos/seed/terra/600/400",
-      alt: "Blog cover",
-    },
-    category: "Research",
-    title: "White Box Pentesting with Code & Business Context",
-    author: "The Terra Team",
-    date: "February 11, 2026",
-    description:
-      "Go beyond surface testing—white-box pentesting grounded in source code and business logic.",
-    href: "#",
-    className: "max-w-sm",
-  },
+export const Listing: Story = {
+  render: () => (
+    <Section>
+      <div className="grid gap-5 md:grid-cols-3">
+        <BlogPostCard
+          variant="listing"
+          image={{ src: "https://picsum.photos/seed/terra1/600/400", alt: "Blog cover" }}
+          category={{ name: "Featured" }}
+          title="When AI Becomes the Attack Surface: CVE-2026-25724"
+          author="Ofir Hamam"
+          date="February 24, 2026"
+          description="AI isn't just a tool anymore — it's an attack surface. Learn how we uncovered CVE-2026-25724 in an agentic AI coding tool."
+          href="#"
+        />
+        <BlogPostCard
+          variant="listing"
+          image={{ src: "https://picsum.photos/seed/terra2/600/400", alt: "Blog cover" }}
+          category={{ name: "Research" }}
+          title="White Box Pentesting with Code & Business Context"
+          author="The Terra Team"
+          date="February 11, 2026"
+          description="Go beyond surface testing—white-box pentesting grounded in source code and business logic uncovers high-impact vulnerabilities."
+          href="#"
+        />
+        <BlogPostCard
+          variant="listing"
+          image={{ src: "https://picsum.photos/seed/terra3/600/400", alt: "Blog cover" }}
+          category={{ name: "Essential Guide" }}
+          title="Offensive Security Training in an AI World: 7 Essentials"
+          author="Shahar Peled"
+          date="January 20, 2026"
+          description="In an AI-powered threat landscape, offensive security training must evolve—explore the seven essential components."
+          href="#"
+        />
+      </div>
+    </Section>
+  ),
 }
 
 export const Featured: Story = {
@@ -97,12 +124,12 @@ export const Featured: Story = {
       src: "https://picsum.photos/seed/terra-featured/800/500",
       alt: "Featured post",
     },
-    category: "Featured",
+    category: { name: "Featured" },
     title: "When AI Becomes the Attack Surface",
     author: "Ofir Hamam",
     date: "February 24, 2026",
     description:
-      "AI isn’t just a tool anymore — it’s an attack surface. Learn how we uncovered CVE-2026-25724 in an agentic AI coding tool and why meaning and context now matter as much as code in security.",
+      "AI isn't just a tool anymore — it's an attack surface. Learn how we uncovered CVE-2026-25724 in an agentic AI coding tool and why meaning and context now matter as much as code in security.",
     href: "#",
     className: "max-w-6xl",
   },
@@ -110,25 +137,40 @@ export const Featured: Story = {
 
 export const List: Story = {
   render: () => (
-    <div className="flex max-w-2xl flex-col">
-      <BlogPostCard
-        variant="list"
-        title="API Security in AI-Enabled Platforms: Strategy, Risks, and Tactics"
-        category="Research"
-        date="February 1, 2026"
-      />
-      <BlogPostCard
-        variant="list"
-        title="The ATLAS AI Framework: Supercharging Security with AI"
-        category="Product"
-        date="January 15, 2026"
-      />
-      <BlogPostCard
-        variant="list"
-        title="How to Navigate AI Compliance Across New European AI Regulations"
-        category="Essential Guide"
-        date="January 8, 2026"
-      />
-    </div>
+    <Section gap={0}>
+      <WebflowSlot>
+        <FloatingPostImage />
+      </WebflowSlot>
+      <WebflowSlot>
+        <BlogPostCard
+          variant="list"
+          category={{ name: "Research", url: "#" }}
+          author="Gal Malachi"
+          title="API Security in AI-Enabled Platforms: Strategy, Risks, and Tactics"
+          date="February 1, 2026"
+          image={{ src: "https://picsum.photos/seed/terra-list1/800/700", alt: "Blog cover" }}
+        />
+      </WebflowSlot>
+      <WebflowSlot>
+        <BlogPostCard
+          variant="list"
+          category={{ name: "Product" }}
+          author="Gal Malachi"
+          title="The ATLAS AI Framework: Supercharging Security with AI"
+          date="January 15, 2026"
+          image={{ src: "https://picsum.photos/seed/terra-list2/800/700", alt: "Blog cover" }}
+        />
+      </WebflowSlot>
+      <WebflowSlot>
+        <BlogPostCard
+          variant="list"
+          category={{ name: "Essential Guide" }}
+          author="Gal Malachi"
+          title="How to Navigate AI Compliance Across New European AI Regulations"
+          date="January 8, 2026"
+          image={{ src: "https://picsum.photos/seed/terra-list3/800/700", alt: "Blog cover" }}
+        />
+      </WebflowSlot>
+    </Section>
   ),
 }

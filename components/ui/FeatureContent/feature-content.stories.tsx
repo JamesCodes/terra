@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
+import { iconArgTypes } from "@/components/ui/AnimatedIcon/animated-icon.webflow"
 import { Section } from "@/components/ui/Section/section"
 import { selectArg, textArg } from "@/lib/storybook"
 import { FeatureContent } from "./feature-content"
-import { propLabels, variantMap } from "./feature-content.webflow"
+import { variantMap } from "./feature-content.webflow"
 
 import "../../../app/globals.css"
-import { AnimatedIcon } from "@/components/ui/AnimatedIcon/animated-icon"
 
 const meta = {
   title: "Content Blocks/Feature Content",
@@ -21,9 +21,10 @@ const meta = {
     description: "A brief description of this feature and its benefits.",
   },
   argTypes: {
-    variant: selectArg(propLabels.variant, variantMap),
-    title: textArg(propLabels.title),
-    description: textArg(propLabels.description),
+    variant: selectArg("Layout", variantMap),
+    title: textArg("Title"),
+    description: textArg("Description"),
+    ...iconArgTypes(),
   },
 } satisfies Meta<any>
 
@@ -46,11 +47,7 @@ function FeatureContentStory({ variant, title, description, icon, section }: any
 
 export const Default: Story = {
   render: (args: any) => (
-    <FeatureContentStory
-      {...args}
-      icon={<AnimatedIcon icon="target" />}
-      section={{ variant: "chalk", paddingBottom: 0 }}
-    />
+    <FeatureContentStory {...args} icon="target" section={{ variant: "chalk", paddingBottom: 0 }} />
   ),
 }
 

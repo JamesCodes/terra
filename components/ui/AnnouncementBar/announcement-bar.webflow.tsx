@@ -16,6 +16,7 @@ interface WebflowAnnouncementBarProps {
   link3?: PropValues[PropType.Link]
   autoRotate?: boolean
   rotateInterval?: number
+  dismissible?: boolean
 }
 
 const WebflowAnnouncementBar: React.FC<WebflowAnnouncementBarProps> = ({
@@ -29,6 +30,7 @@ const WebflowAnnouncementBar: React.FC<WebflowAnnouncementBarProps> = ({
   link3,
   autoRotate,
   rotateInterval,
+  dismissible,
 }) => {
   const announcements: Announcement[] = []
 
@@ -63,6 +65,7 @@ const WebflowAnnouncementBar: React.FC<WebflowAnnouncementBarProps> = ({
       announcements={announcements}
       autoRotate={autoRotate}
       rotateInterval={rotateInterval}
+      dismissible={dismissible}
     />
   )
 }
@@ -131,6 +134,14 @@ export default declareComponent(WebflowAnnouncementBar, {
       max: 120,
       tooltip: "Seconds between each rotation",
       group: "Auto Rotate",
+    }),
+    dismissible: props.Boolean({
+      name: "Dismissible",
+      defaultValue: false,
+      trueLabel: "Yes",
+      falseLabel: "No",
+      tooltip: "Show a close button that hides the bar for the session",
+      group: "Dismiss",
     }),
   },
   options: { ssr: false },

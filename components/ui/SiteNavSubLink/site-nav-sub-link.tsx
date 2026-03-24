@@ -18,12 +18,12 @@ function SiteNavSubLink({ image, label, className, ...props }: SiteNavSubLinkPro
           <img
             src={image.src}
             alt={image.alt || ""}
-            className="aspect-3/2 w-full object-cover md:aspect-2/1 lg:aspect-3/2"
+            className="aspect-3/2 w-full object-cover transition-all duration-300 group-hover:opacity-90 md:aspect-2/1 lg:aspect-3/2"
           />
         </div>
       )}
       {label && (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 transition-all group-hover:text-accent">
           <span className="font-medium text-xl lg:text-base">{label}</span>
           <ArrowRight className="size-5" />
         </div>

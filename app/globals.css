@@ -12,6 +12,7 @@
 @source inline("{,max-lg:,max-md:}gap-(--{gap,gap-tablet,gap-mobile})");
 @source inline("{,max-lg:,max-md:}gap-y-(--{gap-y,gap-y-tablet,gap-y-mobile})");
 @source inline("{,max-lg:,max-md:}max-w-(--{item-max-width,item-max-width-tablet,item-max-width-mobile})");
+@source inline("{,max-lg:,max-md:}aspect-(--{item-aspect-ratio,item-aspect-ratio-tablet,item-aspect-ratio-mobile})");
 
 @theme inline {
   --breakpoint-sm: 479px;
@@ -71,13 +72,15 @@
   --color-magma: var(--brand-color-magma);
   --color-moss: var(--brand-color-moss);
   --color-disabled: var(--brand-color-disabled);
+
+  --size-header-height: 100px;
 }
 
 :root,
 .dark {
   --brand-color-chalk: oklch(98.449% 0.00657 97.462);
   --brand-color-terracotta: oklch(64.699% 0.18061 37.081);
-  --brand-color-dark-terracotta: oklch(50.186% 0.16198 37.002);
+  --brand-color-dark-terracotta: oklch(56.075% 0.17205 37.821);
   --brand-color-obsidian: oklch(17.727% 0.0081 95.523);
   --brand-color-destructive: oklch(56.645% 0.19776 32.713);
   --brand-color-granite: oklch(35.618% 0.00004 271.152);
@@ -150,13 +153,13 @@
 }
 
 @utility appear-up {
-  @apply translate-y-0;
-  @apply starting:translate-y-4;
+  @apply translate-y-0 ease-out;
+  @apply starting:translate-y-4 starting:lg:translate-y-8;
 }
 
-@utility blur-in {
-  @apply blur-none opacity-100 transition-all duration-500 ease-in;
-  @apply starting:opacity-0 starting:blur-xl;
+@utility fade-in {
+  @apply opacity-100 transition-all duration-700 ease-in-out;
+  @apply starting:opacity-0;
 }
 
 @utility responsive-height {
@@ -180,16 +183,16 @@
 }
 
 @utility gradient-border {
-  @apply bg-linear-to-b from-accent/8 to-transparent;
-  @apply before:pointer-events-none before:absolute before:inset-0 before:rounded-2xl before:p-px;
+  @apply bg-linear-to-b from-accent/8 to-transparent rounded-2xl lg:rounded-3xl;
+  @apply before:pointer-events-none before:absolute before:inset-0 before:rounded-2xl lg:before:rounded-2xl before:p-px;
   @apply before:content-[''] before:bg-linear-to-b before:from-accent before:to-background/10;
   @apply before:mask-[linear-gradient(#fff_0_0),linear-gradient(#fff_0_0)];
   @apply before:[mask-clip:content-box,border-box] before:mask-exclude;
 }
 
 @utility gradient-border-diagonal {
-  @apply bg-linear-to-b from-accent/8 to-transparent;
-  @apply before:pointer-events-none before:absolute before:inset-0 before:rounded-3xl before:p-px;
+  @apply bg-linear-to-b from-accent/8 to-transparent rounded-2xl lg:rounded-3xl;
+  @apply before:pointer-events-none before:absolute before:inset-0 before:rounded-2xl lg:before:rounded-3xl before:p-px;
   @apply before:content-[''] before:bg-linear-to-bl before:from-accent before:to-background;
   @apply before:mask-[linear-gradient(#fff_0_0),linear-gradient(#fff_0_0)];
   @apply before:[mask-clip:content-box,border-box] before:mask-exclude;
@@ -257,12 +260,21 @@
   @apply text-sm leading-5.5 lg:text-base lg:leading-6;
 }
 
+@utility richtext-cast-body2 {
+  @apply max-lg:[--_richtext---paragraph-font-size:0.875rem] max-lg:[--_richtext---paragraph-line-height:1.375rem];
+  @apply lg:[--_richtext---paragraph-font-size:1rem] lg:[--_richtext---paragraph-line-height:1.5rem];
+}
+
 @utility brand-caption {
   @apply text-xs leading-4.5;
 }
 
 @utility brand-tags {
   @apply font-semibold text-[10px] leading-3.5;
+}
+
+@utility card-shadow {
+  @apply shadow-[0px_4px_36px_0px_rgba(0,0,0,0.05)];
 }
 
 /* Tailwind v4 relies on @property declarations to set initial values for its
@@ -367,11 +379,138 @@
     --tw-exit-translate-x: 0;
     --tw-exit-translate-y: 0;
   }
+  html,
   body {
     @apply bg-background text-foreground;
   }
+
   slot,
   ::slotted(div[slot]) {
     @apply contents;
+  }
+}
+
+@layer base {
+  /* Headings */
+  .w-richtext h1 {
+    @apply font-serif text-[32px] leading-10.5 mb-6 lg:text-5xl lg:leading-15;
+  }
+  .w-richtext h2 {
+    @apply font-serif text-2xl leading-8 mb-3 mt-10 lg:text-[32px] lg:leading-10.5;
+  }
+  .w-richtext h3 {
+    @apply font-serif text-xl leading-7 mb-3 mt-8 lg:text-[28px] lg:leading-8.5;
+  }
+  .w-richtext h4 {
+    @apply font-serif text-base mb-2 mt-6 lg:text-[20px] lg:leading-6;
+  }
+  .w-richtext h5 {
+    @apply font-sans text-base font-semibold mb-2 mt-6;
+  }
+  .w-richtext h6 {
+    @apply font-sans text-base font-semibold mb-2 mt-6;
+  }
+
+  /* Body text */
+  .w-richtext p {
+    @apply text-base leading-6 tracking-tight mb-4 lg:text-lg lg:leading-7.5;
+  }
+
+  /* Links */
+  .w-richtext a {
+    @apply font-mono font-medium text-accent;
+  }
+  .w-richtext a:hover {
+    @apply underline;
+  }
+
+  /* Inline formatting */
+  .w-richtext strong {
+    @apply font-bold;
+  }
+  .w-richtext b {
+    @apply font-bold;
+  }
+  .w-richtext em {
+    @apply italic;
+  }
+  .w-richtext i {
+    @apply italic;
+  }
+
+  /* Lists */
+  .w-richtext ul {
+    @apply list-disc ml-7 mb-4;
+  }
+  .w-richtext ol {
+    @apply list-decimal ml-7 mb-4;
+  }
+  .w-richtext li {
+    @apply mb-4 text-base leading-6 tracking-tight lg:text-lg lg:leading-7.5;
+  }
+  .w-richtext li:last-child {
+    @apply mb-0;
+  }
+  .w-richtext li p:last-child {
+    @apply mb-0;
+  }
+
+  /* Nested lists */
+  .w-richtext ol ol {
+    @apply ml-14 mt-4;
+  }
+  .w-richtext ol ul {
+    @apply ml-7 mt-4 list-disc;
+  }
+  .w-richtext ul ul {
+    @apply ml-7 mt-4 list-disc;
+  }
+  .w-richtext ul ol {
+    @apply ml-7 mt-4 list-decimal;
+  }
+
+  /* Tables */
+  .w-richtext table {
+    @apply w-full border border-border rounded-2xl overflow-hidden my-8 border-separate border-spacing-0;
+  }
+  .w-richtext thead {
+    @apply bg-border;
+  }
+  .w-richtext th {
+    @apply px-8 py-6 text-left font-bold text-base tracking-tight leading-6;
+  }
+  .w-richtext td {
+    @apply px-8 py-6 text-base tracking-tight leading-6;
+  }
+  .w-richtext tbody tr + tr td {
+    @apply border-t border-border;
+  }
+  .w-richtext tbody tr + tr th {
+    @apply border-t border-border;
+  }
+  .w-richtext th + th {
+    @apply border-l border-border;
+  }
+  .w-richtext td + td {
+    @apply border-l border-border;
+  }
+  .w-richtext thead + tbody tr:first-child td {
+    @apply border-t border-border;
+  }
+
+  /* Blockquote & HR */
+  .w-richtext blockquote {
+    @apply border-l-4 border-accent pl-6 my-6 italic;
+  }
+  .w-richtext hr {
+    @apply border-t border-border my-10;
+  }
+
+  /* First/last child margin reset */
+  .w-richtext > :first-child {
+    @apply mt-0;
+  }
+  .w-richtext > :last-child {
+    @apply mb-0;
   }
 }

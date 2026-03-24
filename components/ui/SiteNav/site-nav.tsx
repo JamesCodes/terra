@@ -1,11 +1,11 @@
-"use client"
-
 import { useGSAP } from "@gsap/react"
 import { useWebflowContext } from "@webflow/react"
 import gsap from "gsap"
 import { Menu, X } from "lucide-react"
-import * as React from "react"
+import { Children, type ReactNode, useCallback, useEffect, useRef, useState } from "react"
+import LinkedInIcon from "@/components/icons/linkedin.svg"
 import TerraLogo from "@/components/icons/terra-logo.svg"
+import YouTubeIcon from "@/components/icons/youtube.svg"
 import { Button } from "@/components/ui/Button/button"
 import type { NavMeasureDetail } from "@/lib/nav-link-events"
 import { NAV_LINK_EVENTS } from "@/lib/nav-link-events"
@@ -23,13 +23,21 @@ interface WaypointItem {
 interface SiteNavProps {
   className?: string
   logoHref?: string
-  navLinks?: React.ReactNode
+  navLinks?: ReactNode
   panelDescription?: string
   showCta?: boolean
+  showCtaOnStuck?: boolean
   ctaLabel?: string
   ctaHref?: string
   ctaTarget?: string
-  announcementBar?: React.ReactNode
+  announcementBar?: ReactNode
+  showLinkedin?: boolean
+  linkedinHref?: string
+  linkedinTarget?: string
+  showYoutube?: boolean
+  youtubeHref?: string
+  youtubeTarget?: string
+  stuckText?: string
 }
 
 function SiteNav({
@@ -38,30 +46,42 @@ function SiteNav({
   navLinks,
   panelDescription,
   showCta,
+  showCtaOnStuck,
   ctaLabel,
   ctaHref,
   ctaTarget,
   announcementBar,
+  showLinkedin,
+  linkedinHref,
+  linkedinTarget,
+  showYoutube,
+  youtubeHref,
+  youtubeTarget,
+  stuckText,
 }: SiteNavProps) {
-  const [mobileOpen, setMobileOpen] = React.useState(false)
-  const [spacerHeight, setSpacerHeight] = React.useState<number>(0)
-  const [waypoints, setWaypoints] = React.useState<WaypointItem[]>([])
-  const [activeWaypointId, setActiveWaypointId] = React.useState<string | null>(null)
-  const fixedRef = React.useRef<HTMLDivElement>(null)
-  const navRowRef = React.useRef<HTMLDivElement>(null)
-  const announcementRef = React.useRef<HTMLDivElement>(null)
-  const linksRef = React.useRef<HTMLDivElement>(null)
-  const waypointLinksRef = React.useRef<HTMLDivElement>(null)
-  const menuRef = React.useRef<HTMLDivElement>(null)
-  const menuTweenRef = React.useRef<gsap.core.Tween | null>(null)
-  const menuWasOpenRef = React.useRef(false)
-  const intersectingRef = React.useRef<Set<string>>(new Set())
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [spacerHeight, setSpacerHeight] = useState<number>(0)
+  const [waypoints, setWaypoints] = useState<WaypointItem[]>([])
+  const [activeWaypointId, setActiveWaypointId] = useState<string | null>(null)
+  const fixedRef = useRef<HTMLDivElement>(null)
+  const navRowRef = useRef<HTMLDivElement>(null)
+  const announcementRef = useRef<HTMLDivElement>(null)
+  const linksRef = useRef<HTMLDivElement>(null)
+  const waypointLinksRef = useRef<HTMLDivElement>(null)
+  const logoRef = useRef<HTMLAnchorElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const stuckTextRef = useRef<HTMLSpanElement>(null)
+  const stuckCtaRef = useRef<HTMLDivElement>(null)
+  const menuTweenRef = useRef<gsap.core.Tween | null>(null)
+  const menuWasOpenRef = useRef(false)
+  const intersectingRef = useRef<Set<string>>(new Set())
+  const programmaticScrollRef = useRef(false)
   const { mode } = useWebflowContext()
   const isDesigning = mode === "design" || mode === "edit" || mode === "build"
 
-  const hasNavLinks = React.Children.count(navLinks) > 0
+  const hasNavLinks = Children.count(navLinks) > 0
 
-  const handleMobileToggle = React.useCallback(() => {
+  const handleMobileToggle = useCallback(() => {
     setMobileOpen((prev) => {
       if (prev) {
         window.dispatchEvent(new CustomEvent(NAV_LINK_EVENTS.CLOSE_ALL))
@@ -70,40 +90,39 @@ function SiteNav({
     })
   }, [])
 
-  React.useEffect(() => {
-    const menu = menuRef.current
-    if (!menu) return
+  useGSAP(
+    () => {
+      const menu = menuRef.current
+      if (!menu) return
 
-    menuTweenRef.current?.kill()
-
-    if (mobileOpen) {
-      menuWasOpenRef.current = true
-      gsap.set(menu, { display: "flex", opacity: 0, y: -8 })
-      menuTweenRef.current = gsap.to(menu, {
-        opacity: 1,
-        y: 0,
-        duration: 0.25,
-        ease: "power2.out",
-      })
-    } else if (menuWasOpenRef.current) {
-      menuWasOpenRef.current = false
-      menuTweenRef.current = gsap.to(menu, {
-        opacity: 0,
-        y: -8,
-        duration: 0.2,
-        ease: "power2.in",
-        onComplete: () => {
-          gsap.set(menu, { clearProps: "display,opacity,y" })
-        },
-      })
-    }
-
-    return () => {
       menuTweenRef.current?.kill()
-    }
-  }, [mobileOpen])
 
-  React.useEffect(() => {
+      if (mobileOpen) {
+        menuWasOpenRef.current = true
+        gsap.set(menu, { display: "flex", opacity: 0, y: -8 })
+        menuTweenRef.current = gsap.to(menu, {
+          opacity: 1,
+          y: 0,
+          duration: 0.25,
+          ease: "power2.out",
+        })
+      } else if (menuWasOpenRef.current) {
+        menuWasOpenRef.current = false
+        menuTweenRef.current = gsap.to(menu, {
+          opacity: 0,
+          y: -8,
+          duration: 0.2,
+          ease: "power2.in",
+          onComplete: () => {
+            gsap.set(menu, { clearProps: "display,opacity,y" })
+          },
+        })
+      }
+    },
+    { dependencies: [mobileOpen] },
+  )
+
+  useEffect(() => {
     const el = fixedRef.current
     if (!el) return
 
@@ -115,7 +134,7 @@ function SiteNav({
     return () => ro.disconnect()
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const onMeasureNav = (e: Event) => {
       const detail = (e as CustomEvent<NavMeasureDetail>).detail
       const row = navRowRef.current
@@ -133,7 +152,7 @@ function SiteNav({
     return () => window.removeEventListener(NAV_LINK_EVENTS.MEASURE_NAV, onMeasureNav)
   }, [panelDescription, showCta, ctaLabel, ctaHref, ctaTarget])
 
-  React.useEffect(() => {
+  useEffect(() => {
     const onRegister = (e: Event) => {
       const { id, label, order, element } = (e as CustomEvent<WaypointRegisterDetail>).detail
       setWaypoints((prev) => {
@@ -152,12 +171,13 @@ function SiteNav({
     const onEnter = (e: Event) => {
       const { id } = (e as CustomEvent<WaypointIdDetail>).detail
       intersectingRef.current.add(id)
-      setActiveWaypointId(id)
+      if (!programmaticScrollRef.current) setActiveWaypointId(id)
     }
 
     const onLeave = (e: Event) => {
       const { id } = (e as CustomEvent<WaypointIdDetail>).detail
       intersectingRef.current.delete(id)
+      if (programmaticScrollRef.current) return
       setActiveWaypointId((prev) => {
         if (prev !== id) return prev
         const remaining = intersectingRef.current
@@ -180,9 +200,14 @@ function SiteNav({
   }, [])
 
   const scrollToWaypoint = (wp: WaypointItem) => {
-    const navbarHeight = fixedRef.current?.offsetHeight ?? 80
-    const y = wp.element.getBoundingClientRect().top + window.scrollY - navbarHeight
-    window.scrollTo({ top: y, behavior: "smooth" })
+    setActiveWaypointId(wp.id)
+    const fullHeight = fixedRef.current?.offsetHeight ?? 80
+    const announcementHeight = announcementRef.current?.offsetHeight ?? 0
+    const navRowHeight = fullHeight - announcementHeight
+    const y = wp.element.getBoundingClientRect().top + window.scrollY - navRowHeight
+    const scrollsToTop = y <= announcementHeight
+    if (!scrollsToTop) programmaticScrollRef.current = true
+    window.scrollTo({ top: scrollsToTop ? 0 : y, behavior: "smooth" })
   }
 
   useGSAP(
@@ -201,50 +226,140 @@ function SiteNav({
       const setWaypointOpacity =
         isLg && waypointLinks ? gsap.quickSetter(waypointLinks, "opacity") : null
 
-      const onScroll = () => {
-        const scrollY = window.scrollY
+      const logoTextEl = logoRef.current?.querySelector("[class$='logo-text']") as SVGElement | null
+      const setLogoTextOpacity =
+        logoTextEl && stuckText ? gsap.quickSetter(logoTextEl, "opacity") : null
+
+      const stuckTextEl = stuckTextRef.current
+      const setStuckTextOpacity =
+        isLg && stuckTextEl ? gsap.quickSetter(stuckTextEl, "opacity") : null
+
+      const stuckCta = stuckCtaRef.current
+      const animateStuckCta = isLg && stuckCta && showCtaOnStuck && !showCta
+      const setStuckCtaOpacity = animateStuckCta ? gsap.quickSetter(stuckCta, "opacity") : null
+
+      let lastScrollY = window.scrollY
+      let targetProgress = window.scrollY > 10 ? 1 : 0
+      let currentProgress = targetProgress
+      let progressTween: gsap.core.Tween | null = null
+      const scrollThreshold = 5
+
+      const applyProgress = (progress: number) => {
+        currentProgress = progress
         const announcementHeight = announcement?.offsetHeight ?? 0
 
-        if (setY) {
-          setY(-Math.min(scrollY, announcementHeight))
+        if (progress === 0 || progress === 1) {
+          const visibleHeight = (fixed?.offsetHeight ?? 80) - announcementHeight * progress
+          document.documentElement.style.setProperty("--nav-height", `${visibleHeight}px`)
         }
 
-        const linkProgress = Math.min(scrollY / 80, 1)
+        if (setY) {
+          setY(-announcementHeight * progress)
+        }
+
+        if (setLogoTextOpacity) {
+          setLogoTextOpacity(1 - Math.min(progress * 2, 1))
+        }
+
+        if (setStuckTextOpacity && stuckTextEl) {
+          const textOpacity = Math.max((progress - 0.5) * 2, 0)
+          setStuckTextOpacity(textOpacity)
+          stuckTextEl.style.pointerEvents = textOpacity >= 1 ? "auto" : "none"
+        }
 
         if (setOpacity && links) {
-          const mainOpacity = 1 - Math.min(linkProgress * 2, 1)
+          const mainOpacity = 1 - Math.min(progress * 2, 1)
           setOpacity(mainOpacity)
           links.style.pointerEvents = mainOpacity <= 0 ? "none" : ""
         }
 
         if (setWaypointOpacity && waypointLinks) {
-          const wpOpacity = Math.max((linkProgress - 0.5) * 2, 0)
+          const wpOpacity = Math.max((progress - 0.5) * 2, 0)
           setWaypointOpacity(wpOpacity)
-          waypointLinks.style.pointerEvents = wpOpacity >= 1 ? "" : "none"
+          waypointLinks.style.pointerEvents = wpOpacity >= 1 ? "auto" : "none"
+        }
+
+        if (setStuckCtaOpacity && stuckCta) {
+          const ctaOpacity = Math.max((progress - 0.5) * 2, 0)
+          setStuckCtaOpacity(ctaOpacity)
+          stuckCta.style.display = ctaOpacity > 0 ? "" : "none"
+          stuckCta.style.pointerEvents = ctaOpacity >= 1 ? "" : "none"
+        }
+      }
+
+      const animateToProgress = (target: number) => {
+        if (target === targetProgress) return
+        targetProgress = target
+        progressTween?.kill()
+        const proxy = { value: currentProgress }
+        progressTween = gsap.to(proxy, {
+          value: target,
+          duration: 0.3,
+          ease: "power2.out",
+          onUpdate: () => applyProgress(proxy.value),
+        })
+      }
+
+      let scrollEndTimer = 0
+
+      const onScroll = () => {
+        const scrollY = window.scrollY
+        const delta = scrollY - lastScrollY
+        lastScrollY = scrollY
+
+        if (scrollY <= 10) {
+          animateToProgress(0)
+          if (programmaticScrollRef.current) {
+            programmaticScrollRef.current = false
+            window.clearTimeout(scrollEndTimer)
+          }
+          return
+        }
+
+        if (programmaticScrollRef.current) {
+          window.clearTimeout(scrollEndTimer)
+          scrollEndTimer = window.setTimeout(() => {
+            programmaticScrollRef.current = false
+          }, 100)
+          return
+        }
+
+        if (delta > scrollThreshold) {
+          animateToProgress(1)
+        } else if (delta < -scrollThreshold) {
+          animateToProgress(0)
         }
       }
 
       window.addEventListener("scroll", onScroll, { passive: true })
-      onScroll()
+      applyProgress(currentProgress)
 
       return () => {
         window.removeEventListener("scroll", onScroll)
+        window.clearTimeout(scrollEndTimer)
+        progressTween?.kill()
       }
     },
-    { dependencies: [isDesigning, waypoints.length], revertOnUpdate: true },
+    {
+      dependencies: [isDesigning, waypoints.length, showCtaOnStuck, showCta, stuckText],
+      revertOnUpdate: true,
+    },
   )
 
   return (
     <div style={{ height: spacerHeight }} className="w-full">
-      <div ref={fixedRef} className="fixed z-50 w-full blur-in">
+      <div ref={fixedRef} className="fixed z-50 w-full">
         {announcementBar && (
-          <div ref={announcementRef} data-slot="navbar-announcement">
+          <div ref={announcementRef} data-slot="navbar-announcement" className="fade-in delay-100">
             {announcementBar}
           </div>
         )}
         <nav
           data-slot="navbar"
-          className={cn("relative w-full border-b bg-background text-foreground", className)}
+          className={cn(
+            "fade-in relative w-full border-b bg-background text-foreground delay-500",
+            className,
+          )}
         >
           <div
             ref={navRowRef}
@@ -256,20 +371,31 @@ function SiteNav({
               },
             )}
           >
-            <a href={logoHref} data-slot="navbar-logo" className="shrink-0">
-              <TerraLogo className="h-auto w-28.75" />
-            </a>
+            <div className="flex flex-row items-center">
+              <a ref={logoRef} href={logoHref} data-slot="navbar-logo" className="shrink-0">
+                <TerraLogo className="h-auto w-28.75" />
+              </a>
+              {stuckText && (
+                <span
+                  ref={stuckTextRef}
+                  data-slot="navbar-stuck-text"
+                  className="pointer-events-none -ml-4 whitespace-nowrap font-bold text-lg opacity-0 max-lg:hidden"
+                >
+                  {stuckText}
+                </span>
+              )}
+            </div>
 
             {(hasNavLinks || waypoints.length > 0) && (
               <div
                 ref={menuRef}
                 data-slot="navbar-mobile-menu"
                 className={cn(
-                  "max-lg:min-h-svh lg:relative lg:flex lg:h-full lg:grow lg:items-center lg:justify-end",
+                  "max-lg:min-h-[calc(100svh-80px)] lg:relative lg:flex lg:h-full lg:grow lg:items-center lg:justify-end",
                   "max-lg:absolute max-lg:inset-x-0 max-lg:top-full max-lg:z-50",
                   "max-lg:hidden max-lg:flex-col",
                   "max-lg:border-border max-lg:border-b max-lg:bg-background",
-                  "max-lg:px-6 max-lg:pb-8 max-lg:md:px-12",
+                  "max-lg:flex-col max-lg:px-6 max-lg:pb-8 max-lg:md:px-12",
                   {
                     "pointer-events-auto": mobileOpen,
                   },
@@ -288,6 +414,7 @@ function SiteNav({
                       "max-lg:[--link-letter-spacing:-0.02em] max-lg:[--link-line-height:40px]",
                       "max-lg:[--link-padding-block:20px] max-lg:md:[--link-padding-block:24px]",
                       "max-lg:[--link-border-color:var(--color-border)] max-lg:[--link-width:100%]",
+                      "max-lg:pointer-events-auto! max-lg:opacity-100!",
                       {
                         "opacity-0": isDesigning && waypoints.length > 0,
                       },
@@ -316,7 +443,7 @@ function SiteNav({
                         size="link"
                         state={activeWaypointId === wp.id ? "active" : "default"}
                         className={cn(
-                          "pointer-events-auto relative whitespace-nowrap font-medium text-sm transition-colors",
+                          "relative whitespace-nowrap font-medium text-sm transition-colors",
                           {
                             "text-foreground": activeWaypointId === wp.id,
                             "text-muted-foreground hover:text-foreground":
@@ -330,13 +457,39 @@ function SiteNav({
                   </div>
                 )}
 
-                {showCta && ctaLabel && ctaHref && (
-                  <div className="mt-8 lg:hidden">
+                {(showCta || showCtaOnStuck) && ctaLabel && ctaHref && (
+                  <div className="flex max-w-50 grow flex-col justify-end gap-6 text-balance lg:hidden">
+                    {panelDescription}
                     <Button asChild variant="default" size="sm" className="w-fit">
                       <a href={ctaHref} target={ctaTarget}>
                         {ctaLabel}
                       </a>
                     </Button>
+                  </div>
+                )}
+
+                {(showLinkedin || showYoutube) && (
+                  <div className="mt-12 mt-6 flex gap-3 border-border border-t pt-10 lg:hidden">
+                    {showYoutube && youtubeHref && (
+                      <a
+                        href={youtubeHref}
+                        target={youtubeTarget}
+                        aria-label="YouTube"
+                        className="text-foreground/60"
+                      >
+                        <YouTubeIcon className="size-5" />
+                      </a>
+                    )}
+                    {showLinkedin && linkedinHref && (
+                      <a
+                        href={linkedinHref}
+                        target={linkedinTarget}
+                        aria-label="LinkedIn"
+                        className="text-foreground/60"
+                      >
+                        <LinkedInIcon className="size-5" />
+                      </a>
+                    )}
                   </div>
                 )}
               </div>
@@ -349,6 +502,16 @@ function SiteNav({
                     {ctaLabel}
                   </a>
                 </Button>
+              )}
+
+              {!showCta && showCtaOnStuck && ctaLabel && ctaHref && (
+                <div ref={stuckCtaRef} style={{ display: "none" }} className="max-lg:hidden!">
+                  <Button asChild variant="default" size="sm">
+                    <a href={ctaHref} target={ctaTarget}>
+                      {ctaLabel}
+                    </a>
+                  </Button>
+                </div>
               )}
 
               {hasNavLinks && (

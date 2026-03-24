@@ -27,7 +27,7 @@ function StatementBlockItem({
           {heading}
         </Heading>
       )}
-      {description && <p className="brand-body2 text-granite">{description}</p>}
+      {description && <p className="richtext-cast-body2 text-granite">{description}</p>}
     </div>
   )
 }

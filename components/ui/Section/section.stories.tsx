@@ -1,8 +1,9 @@
+/// <reference types="vite/client" />
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
+import { variantMap as buttonVariantMap } from "@/components/ui/Button/button.webflow"
 import { levelMap } from "@/components/ui/Heading/heading.webflow"
 import { booleanArg, numberArg, responsiveArgs, selectArg, textArg } from "@/lib/storybook"
 import { Section } from "./section"
-import { variantMap as buttonVariantMap } from "@/components/ui/Button/button.webflow"
 import { propLabels, variantMap } from "./section.webflow"
 
 import "../../../app/globals.css"
@@ -27,6 +28,7 @@ const meta = {
     buttonText: "Learn More",
     buttonVariant: "Primary" as any,
     showButton: false,
+    pattern: "/images/bg-pattern.svg",
     showPattern: false,
     fadePattern: true,
     gap: 80,
@@ -57,9 +59,19 @@ const meta = {
     buttonVariant: selectArg(propLabels.buttonVariant, buttonVariantMap),
     showButton: booleanArg(propLabels.showButton),
     showPattern: booleanArg("Show Pattern"),
-    fadePattern: booleanArg("Fade Background"),
+    fadePattern: booleanArg("Fade Pattern"),
   },
-  render: ({ showLabel, showHeading, showText, showButton, label, heading, text, buttonText, ...args }) => (
+  render: ({
+    showLabel,
+    showHeading,
+    showText,
+    showButton,
+    label,
+    heading,
+    text,
+    buttonText,
+    ...args
+  }) => (
     <Section
       {...args}
       label={showLabel ? label : undefined}
@@ -107,6 +119,45 @@ export const Magma: Story = {
     heading: "Security that scales with you.",
     showPattern: true,
     fadePattern: false,
+  },
+}
+
+export const Sand: Story = {
+  args: {
+    variant: "Sand",
+    heading: "Security that scales with you.",
+    showPattern: true,
+    fadePattern: false,
+  },
+}
+
+export const Terracotta: Story = {
+  args: {
+    variant: "Terracotta",
+    heading: "Security that scales with you.",
+    showPattern: false,
+    fadePattern: false,
+  },
+}
+
+const patternGlob = import.meta.glob("/public/images/patterns/*.svg")
+const patternMap: Record<string, string> = {}
+for (const path of Object.keys(patternGlob)) {
+  const name = path.split("/")?.pop()?.replace(".svg", "")
+  if (name) patternMap[name] = path.replace("/public", "")
+}
+const defaultPattern = Object.keys(patternMap)[0]
+
+export const WithPattern: Story = {
+  args: {
+    variant: "Chalk",
+    heading: "Leave nothing unvalidated.",
+    showPattern: true,
+    fadePattern: true,
+    pattern: defaultPattern as any,
+  },
+  argTypes: {
+    pattern: selectArg("Pattern", patternMap),
   },
 }
 

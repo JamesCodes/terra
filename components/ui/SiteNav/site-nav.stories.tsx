@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import type React from "react"
-import { SiteLink } from "@/components/ui/SiteLink/site-link"
 import { SiteNavLink } from "@/components/ui/SiteNavLink/site-nav-link"
 import { SiteNavSubLink } from "@/components/ui/SiteNavSubLink/site-nav-sub-link"
 import { WaypointSection } from "@/components/ui/WaypointSection/waypoint-section"
@@ -31,16 +30,20 @@ const SAMPLE_CARDS = [
 const DefaultNavLinks = () => (
   <WebflowSlot>
     <SiteNavLink label="Products" isGroup>
-      {SAMPLE_CARDS.map((card) => (
-        <SiteNavSubLink key={card.label} image={card.image} label={card.label} href={card.href} />
-      ))}
+      <WebflowSlot>
+        {SAMPLE_CARDS.map((card) => (
+          <SiteNavSubLink key={card.label} image={card.image} label={card.label} href={card.href} />
+        ))}
+      </WebflowSlot>
     </SiteNavLink>
     <SiteNavLink label="About Us" href="#about" />
     <SiteNavLink label="Stories" href="#stories" />
     <SiteNavLink label="Resources" isGroup>
-      {SAMPLE_CARDS.map((card) => (
-        <SiteNavSubLink key={card.label} image={card.image} label={card.label} href={card.href} />
-      ))}
+      <WebflowSlot>
+        {SAMPLE_CARDS.map((card) => (
+          <SiteNavSubLink key={card.label} image={card.image} label={card.label} href={card.href} />
+        ))}
+      </WebflowSlot>
     </SiteNavLink>
     <SiteNavLink label="Partners" href="#partners" />
   </WebflowSlot>
@@ -65,6 +68,10 @@ export const Default: Story = {
     showCta: true,
     ctaLabel: "Book a Demo",
     ctaHref: "#demo",
+    showLinkedin: true,
+    linkedinHref: "https://linkedin.com/company/terra",
+    showYoutube: true,
+    youtubeHref: "https://youtube.com/@terra",
   },
   render: (args) => (
     <WebflowSlot>
@@ -115,6 +122,25 @@ export const WithAnnouncementBar: Story = {
   ),
 }
 
+export const StuckCTA: Story = {
+  args: {
+    showCta: false,
+    showCtaOnStuck: true,
+    ctaLabel: "Book a Demo",
+    ctaHref: "#demo",
+  },
+  render: (args) => (
+    <div className="h-[300vh]">
+      <SiteNav {...(args as React.ComponentProps<typeof SiteNav>)} navLinks={<DefaultNavLinks />} />
+      <div className="container pt-8">
+        <p className="text-muted-foreground">
+          Scroll down to see the CTA button appear when the nav enters its stuck position.
+        </p>
+      </div>
+    </div>
+  ),
+}
+
 export const WithScrollBehavior: Story = {
   args: {
     showCta: true,
@@ -151,12 +177,13 @@ export const WithWaypointNavigation: Story = {
     showCta: true,
     ctaLabel: "Book a Demo",
     ctaHref: "#demo",
+    stuckText: "Terra Platform™",
   },
   render: (args) => (
     <div>
       <SiteNav {...(args as React.ComponentProps<typeof SiteNav>)} navLinks={<DefaultNavLinks />} />
       <WaypointSection waypointId="overview" waypointLabel="Overview" waypointOrder={0}>
-        <div className="container py-48">
+        <div className="container min-h-screen py-48">
           <h2 className="font-bold text-4xl">Overview</h2>
           <p className="mt-4 text-lg text-muted-foreground">
             Scroll down to see the waypoint navigation appear in the site nav as the main links fade
@@ -165,7 +192,7 @@ export const WithWaypointNavigation: Story = {
         </div>
       </WaypointSection>
       <WaypointSection waypointId="features" waypointLabel="Features" waypointOrder={1}>
-        <div className="container bg-muted/50 py-48">
+        <div className="container min-h-screen bg-muted/50 py-48">
           <h2 className="font-bold text-4xl">Features</h2>
           <p className="mt-4 text-lg text-muted-foreground">
             The active waypoint link updates as you scroll through sections.
@@ -173,7 +200,7 @@ export const WithWaypointNavigation: Story = {
         </div>
       </WaypointSection>
       <WaypointSection waypointId="pricing" waypointLabel="Pricing" waypointOrder={2}>
-        <div className="container py-48">
+        <div className="container min-h-screen py-48">
           <h2 className="font-bold text-4xl">Pricing</h2>
           <p className="mt-4 text-lg text-muted-foreground">
             Click a waypoint link in the site nav to smooth-scroll to that section.
@@ -192,11 +219,17 @@ export const Mobile: Story = {
     showCta: true,
     ctaLabel: "Book a Demo",
     ctaHref: "#demo",
+    showLinkedin: true,
+    linkedinHref: "https://linkedin.com/company/terra",
+    showYoutube: true,
+    youtubeHref: "https://youtube.com/@terra",
   },
   parameters: {
     viewport: { defaultViewport: "mobile1" },
   },
   render: (args) => (
-    <SiteNav {...(args as React.ComponentProps<typeof SiteNav>)} navLinks={<DefaultNavLinks />} />
+    <WebflowSlot>
+      <SiteNav {...(args as React.ComponentProps<typeof SiteNav>)} navLinks={<DefaultNavLinks />} />
+    </WebflowSlot>
   ),
 }

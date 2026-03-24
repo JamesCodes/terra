@@ -2,22 +2,20 @@ import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import { AlertCircle, AlertTriangle, CheckCircle2, Info } from "lucide-react"
 import type React from "react"
-import { Alert, AlertDescription, AlertTitle } from "./alert"
+import { createVariantMap } from "@/lib/utils"
+import { Alert, AlertDescription, AlertTitle, alertVariants } from "./alert"
 
 import "../../../app/globals.css"
 
-export const variantMap = {
-  default: "default",
-  destructive: "destructive",
-} as const
+type AlertVariant = NonNullable<
+  import("tailwind-variants").VariantProps<typeof alertVariants>["variant"]
+>
 
-export const iconOptionsMap = {
-  none: "none",
-  info: "info",
-  warning: "warning",
-  error: "error",
-  success: "success",
-} as const
+export const variantMap = createVariantMap<AlertVariant>(alertVariants.variants.variant)
+
+const iconOptions = ["none", "info", "warning", "error", "success"] as const
+
+export const iconOptionsMap = createVariantMap<(typeof iconOptions)[number]>(iconOptions)
 
 const iconMap = {
   none: null,
@@ -29,23 +27,25 @@ const iconMap = {
 
 interface WebflowAlertProps {
   className?: string
-  variant?: "default" | "destructive"
+  variant?: keyof typeof variantMap
   title?: string
   description?: string
-  icon?: keyof typeof iconMap
+  icon?: keyof typeof iconOptionsMap
 }
 
 const WebflowAlert: React.FC<WebflowAlertProps> = ({
   className,
-  variant = "default",
+  variant = "Default",
   title,
   description,
-  icon = "none",
+  icon = "None",
 }) => {
-  const IconComponent = iconMap[icon]
+  const mappedVariant = variantMap[variant]
+  const mappedIcon = iconOptionsMap[icon]
+  const IconComponent = iconMap[mappedIcon]
 
   return (
-    <Alert variant={variant} className={className}>
+    <Alert variant={mappedVariant} className={className}>
       {IconComponent && <IconComponent />}
       {title && <AlertTitle>{title}</AlertTitle>}
       {description && <AlertDescription>{description}</AlertDescription>}
@@ -65,14 +65,14 @@ export default declareComponent(WebflowAlert, {
     }),
     variant: props.Variant({
       name: "Variant",
-      options: ["default", "destructive"],
-      defaultValue: "default",
+      options: Object.keys(variantMap),
+      defaultValue: Object.keys(variantMap)[0],
       tooltip: "The visual style of the alert",
     }),
     icon: props.Variant({
       name: "Icon",
-      options: ["none", "info", "warning", "error", "success"],
-      defaultValue: "none",
+      options: Object.keys(iconOptionsMap),
+      defaultValue: Object.keys(iconOptionsMap)[0],
       tooltip: "Icon displayed alongside the alert",
     }),
     title: props.Text({

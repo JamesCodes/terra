@@ -1,7 +1,9 @@
 const path = require("node:path")
+const { Environment } = require("@webflow/data-types")
 
-module.exports = {
-  mode: "development",
+module.exports = (env) => ({
+  mode: env === Environment.Client ? "production" : "development",
+  devtool: env === Environment.Client ? "source-map" : false,
   resolve: {
     alias: {
       "@": path.resolve(process.cwd()), // Maps @ to the v4 app directory
@@ -23,4 +25,4 @@ module.exports = {
       }),
     ],
   },
-}
+})

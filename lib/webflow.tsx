@@ -7,7 +7,6 @@ import type { ComponentDecorator } from "@webflow/data-types"
  */
 export const absoluteFillDecorator: ComponentDecorator<React.ComponentType<any>> =
   (Component) => (props) => {
-    console.log({ Component })
     return (
       <div style={{ position: "absolute", inset: 0 }}>
         <Component {...props} />

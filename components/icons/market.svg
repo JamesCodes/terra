@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 48.23 48.23">
+  <defs>
+    <linearGradient id="market-grad" x1="24.11" y1="8.41" x2="24.11" y2="39.82" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E65C32"/>
+      <stop offset="1" stop-color="#FBFAF5"/>
+    </linearGradient>
+    <clipPath id="market-clip">
+      <rect width="48.23" height="48.23" rx="24.11"/>
+    </clipPath>
+    <mask id="market-mask" maskUnits="userSpaceOnUse" x="8" y="8" width="32" height="32">
+      <ellipse cx="24.11" cy="24.11" rx="15.7" ry="15.7" fill="url(#market-grad)"/>
+    </mask>
+  </defs>
+  <g clip-path="url(#market-clip)">
+    <circle cx="24.11" cy="24.11" r="23.36" stroke="#E65C32" stroke-width="1.5"/>
+    <ellipse cx="24.11" cy="24.11" rx="15.7" ry="15.7" fill="url(#market-grad)"/>
+    <g mask="url(#market-mask)">
+      <path d="M9.3 17.9L12.9 21.36 16.24 26.11 21.76 27.01 18.35 23.68 19.32 21.36H22.41L25.74 17 23.05 14.94 23.95 12.24 27.8 11.6" stroke="#FBFAF5" stroke-width="0.96" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M35.72 13.15L35.21 16.79 35.72 19.1 37.83 20.72 40.07 21.44" stroke="#FBFAF5" stroke-width="0.96" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M29.35 25.51L36.2 26.32 39.09 31.28 36.2 36.87 30.25 38.67 27.19 35.25 24.57 31.28 25.38 27.13 29.35 25.51Z" stroke="#FBFAF5" stroke-width="0.96" stroke-linecap="round" stroke-linejoin="round"/>
+    </g>
+  </g>
+</svg>

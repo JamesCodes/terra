@@ -1,4 +1,4 @@
-import * as React from "react"
+import type * as React from "react"
 import { cn } from "@/lib/utils"
 
 function Badge({ className, ...props }: React.ComponentProps<"span">) {
@@ -6,7 +6,7 @@ function Badge({ className, ...props }: React.ComponentProps<"span">) {
     <span
       data-slot="badge"
       className={cn(
-        "inline-flex items-center justify-center rounded-full bg-secondary/50 px-3 py-1.5 text-xs font-medium text-primary whitespace-nowrap shrink-0",
+        "brand-caption inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded-full bg-[#F0EBD4]/50 px-3 py-1.5 font-semibold text-foreground",
         className,
       )}
       {...props}

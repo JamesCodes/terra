@@ -5,13 +5,12 @@ function ItemFrame({ className, style, children, ...props }: React.ComponentProp
   return (
     <div
       data-slot="item-frame"
-      className={cn(responsiveClass("max-w", "item-max-width"), className)}
-      style={
-        {
-          aspectRatio: "var(--item-aspect-ratio)",
-          ...style,
-        } as React.CSSProperties
-      }
+      className={cn(
+        responsiveClass("max-w", "item-max-width"),
+        responsiveClass("aspect", "item-aspect-ratio"),
+        className,
+      )}
+      style={style}
       {...props}
     >
       {children}

@@ -5,17 +5,27 @@ import { cn } from "@/lib/utils"
 interface AdvisorCardProps extends React.ComponentProps<"div"> {
   name: string
   role?: string
+  href?: string
+  target?: string
 }
 
-function AdvisorCard({ className, name, role, ...props }: AdvisorCardProps) {
+function AdvisorCard({ className, name, role, href, target, ...props }: AdvisorCardProps) {
   return (
     <ItemFrame
       data-slot="advisor-card"
       className={cn("flex w-full flex-col gap-1 md:gap-2", className)}
       {...props}
     >
-      <p className="font-serif text-base text-primary leading-5 md:text-lg">{name}</p>
-      {role && <p className="text-granite text-sm leading-5">{role}</p>}
+      <p className={cn("brand-h5", { "transition-colors hover:text-accent": href })}>
+        {href ? (
+          <a href={href} target={target}>
+            {name}
+          </a>
+        ) : (
+          name
+        )}
+      </p>
+      {role && <p className="brand-caption text-granite">{role}</p>}
     </ItemFrame>
   )
 }

@@ -35,7 +35,7 @@ export default declareComponent(ItemFlex, {
       tooltip: "Enable or disable the aspect ratio constraint",
       group: "Item Sizing",
     }),
-    itemAspectRatio: props.Text({
+    ...responsiveProps("itemAspectRatio", props.Text, {
       name: "Item Aspect Ratio",
       tooltip: "Aspect ratio for each item (e.g. 5/3, 16/9)",
       group: "Item Sizing",

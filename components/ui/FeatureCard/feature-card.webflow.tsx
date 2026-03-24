@@ -1,25 +1,19 @@
 import { type PropType, type PropValues, props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import type React from "react"
-import { iconMap } from "@/components/ui/AnimatedIcon/animated-icon.webflow"
-import { FeatureCard } from "./feature-card"
+import {
+  iconMap,
+  iconWebflowProps,
+  modeMap,
+} from "@/components/ui/AnimatedIcon/animated-icon.webflow"
+import { createVariantMap } from "@/lib/utils"
+import { FeatureCard, imagePositionVariants, layoutVariants } from "./feature-card"
 
 import "../../../app/globals.css"
 
-export const layoutMap = {
-  Large: "large",
-  Small: "small",
-} as const
+export const layoutMap = createVariantMap<(typeof layoutVariants)[number]>(layoutVariants)
 
-export const imagePositionMap = {
-  Top: "top",
-  Bottom: "bottom",
-} as const
-
-const featureIconMap = {
-  None: undefined,
-  ...iconMap,
-} as const
+export const imagePositionMap = createVariantMap<(typeof imagePositionVariants)[number]>(imagePositionVariants)
 
 interface WebflowFeatureCardProps {
   layout?: keyof typeof layoutMap
@@ -28,9 +22,16 @@ interface WebflowFeatureCardProps {
   title?: string
   description?: string
   image?: PropValues[PropType.Image]
-  icon?: keyof typeof featureIconMap
+  icon?: string
+  iconMode?: string
+  iconSpeed?: number
+  showIcon?: boolean
   showImage?: boolean
   showLabel?: boolean
+  showText?: boolean
+  showDividers?: boolean
+  showSlot?: boolean
+  children?: React.ReactNode
 }
 
 const WebflowFeatureCard: React.FC<WebflowFeatureCardProps> = ({
@@ -40,9 +41,16 @@ const WebflowFeatureCard: React.FC<WebflowFeatureCardProps> = ({
   title = "Feature Title",
   description = "Feature description.",
   image,
-  icon = "None",
+  icon = "Target",
+  iconMode = "Loop",
+  iconSpeed = 5,
+  showIcon = true,
   showImage = true,
   showLabel = true,
+  showText = true,
+  showDividers = false,
+  showSlot = false,
+  children,
 }) => {
   const mappedLayout = layoutMap[layout]
   const mappedImagePosition = imagePositionMap[imagePosition]
@@ -54,9 +62,16 @@ const WebflowFeatureCard: React.FC<WebflowFeatureCardProps> = ({
       label={showLabel ? label : undefined}
       title={title}
       description={description}
+      showText={showText}
+      showDividers={showDividers}
       image={showImage && image?.src ? { src: image.src, alt: image.alt } : undefined}
-      icon={featureIconMap[icon]}
-    />
+      icon={showIcon ? iconMap[icon] : undefined}
+      iconMode={modeMap[iconMode]}
+      iconSpeed={iconSpeed}
+      showSlot={showSlot}
+    >
+      {children}
+    </FeatureCard>
   )
 }
 
@@ -68,13 +83,13 @@ export default declareComponent(WebflowFeatureCard, {
   props: {
     layout: props.Variant({
       name: "Layout",
-      options: ["Large", "Small"],
+      options: Object.keys(layoutMap),
       defaultValue: "Large",
       tooltip: "Larger cards should be used when an image is required.",
     }),
     imagePosition: props.Variant({
       name: "Image Position",
-      options: ["Top", "Bottom"],
+      options: Object.keys(imagePositionMap),
       defaultValue: "Bottom",
       tooltip: "Position the image above or below the text content",
     }),
@@ -103,13 +118,18 @@ export default declareComponent(WebflowFeatureCard, {
       group: "Content",
       tooltip: "The feature description — editable on the canvas",
     }),
-    icon: props.Variant({
-      name: "Icon",
-      options: Object.keys(featureIconMap),
-      defaultValue: "None",
-      group: "Media",
-      tooltip: "Animated icon displayed above the title",
+    showText: props.Visibility({
+      name: "Show Text",
+      defaultValue: true,
+      group: "Content",
+      tooltip: "Toggle the title and description",
     }),
+    showDividers: props.Visibility({
+      name: "Show Dividers",
+      defaultValue: false,
+      tooltip: "Toggle vertical dividers on the left and right edges",
+    }),
+    ...iconWebflowProps("Media"),
     image: props.Image({
       name: "Image",
       group: "Media",
@@ -120,6 +140,17 @@ export default declareComponent(WebflowFeatureCard, {
       defaultValue: true,
       group: "Media",
       tooltip: "Toggle the image",
+    }),
+    children: props.Slot({
+      name: "Slot",
+      group: "Media",
+      tooltip: "Nest components in the image area of the card",
+    }),
+    showSlot: props.Visibility({
+      name: "Show Slot",
+      defaultValue: false,
+      group: "Media",
+      tooltip: "Toggle the slot content area (renders where the image is)",
     }),
   },
 })

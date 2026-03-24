@@ -26,7 +26,7 @@ const meta: Meta = {
     ),
     itemMaxWidthUnit: selectArg("Max Width Unit", { px: "px", "%": "%" }, "px"),
     useAspectRatio: booleanArg("Use Aspect Ratio"),
-    itemAspectRatio: textArg("Item Aspect Ratio"),
+    ...responsiveArgs("itemAspectRatio", textArg("Item Aspect Ratio")),
   },
   tags: ["autodocs"],
 } satisfies Meta<typeof ItemFlex>

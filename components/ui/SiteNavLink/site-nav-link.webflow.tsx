@@ -1,5 +1,5 @@
 import { props } from "@webflow/data-types"
-import { declareComponent } from "@webflow/react"
+import { declareComponent, useWebflowContext } from "@webflow/react"
 import type React from "react"
 import { SiteNavLink } from "./site-nav-link"
 
@@ -12,6 +12,7 @@ export const propLabels = {
 } as const
 
 interface WebflowSiteNavLinkProps {
+  visible: boolean
   label: string
   link: { href: string; target?: string }
   isGroup: boolean
@@ -19,11 +20,26 @@ interface WebflowSiteNavLinkProps {
 }
 
 const WebflowSiteNavLink: React.FC<WebflowSiteNavLinkProps> = ({
+  visible,
   label,
   link,
   isGroup,
   children,
 }) => {
+  const { mode } = useWebflowContext()
+
+  if (!visible) {
+    if (mode === "publish") return null
+
+    return (
+      <div style={{ opacity: 0.5 }} title="Hidden — will not appear on published site">
+        <SiteNavLink label={label} href={link?.href} target={link?.target} isGroup={isGroup}>
+          {children}
+        </SiteNavLink>
+      </div>
+    )
+  }
+
   return (
     <SiteNavLink label={label} href={link?.href} target={link?.target} isGroup={isGroup}>
       {children}
@@ -36,6 +52,12 @@ export default declareComponent(WebflowSiteNavLink, {
   description: "Navigation link with optional dropdown panel containing card links",
   group: "Navigation",
   props: {
+    visible: props.Visibility({
+      name: "Visible",
+      defaultValue: true,
+      tooltip: "Show or hide this navigation link",
+      group: "Trigger",
+    }),
     label: props.Text({
       name: propLabels.label,
       defaultValue: "Products",

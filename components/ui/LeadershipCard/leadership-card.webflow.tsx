@@ -30,7 +30,9 @@ const WebflowLeadershipCard: React.FC<WebflowLeadershipCardProps> = ({
       name={name}
       role={role}
       socialLink={
-        socialLink?.href ? { href: socialLink.href, target: socialLink.target } : undefined
+        socialLink?.href && socialLink.href !== "#"
+          ? { href: socialLink.href, target: socialLink.target }
+          : undefined
       }
     />
   )

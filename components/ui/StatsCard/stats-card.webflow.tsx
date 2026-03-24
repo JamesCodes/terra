@@ -12,8 +12,8 @@ export const propLabels = {
 } as const
 
 interface WebflowStatsCardProps {
-  value?: string
-  suffix?: string
+  value: string
+  suffix: string
   description?: string
 }
 
@@ -30,15 +30,15 @@ export default declareComponent(WebflowStatsCard, {
   description: "A stat highlight card with a large number and description",
   group: "Cards",
   props: {
-    value: props.TextNode({
+    value: props.Text({
       name: propLabels.value,
-      defaultValue: "100%",
-      tooltip: "The stat value — editable on the canvas",
+      defaultValue: "100",
+      tooltip: "The numeric stat value",
     }),
-    suffix: props.TextNode({
+    suffix: props.Text({
       name: propLabels.suffix,
       defaultValue: "%",
-      tooltip: "The stat suffix — editable on the canvas",
+      tooltip: "The stat suffix (e.g. %, x, /7)",
     }),
     description: props.TextNode({
       name: propLabels.description,

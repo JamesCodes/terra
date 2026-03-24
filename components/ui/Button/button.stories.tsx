@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { ArrowRight } from "lucide-react"
 import { booleanArg, selectArg } from "@/lib/storybook"
 import { Button } from "./button"
-import { sizeMap, variantMap } from "./button.webflow"
+import { sizeMap, stateMap, variantMap } from "./button.webflow"
 import "../../../app/globals.css"
 
 const meta = {
@@ -10,7 +10,7 @@ const meta = {
   component: Button,
   parameters: {
     layout: "centered",
-    controls: { include: ["variant", "size", "children", "disabled"] },
+    controls: { include: ["variant", "size", "state", "children", "disabled"] },
   },
   tags: ["autodocs"],
   args: {
@@ -22,6 +22,7 @@ const meta = {
   argTypes: {
     variant: selectArg("Style", variantMap),
     size: selectArg("Size", sizeMap),
+    state: selectArg("State", stateMap),
     disabled: booleanArg("Disabled"),
   },
 } satisfies Meta<typeof Button>
@@ -91,6 +92,28 @@ export const AllVariants: Story = {
       <Button variant="link">Product</Button>
       <Button variant="nav" size="link">
         <span>Nav Item</span>
+      </Button>
+    </div>
+  ),
+}
+
+export const Filter: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-center gap-4">
+      <Button variant="filter" state="active" size="md">
+        View All
+      </Button>
+      <Button variant="filter" size="md">
+        Research
+      </Button>
+      <Button variant="filter" size="md">
+        News
+      </Button>
+      <Button variant="filter" size="md">
+        Essential Guides
+      </Button>
+      <Button variant="filter" size="md">
+        Videos
       </Button>
     </div>
   ),

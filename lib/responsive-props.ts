@@ -62,10 +62,14 @@ export function responsiveProps<F extends WebflowPropFactory>(
   const configGroup = cfg.group as string | undefined
   const group = options?.group ?? (configGroup ? `${configGroup} - ${propName}` : propName)
   const hasOptions = "options" in cfg && Array.isArray(cfg.options)
+  const probe = fn({ ...cfg, name: "__probe" } as Record<string, unknown>) as { type?: string }
+  const isTextLike = probe.type === "Text" || probe.type === "RichText" || probe.type === "TextNode"
   const baseTooltip = cfg.tooltip as string | undefined
   const inheritHint = hasOptions
     ? "Set to Auto to inherit from the larger breakpoint"
-    : "Set to -1 to inherit from the larger breakpoint"
+    : isTextLike
+      ? "Leave empty to inherit from the larger breakpoint"
+      : "Set to -1 to inherit from the larger breakpoint"
 
   const rawDefault = cfg.defaultValue
   const defaultIsArray = Array.isArray(rawDefault)
@@ -91,6 +95,15 @@ export function responsiveProps<F extends WebflowPropFactory>(
         options: [UNSET_VARIANT, ...opts],
         defaultValue: bpDefaults[bp] ?? UNSET_VARIANT,
         group,
+        tooltip,
+      })
+    } else if (isTextLike) {
+      const { defaultValue: _, ...rest } = cfg
+      result[propKey] = fn({
+        ...rest,
+        name: bpLabel,
+        group,
+        defaultValue: bpDefaults[bp] ?? "",
         tooltip,
       })
     } else {
