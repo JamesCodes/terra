@@ -11,7 +11,6 @@ import {
 import { booleanArg, numberArg, selectArg } from "@/lib/storybook"
 import { createVariantMap } from "@/lib/utils"
 
-import "../../../app/globals.css"
 
 export const iconMap = createVariantMap<(typeof iconVariants)[number]>(iconVariants)
 

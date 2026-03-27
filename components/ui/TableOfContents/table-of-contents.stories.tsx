@@ -1,7 +1,46 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
+import { SiteNav } from "@/components/ui/SiteNav/site-nav"
+import { SiteNavLink } from "@/components/ui/SiteNavLink/site-nav-link"
+import { SiteNavSubLink } from "@/components/ui/SiteNavSubLink/site-nav-sub-link"
+import { AnnouncementBar } from "@/components/ui/AnnouncementBar/announcement-bar"
+import { WebflowSlot } from "@/lib/storybook-webflow"
 import { TableOfContents } from "./table-of-contents"
 
-import "../../../app/globals.css"
+
+const SAMPLE_CARDS = [
+  {
+    label: "Terra Platform™",
+    image: { src: "https://placehold.co/696x444/260700/260700", alt: "Terra Platform" },
+    href: "#",
+  },
+  {
+    label: "Terra Portal™",
+    image: { src: "https://placehold.co/696x444/f0ebd4/f0ebd4", alt: "Terra Portal" },
+    href: "#",
+  },
+]
+
+const DefaultNavLinks = () => (
+  <WebflowSlot>
+    <SiteNavLink label="Products" isGroup>
+      <WebflowSlot>
+        {SAMPLE_CARDS.map((card) => (
+          <SiteNavSubLink key={card.label} image={card.image} label={card.label} href={card.href} />
+        ))}
+      </WebflowSlot>
+    </SiteNavLink>
+    <SiteNavLink label="About Us" href="#about" />
+    <SiteNavLink label="Stories" href="#stories" />
+    <SiteNavLink label="Resources" isGroup>
+      <WebflowSlot>
+        {SAMPLE_CARDS.map((card) => (
+          <SiteNavSubLink key={card.label} image={card.image} label={card.label} href={card.href} />
+        ))}
+      </WebflowSlot>
+    </SiteNavLink>
+    <SiteNavLink label="Partners" href="#partners" />
+  </WebflowSlot>
+)
 
 const RichTextContent = () => (
   <div className="w-richtext">
@@ -92,35 +131,58 @@ type Story = StoryObj<typeof meta>
 
 export const Desktop: Story = {
   render: () => (
-    <div className="flex gap-12 p-8">
-      <aside className="w-64 shrink-0">
-        <div className="sticky top-8">
-          <TableOfContents />
-        </div>
-      </aside>
-      <main className="max-w-2xl">
-        <RichTextContent />
-      </main>
+    <div>
+      <SiteNav
+        navLinks={<DefaultNavLinks />}
+        showCta
+        ctaLabel="Book a Demo"
+        ctaHref="#demo"
+        announcementBar={
+          <WebflowSlot>
+            <AnnouncementBar
+              announcements={[
+                { text: "Terra Named Winner of the 2025 AWS, Crowdstrike, Nvidia Cybersecurity Accelerator" },
+              ]}
+            />
+          </WebflowSlot>
+        }
+      />
+      <div className="container flex gap-12 py-8">
+        <aside className="w-64 shrink-0">
+          <div className="sticky top-(--nav-height,80px) pt-8">
+            <TableOfContents />
+          </div>
+        </aside>
+        <main className="max-w-2xl">
+          <RichTextContent />
+        </main>
+      </div>
     </div>
   ),
 }
 
 export const Mobile: Story = {
   parameters: {
-    viewport: { defaultViewport: "mobilePortrait" },
+    viewport: { defaultViewport: "mobile1" },
   },
-  decorators: [
-    (Story) => {
-      document.documentElement.style.setProperty("--nav-height", "80px")
-      return <Story />
-    },
-  ],
   render: () => (
     <div>
-      <div className="fixed inset-x-0 top-0 z-50 flex h-20 items-center border-b bg-background px-5">
-        <span className="font-bold">Site Nav Mock</span>
-      </div>
-      <main className="px-5 pt-24 pb-16">
+      <SiteNav
+        navLinks={<DefaultNavLinks />}
+        showCta
+        ctaLabel="Book a Demo"
+        ctaHref="#demo"
+        announcementBar={
+          <WebflowSlot>
+            <AnnouncementBar
+              announcements={[
+                { text: "Terra Named Winner of the 2025 AWS, Crowdstrike, Nvidia Cybersecurity Accelerator" },
+              ]}
+            />
+          </WebflowSlot>
+        }
+      />
+      <main className="container py-8">
         <RichTextContent />
       </main>
       <TableOfContents />

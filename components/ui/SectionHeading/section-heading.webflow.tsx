@@ -6,7 +6,6 @@ import { levelMap } from "@/components/ui/Heading/heading.webflow"
 import { createVariantMap } from "@/lib/utils"
 import { SectionHeading } from "./section-heading"
 
-import "../../../app/globals.css"
 
 export const variantMap = createVariantMap<"light" | "dark">(["light", "dark"])
 
@@ -74,42 +73,46 @@ export const headingTextProps = {
     name: "Label",
     defaultValue: "Label",
     tooltip: "Eyebrow label above the heading",
+    group: "Label",
   }),
   showLabel: props.Visibility({
     name: "Show Label",
     defaultValue: false,
     tooltip: "Toggle the eyebrow label",
-    group: "Visibility",
+    group: "Label",
   }),
   heading: props.TextNode({
     name: "Heading",
     defaultValue: "Section heading goes here.",
     multiline: true,
     tooltip: "The section heading — editable directly on canvas",
+    group: "Heading",
   }),
   headingLevel: props.Variant({
     name: "Heading Level",
     options: Object.keys(levelMap),
     defaultValue: "Heading 2",
     tooltip: "The heading size level",
+    group: "Heading",
+  }),
+  showHeading: props.Visibility({
+    name: "Show Heading",
+    defaultValue: true,
+    tooltip: "Toggle the heading",
+    group: "Heading",
   }),
   text: props.TextNode({
     name: "Text",
     defaultValue: "A brief description for this section.",
     multiline: true,
     tooltip: "Description text below the heading",
-  }),
-  showHeading: props.Visibility({
-    name: "Show Heading",
-    defaultValue: true,
-    tooltip: "Toggle the heading",
-    group: "Visibility",
+    group: "Text",
   }),
   showText: props.Visibility({
     name: "Show Text",
     defaultValue: false,
     tooltip: "Toggle the description text",
-    group: "Visibility",
+    group: "Text",
   }),
   buttonText: props.Text({
     name: "Button Text",
@@ -133,7 +136,7 @@ export const headingTextProps = {
     name: "Show Button",
     defaultValue: false,
     tooltip: "Toggle the button below the heading text",
-    group: "Visibility",
+    group: "Button",
   }),
 } as const
 

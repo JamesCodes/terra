@@ -2,7 +2,6 @@ import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import { SiteNav } from "./site-nav"
 
-import "../../../app/globals.css"
 
 interface WebflowSiteNavProps {
   announcementBar?: React.ReactNode
@@ -19,6 +18,7 @@ interface WebflowSiteNavProps {
   showYoutube?: boolean
   youtubeLink?: { href: string; target?: string }
   stuckText?: string
+  fadeIn?: boolean
 }
 
 const WebflowSiteNav: React.FC<WebflowSiteNavProps> = ({
@@ -35,6 +35,7 @@ const WebflowSiteNav: React.FC<WebflowSiteNavProps> = ({
   showYoutube,
   youtubeLink,
   stuckText,
+  fadeIn = true,
 }) => {
   const ctaVisible = showCta || showCtaOnStuck
   return (
@@ -55,6 +56,7 @@ const WebflowSiteNav: React.FC<WebflowSiteNavProps> = ({
       youtubeHref={youtubeLink?.href}
       youtubeTarget={youtubeLink?.target}
       stuckText={stuckText}
+      fadeIn={fadeIn}
     />
   )
 }
@@ -132,6 +134,12 @@ export default declareComponent(WebflowSiteNav, {
       name: "LinkedIn Link",
       tooltip: "LinkedIn profile URL",
       group: "Social",
+    }),
+    fadeIn: props.Boolean({
+      name: "Fade In on Load",
+      defaultValue: true,
+      tooltip: "Whether the nav fades in when the page loads",
+      group: "Animation",
     }),
   },
 })

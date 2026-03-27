@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { WaypointSection } from "./waypoint-section"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Sections/Waypoint Section",

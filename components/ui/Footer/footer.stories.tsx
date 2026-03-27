@@ -4,7 +4,6 @@ import { SiteLink } from "@/components/ui/SiteLink/site-link"
 import { ResponsiveImage } from "@/components/ui/ResponsiveImage/responsive-image"
 import { WebflowSlot } from "@/lib/storybook-webflow"
 import { Footer } from "./footer"
-import "../../../app/globals.css"
 
 const defaultSocialLinks = [
   { platform: "youtube" as const, href: "#youtube" },

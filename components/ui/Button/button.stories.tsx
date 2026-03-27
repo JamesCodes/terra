@@ -3,7 +3,6 @@ import { ArrowRight } from "lucide-react"
 import { booleanArg, selectArg } from "@/lib/storybook"
 import { Button } from "./button"
 import { sizeMap, stateMap, variantMap } from "./button.webflow"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Elements/Button",
@@ -114,6 +113,28 @@ export const Filter: Story = {
       </Button>
       <Button variant="filter" size="md">
         Videos
+      </Button>
+    </div>
+  ),
+}
+
+export const Pagination: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-center gap-4">
+      <Button variant="pagination" state="active" size="md">
+        1
+      </Button>
+      <Button variant="pagination" size="md">
+        2
+      </Button>
+      <Button variant="pagination" size="md">
+        3
+      </Button>
+      <Button variant="pagination" size="md">
+        4
+      </Button>
+      <Button variant="pagination" size="md">
+        5
       </Button>
     </div>
   ),

@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import { responsiveProps } from "@/lib/responsive-props"
 import { ItemFlex } from "./item-flex"
 
-import "../../../app/globals.css"
 
 export default declareComponent(ItemFlex, {
   name: "Item Flex",

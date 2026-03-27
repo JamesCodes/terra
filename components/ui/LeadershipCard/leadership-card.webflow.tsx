@@ -4,7 +4,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { LeadershipCard } from "./leadership-card"
 
-import "../../../app/globals.css"
 
 export const propLabels = {
   name: "Name",

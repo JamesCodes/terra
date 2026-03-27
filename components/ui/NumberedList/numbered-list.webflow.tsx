@@ -3,7 +3,6 @@ import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import { NumberedListItem } from "./numbered-list"
 
-import "../../../app/globals.css"
 
 interface WebflowNumberedListItemProps {
   number?: number

@@ -32,7 +32,7 @@ const sectionVariants = tv({
 })
 
 import type { HeadingLevel } from "@/components/ui/Heading/heading"
-import type { SectionHeadingProps } from "@/components/ui/SectionHeading/section-heading"
+import type { SectionHeadingProps, TextAlign } from "@/components/ui/SectionHeading/section-heading"
 
 type SectionVariant = "chalk" | "moss" | "obsidian" | "magma" | "sand" | "terracotta" | "white"
 
@@ -48,10 +48,12 @@ interface SectionProps
   heading?: string
   headingLevel?: HeadingLevel
   text?: string
+  textAlign?: TextAlign
   buttonText?: SectionHeadingProps["buttonText"]
   buttonLink?: SectionHeadingProps["buttonLink"]
   buttonVariant?: SectionHeadingProps["buttonVariant"]
   showDivider?: boolean
+  fullBleedContents?: boolean
   pattern?: string
   showPattern?: boolean
   fadePattern?: boolean
@@ -65,6 +67,7 @@ function Section({
   heading,
   headingLevel = 2,
   text,
+  textAlign = "center",
   buttonText,
   buttonLink,
   buttonVariant,
@@ -79,6 +82,7 @@ function Section({
   paddingBottomMobile = -1,
   pattern,
   showDivider = true,
+  fullBleedContents = false,
   showPattern = false,
   fadePattern = true,
   children,
@@ -90,7 +94,7 @@ function Section({
     <>
       <section
         data-slot="section"
-        className={cn(root(), responsiveClass("pt", "pt"), responsiveClass("pb", "pb"), className)}
+        className={cn(root(), responsiveClass("pt", "pt"), responsiveClass("pb", "pb"), { [`flex flex-col ${responsiveClass("gap-y", "gap-y")}`]: fullBleedContents }, className)}
         style={{
           ...responsiveStyles({
             "gap-y": [gap, gapTablet, gapMobile, "px"],
@@ -114,13 +118,19 @@ function Section({
             heading={heading}
             headingLevel={headingLevel}
             text={text}
+            textAlign={textAlign}
             buttonText={buttonText}
             buttonLink={buttonLink}
             buttonVariant={buttonVariant}
             variant={variant === "chalk" ? "light" : "dark"}
           />
-          {children}
+          {!fullBleedContents && children}
         </div>
+        {fullBleedContents && (
+          <div className={`relative z-10 flex flex-col ${responsiveClass("gap-y", "gap-y")}`}>
+            {children}
+          </div>
+        )}
         {showPattern && pattern?.endsWith(".svg") && (
           <div className={cn(patternSlot(), { "mask-t-from-0% mask-t-to-90%": fadePattern })}>
             <SVG

@@ -254,7 +254,7 @@ function SiteNavLink({
               const ctaTgt = ctaTarget ?? navConfig?.ctaTarget
               return (
                 <>
-                  <div className="hidden lg:flex lg:grow lg:flex-col lg:justify-between lg:p-10">
+                  <div className="hidden lg:flex lg:max-w-[320px] lg:grow lg:flex-col lg:justify-between lg:p-10">
                     {label && (
                       <h2 className="font-medium text-[32px] leading-snug tracking-tight">
                         {label}
@@ -281,7 +281,7 @@ function SiteNavLink({
               className={cn(
                 "flex flex-col gap-8 py-10",
                 "md:gap-10 md:py-12 lg:px-12",
-                "lg:flex-1 lg:shrink-0 lg:flex-row lg:gap-6 lg:p-10",
+                "lg:min-w-0 lg:flex-1 lg:flex-row lg:gap-6 lg:p-10",
               )}
             >
               {children}

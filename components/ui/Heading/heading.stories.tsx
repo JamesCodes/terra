@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { selectArg } from "@/lib/storybook"
 import { Heading } from "./heading"
 import { levelMap } from "./heading.webflow"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Content Blocks/Heading",

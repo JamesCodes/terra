@@ -5,7 +5,7 @@ import { tv, type VariantProps } from "tailwind-variants"
 import { cn } from "@/lib/utils"
 
 const buttonVariants = tv({
-  base: "inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap font-semibold text-sm outline-none transition-all disabled:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  base: "inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap font-semibold text-sm outline-none transition-all disabled:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   variants: {
     theme: {
       default: "",
@@ -21,6 +21,7 @@ const buttonVariants = tv({
       nav: "nav-indicator flex cursor-pointer items-center gap-1.5 whitespace-nowrap font-medium text-foreground [&>span]:relative [&>span]:block lg:hover:[&>span]:after:-bottom-2 lg:[&>span]:hover:after:bg-accent",
       filter:
         "interacting rounded-full border border-[#A6A5A4] text-foreground active:border-dark-terracotta active:text-dark-terracotta disabled:border-0 disabled:bg-disabled disabled:text-chalk",
+      pagination: "size-10 rounded-full text-sm hover:bg-sand/50",
     },
     size: {
       default: "h-12.5 px-6",
@@ -40,6 +41,11 @@ const buttonVariants = tv({
       variant: "filter",
       state: "active",
       className: "pointer-events-none border-foreground bg-foreground text-background",
+    },
+    {
+      variant: "pagination",
+      state: "active",
+      className: "bg-sand",
     },
   ],
   defaultVariants: {
@@ -66,6 +72,7 @@ function Button({
     <Comp
       data-slot="button"
       className={cn(buttonVariants({ variant, size, state, theme, class: className }))}
+      {...(variant === "pagination" ? { "fs-list-element": "page-button" } : {})}
       {...props}
     />
   )

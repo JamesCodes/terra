@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { VerticalTableRow } from "./vertical-table-row"
 
-import "../../../app/globals.css"
 
 interface WebflowVerticalTableRowProps {
   columns: number

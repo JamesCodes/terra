@@ -10,7 +10,7 @@ function SiteNavSubLink({ image, label, className, ...props }: SiteNavSubLinkPro
   return (
     <a
       data-slot="site-nav-sub-link"
-      className={cn("group flex flex-col gap-4 lg:w-87 lg:flex-1", className)}
+      className={cn("group flex flex-col gap-4 lg:min-w-0 lg:flex-1", className)}
       {...props}
     >
       {image && (
@@ -18,7 +18,7 @@ function SiteNavSubLink({ image, label, className, ...props }: SiteNavSubLinkPro
           <img
             src={image.src}
             alt={image.alt || ""}
-            className="aspect-3/2 w-full object-cover transition-all duration-300 group-hover:opacity-90 md:aspect-2/1 lg:aspect-3/2"
+            className="aspect-3/2 w-full object-cover transition-all duration-300 group-hover:opacity-90 md:aspect-2/1 lg:aspect-auto lg:h-56"
           />
         </div>
       )}

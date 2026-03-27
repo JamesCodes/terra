@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { textArg } from "@/lib/storybook"
 import { StatementBlockItem } from "./statement-block-item"
 import { propLabels } from "./statement-block-item.webflow"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Content Blocks/Statement Block Item",

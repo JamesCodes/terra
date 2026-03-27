@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { SiteLink } from "./site-link"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Navigation/SiteLink",

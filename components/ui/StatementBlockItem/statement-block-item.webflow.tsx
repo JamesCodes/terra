@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { StatementBlockItem } from "./statement-block-item"
 
-import "../../../app/globals.css"
 
 export const propLabels = {
   heading: "Heading",

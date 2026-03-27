@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { textArg } from "@/lib/storybook"
 import { PartnerCard } from "./partner-card"
 import { propLabels } from "./partner-card.webflow"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Cards/Partner Card",

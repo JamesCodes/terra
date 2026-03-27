@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { ItemFlex } from "./item-flex"
-import "../../../app/globals.css"
 import { ResponsiveImage } from "@/components/ui/ResponsiveImage/responsive-image"
 import { Section } from "@/components/ui/Section/section"
 import { booleanArg, numberArg, responsiveArgs, selectArg, textArg } from "@/lib/storybook"

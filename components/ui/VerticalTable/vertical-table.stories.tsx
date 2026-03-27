@@ -4,7 +4,6 @@ import { numberArg, textArg } from "@/lib/storybook"
 import { VerticalTable } from "./vertical-table"
 import { propLabels } from "./vertical-table.webflow"
 
-import "../../../app/globals.css"
 
 const meta = {
   title: "Rich Text/Vertical Table",

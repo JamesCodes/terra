@@ -1,7 +1,6 @@
 import { declareComponent } from "@webflow/react"
 import { TableOfContents } from "./table-of-contents"
 
-import "../../../app/globals.css"
 
 export default declareComponent(TableOfContents, {
   name: "Table of Contents",

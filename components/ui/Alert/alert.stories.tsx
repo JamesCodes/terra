@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { selectArg } from "@/lib/storybook"
 import { Alert, AlertDescription, AlertTitle } from "./alert"
 import { variantMap } from "./alert.webflow"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Elements/Alert",

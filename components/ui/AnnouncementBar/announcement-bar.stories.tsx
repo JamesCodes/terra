@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { AnnouncementBar } from "./announcement-bar"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Navigation/Announcement Bar",

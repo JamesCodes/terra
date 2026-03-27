@@ -4,7 +4,6 @@ import { responsiveProps } from "@/lib/responsive-props"
 import { createVariantMap } from "@/lib/utils"
 import { Hero, type HeroVariant, heroVariants } from "./hero"
 
-import "../../../app/globals.css"
 
 export const variantMap = createVariantMap<HeroVariant>(heroVariants.variants.variant)
 

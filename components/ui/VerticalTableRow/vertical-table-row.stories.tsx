@@ -4,7 +4,6 @@ import { VerticalTable } from "@/components/ui/VerticalTable/vertical-table"
 import { VerticalTableRow } from "./vertical-table-row"
 import { propLabels } from "./vertical-table-row.webflow"
 
-import "../../../app/globals.css"
 
 const meta = {
   title: "Rich Text/Vertical Table Row",

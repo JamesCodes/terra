@@ -4,7 +4,6 @@ import { HorizontalTableRow } from "@/components/ui/HorizontalTableRow/horizonta
 import { HorizontalTable } from "./horizontal-table"
 import { propLabels } from "./horizontal-table.webflow"
 
-import "../../../app/globals.css"
 
 const meta = {
   title: "Rich Text/Horizontal Table",

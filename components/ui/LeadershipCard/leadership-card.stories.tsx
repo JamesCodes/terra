@@ -3,7 +3,6 @@ import { textArg } from "@/lib/storybook"
 import { LeadershipCard } from "./leadership-card"
 import { propLabels } from "./leadership-card.webflow"
 
-import "../../../app/globals.css"
 import { ItemFlex } from "@/components/ui/ItemFlex/item-flex"
 import { Section } from "@/components/ui/Section/section"
 import { WebflowSlot } from "@/lib/storybook-webflow"

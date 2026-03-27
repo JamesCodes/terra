@@ -3,7 +3,6 @@ import { Section } from "@/components/ui/Section/section"
 import { booleanArg, selectArg, textArg } from "@/lib/storybook"
 import { ColorCard } from "./color-card"
 import { propLabels, variantMap } from "./color-card.webflow"
-import "../../../app/globals.css"
 import { ItemFlex } from "@/components/ui/ItemFlex/item-flex"
 import { WebflowSlot } from "@/lib/storybook-webflow"
 

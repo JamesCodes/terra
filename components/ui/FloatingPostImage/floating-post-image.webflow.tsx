@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { FloatingPostImage } from "./floating-post-image"
 
-import "../../../app/globals.css"
 
 interface WebflowFloatingPostImageProps {
   label?: string

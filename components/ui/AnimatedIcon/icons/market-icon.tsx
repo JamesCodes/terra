@@ -29,9 +29,14 @@ export default function MarketIcon({
       })
       tlRef.current = tl
 
-      tl.to("[data-ring]", { opacity: 1, duration: speed, ease: "power2.out" })
-        .addLabel("globe")
+      tl.addLabel("globe")
         .to("[data-fill]", { opacity: 1, duration: speed, ease: "power2.out" }, "globe")
+        .fromTo(
+          "[data-ring]",
+          { strokeDashoffset: 100 },
+          { strokeDashoffset: 0, duration: speed * 1.2, ease: "power2.out" },
+          `globe+=${speed * 0.4}`,
+        )
         .to(
           "[data-continent]",
           {
@@ -42,8 +47,12 @@ export default function MarketIcon({
           },
           `globe+=${speed * 0.5}`,
         )
-        .addLabel("arrow", `>-=${speed * 0.5}`)
-        .to("[data-arrow]", { opacity: 1, duration: speed * 0.6, ease: "power2.out" }, "arrow")
+        .fromTo(
+          "[data-arrow]",
+          { opacity: 0, scale: 0.6 },
+          { opacity: 1, scale: 1, duration: speed * 0.6, ease: "back.out(1.7)", transformOrigin: "8.34px 8.34px" },
+          `globe+=${speed * 1.2}`,
+        )
 
       if (loop) {
         tl.to(
@@ -110,7 +119,9 @@ export default function MarketIcon({
           r="23.36"
           className="stroke-accent"
           strokeWidth="1.5"
-          opacity={0}
+          pathLength={100}
+          strokeDasharray={102}
+          strokeDashoffset={100}
         />
         <ellipse
           data-fill

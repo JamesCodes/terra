@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { StatsCard } from "./stats-card"
 
-import "../../../app/globals.css"
 
 export const propLabels = {
   value: "Value",

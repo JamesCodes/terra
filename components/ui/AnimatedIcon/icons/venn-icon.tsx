@@ -64,36 +64,38 @@ export default function VennIcon({
 
       tl.to({}, { duration: holdDuration })
 
-      const collapseLabel = "collapse"
-      tl.to(
-        "[data-circle]",
-        {
-          x: (i: number) => offsets[i].x,
-          y: (i: number) => offsets[i].y,
-          duration: spreadDuration,
-          ease: "power2.in",
-        },
-        collapseLabel,
-      )
-      tl.to(
-        "[data-group]",
-        {
-          rotation: 90,
-          duration: spreadDuration,
-          ease: "power2.in",
-          svgOrigin: "24 24",
-        },
-        collapseLabel,
-      )
-      tl.to(
-        "[data-gradient]",
-        { opacity: 0, duration: spreadDuration, ease: "power2.in" },
-        collapseLabel,
-      )
+      if (loop) {
+        const collapseLabel = "collapse"
+        tl.to(
+          "[data-circle]",
+          {
+            x: (i: number) => offsets[i].x,
+            y: (i: number) => offsets[i].y,
+            duration: spreadDuration,
+            ease: "power2.in",
+          },
+          collapseLabel,
+        )
+        tl.to(
+          "[data-group]",
+          {
+            rotation: 90,
+            duration: spreadDuration,
+            ease: "power2.in",
+            svgOrigin: "24 24",
+          },
+          collapseLabel,
+        )
+        tl.to(
+          "[data-gradient]",
+          { opacity: 0, duration: spreadDuration, ease: "power2.in" },
+          collapseLabel,
+        )
 
-      tl.set("[data-group]", { rotation: -90, svgOrigin: "24 24" })
+        tl.set("[data-group]", { rotation: -90, svgOrigin: "24 24" })
 
-      tl.to({}, { duration: holdDuration })
+        tl.to({}, { duration: holdDuration })
+      }
 
       if (!paused) tl.play()
     },

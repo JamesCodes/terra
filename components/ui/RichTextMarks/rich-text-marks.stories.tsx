@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { useEffect } from "react"
 import { DesignerReference, injectStyles, processRichText } from "./rich-text-marks"
 
-import "../../../app/globals.css"
 
 const meta = {
   title: "Utilities/RichTextMarks",

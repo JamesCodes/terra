@@ -3,7 +3,6 @@ import { textArg } from "@/lib/storybook"
 import { StatsCard } from "./stats-card"
 import { propLabels } from "./stats-card.webflow"
 import { WebflowStatWrapper } from "./stats-card-wrapper.webflow"
-import "../../../app/globals.css"
 import { Section } from "@/components/ui/Section/section"
 
 const meta = {

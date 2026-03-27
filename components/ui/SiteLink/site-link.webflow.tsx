@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { SiteLink } from "./site-link"
 
-import "../../../app/globals.css"
 
 interface WebflowSiteLinkProps {
   label: string

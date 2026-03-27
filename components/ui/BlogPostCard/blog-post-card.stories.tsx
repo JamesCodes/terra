@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { selectArg, textArg } from "@/lib/storybook"
 import { BlogPostCard } from "./blog-post-card"
 import { propLabels, variantMap } from "./blog-post-card.webflow"
-import "../../../app/globals.css"
 import { FloatingPostImage } from "@/components/ui/FloatingPostImage/floating-post-image"
 import { Section } from "@/components/ui/Section/section"
 import { WebflowSlot } from "@/lib/storybook-webflow"
@@ -39,7 +38,7 @@ type Story = StoryObj<any>
 export const Highlight: Story = {
   render: () => (
     <Section>
-      <div className="grid divide-border max-lg:divide-y md:grid-cols-3 lg:divide-x">
+      <div className="grid gap-15 divide-border md:grid-cols-3">
         <WebflowSlot>
           <BlogPostCard
             variant="highlight"
@@ -54,7 +53,7 @@ export const Highlight: Story = {
         <WebflowSlot>
           <BlogPostCard
             variant="highlight"
-            category={{ name: "Research", url: "#" }}
+            category={{ name: "Research" }}
             title="White Box Pentesting with Code & Business Context"
             author="The Terra Team"
             date="February 11, 2026"
@@ -137,14 +136,14 @@ export const Featured: Story = {
 
 export const List: Story = {
   render: () => (
-    <Section gap={0}>
+    <Section gap={0} gapTablet={0} gapMobile={0}>
       <WebflowSlot>
         <FloatingPostImage />
       </WebflowSlot>
       <WebflowSlot>
         <BlogPostCard
           variant="list"
-          category={{ name: "Research", url: "#" }}
+          category={{ name: "Research" }}
           author="Gal Malachi"
           title="API Security in AI-Enabled Platforms: Strategy, Risks, and Tactics"
           date="February 1, 2026"

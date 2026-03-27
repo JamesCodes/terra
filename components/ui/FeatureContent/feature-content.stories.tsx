@@ -5,7 +5,6 @@ import { selectArg, textArg } from "@/lib/storybook"
 import { FeatureContent } from "./feature-content"
 import { variantMap } from "./feature-content.webflow"
 
-import "../../../app/globals.css"
 
 const meta = {
   title: "Content Blocks/Feature Content",

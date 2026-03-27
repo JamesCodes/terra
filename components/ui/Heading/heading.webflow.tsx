@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { Heading } from "./heading"
 
-import "../../../app/globals.css"
 
 export const levelMap = {
   "Heading 1": 1,

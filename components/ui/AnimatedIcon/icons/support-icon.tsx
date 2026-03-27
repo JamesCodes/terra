@@ -38,15 +38,17 @@ export default function SupportIcon({
           { strokeDashoffset: 200 },
           { strokeDashoffset: 0, duration: speed * 2, ease: "power2.out" },
         )
-        .to(
-          "[data-ear]",
-          {
-            opacity: 1,
-            duration: speed,
-            ease: "sine.in",
-            stagger: 0.15,
-          },
+        .fromTo(
+          "[data-ear-left]",
+          { scale: 0, svgOrigin: "3.54 23.82" },
+          { scale: 1, duration: speed, ease: "back.out(1.7)", svgOrigin: "3.54 23.82" },
           "-=0.3",
+        )
+        .fromTo(
+          "[data-ear-right]",
+          { scale: 0, svgOrigin: "44.76 23.82" },
+          { scale: 1, duration: speed, ease: "back.out(1.7)", svgOrigin: "44.76 23.82" },
+          "<",
         )
         .fromTo(
           "[data-mic]",
@@ -57,11 +59,11 @@ export default function SupportIcon({
             ease: "back.out(1.7)",
             svgOrigin: "32.99 42.09",
           },
-          "-=0.2",
+          "<",
         )
 
       if (loop) {
-        tl.to("[data-arc], [data-ear], [data-star], [data-mic]", {
+        tl.to("[data-arc], [data-ear-left], [data-ear-right], [data-star], [data-mic]", {
           opacity: 0,
           duration: speed,
           ease: "power2.in",
@@ -106,7 +108,7 @@ export default function SupportIcon({
 
       {/* Left earpiece */}
       <rect
-        data-ear
+        data-ear-left
         x="1"
         y="17.69"
         width="5.07"
@@ -114,12 +116,11 @@ export default function SupportIcon({
         rx="2.53"
         className="fill-background stroke-accent"
         strokeWidth="2"
-        opacity={0}
       />
 
       {/* Right earpiece */}
       <rect
-        data-ear
+        data-ear-right
         x="42.22"
         y="17.69"
         width="5.07"
@@ -127,7 +128,6 @@ export default function SupportIcon({
         rx="2.53"
         className="fill-background stroke-accent"
         strokeWidth="2"
-        opacity={0}
       />
 
       {/* Center asterisk/compass */}

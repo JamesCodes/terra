@@ -143,20 +143,12 @@ function processInlineMarks(richText: Element) {
   })
 }
 
-function processExternalLinks(richText: Element) {
-  richText.querySelectorAll<HTMLAnchorElement>('a[target="_blank"]').forEach((a) => {
-    if (a.closest(".rt-button") || a.querySelector(".rt-button")) return
-    a.textContent = `[${a.textContent}]`
-  })
-}
-
 export function processRichText() {
   document.querySelectorAll(".w-richtext").forEach((richText) => {
     processNumberedLists(richText)
     processHorizontalRules(richText)
     processNamedMarks(richText)
     processInlineMarks(richText)
-    processExternalLinks(richText)
   })
 }
 
@@ -177,11 +169,12 @@ const styles = [
     }
   }`,
   `.rt-button {
+    margin-top: 1rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 3.125rem;
-    padding-inline: 1.5rem;
+    height: 2.5rem;
+    padding-inline: 1.25rem;
     border-radius: 9999px;
     font-family: var(--font-sans);
     background-color: var(--color-accent);
@@ -238,18 +231,28 @@ const styles = [
   a[target="_blank"]:has(.rt-button)::after {
     display: none;
   }`,
+  `.rt-numbered-list {
+    margin-top: 48px;
+  }`,
+  `@media (min-width: 768px) {
+    .rt-numbered-list {
+      margin-top: 64px;
+    }
+  }`,
   `.rt-numbered-list-item {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 0 1rem;
     border-top: 1px solid var(--color-border);
-    padding-top: 2rem;
+    padding-top: 1.5rem;
     padding-bottom: 2rem;
   }`,
   `@media (min-width: 768px) {
     .rt-numbered-list-item {
-      grid-template-columns: repeat(9, 1fr);
+      grid-template-columns: repeat(7, 1fr);
       gap: 0 1.25rem;
+      padding-top: 2rem;
+      padding-bottom: 3rem;
     }
   }`,
   `.rt-numbered-list-number {
@@ -263,7 +266,7 @@ const styles = [
   }`,
   `@media (min-width: 768px) {
     .rt-numbered-list-number {
-      grid-column: span 2;
+      grid-column: span 1;
     }
   }`,
   `.rt-numbered-list-title {
@@ -275,7 +278,7 @@ const styles = [
   }`,
   `@media (min-width: 768px) {
     .rt-numbered-list-title {
-      grid-column: 3 / span 6;
+      grid-column: 2 / span 6;
     }
   }`,
   `.rt-numbered-list-description {
@@ -289,7 +292,90 @@ const styles = [
   }`,
   `@media (min-width: 768px) {
     .rt-numbered-list-description {
-      grid-column: 3 / span 6;
+      grid-column: 2 / span 6;
+    }
+  }`,
+  `.w-code-block {
+    padding: 32px !important;
+    font-family: var(--font-dm-mono);
+    color: var(--color--obsidian);
+    font-size: 16px;
+    line-height: 24px;
+    margin: 48px 0;
+  }`,
+  `.w-code-block[style*="background:#fefefe"] {
+    background: var(--color--obsidian) !important;
+  }`,
+  `.w-code-block[style*="background:#fefefe"] code {
+    color: var(--color--obsidian) !important;
+  }`,
+  `.w-code-block[style*="background:#2b2b2b"] {
+    background: var(--color--obsidian) !important;
+  }`,
+  `.w-code-block[style*="background:#2b2b2b"] code {
+    color: var(--color--chalk) !important;
+  }`,
+  `.w-code-block code {
+    padding: 0 !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    text-wrap: auto !important;
+  }`,
+  `.w-code-block code *:first-child {
+    margin-top: 0 !important;
+  }`,
+  `.w-code-block span:empty {
+    display: none !important;
+  }`,
+  `.w-code-block [style='color:#696969'] {
+    color: var(--color--obsidian) !important;
+  }`,
+  `.w-code-block [style='color:#d4d0ab'] {
+    color: var(--color--chalk) !important;
+  }`,
+  `.w-code-block [style='color:#008000'], .w-code-block [style='color:#abe338'] {
+    margin-left: 0px;
+    font-size: 14px;
+    line-height: 32px;
+    font-family: var(--font-sans);
+    display: block;
+    padding-top: 24px;
+    margin-top: 24px;
+    position: relative;
+  }`,
+  `.w-code-block [style='color:#008000'] {
+    border-top: solid 1px rgba(18, 17, 13, 0.1);
+    color: var(--color--granite) !important;
+  }`,
+  `.w-code-block [style='color:#abe338'] {
+    border-top: solid 1px rgba(250, 249, 246, 0.2);
+    color: rgba(250, 249, 246, 0.8) !important;
+  }`,
+  `.w-code-block [style='color:#008000']:before, .w-code-block [style='color:#abe338']:before {
+    content: "'";
+    color: white;
+    width: 2px;
+    height: 100%;
+    position: absolute;
+  }`,
+  `.w-code-block [style='color:#008000']:before, .w-code-block [style='color:#008000']:after {
+    color: var(--color--white);
+  }`,
+  `.w-code-block [style='color:#abe338']:before, .w-code-block [style='color:#abe338']:after {
+    color: var(--color--obsidian);
+  }`,
+  `.w-code-block [style='color:#008000']:after, .w-code-block [style='color:#abe338']:after {
+    content: "'";
+    display: inline-block;
+    position: relative;
+    margin-left: -0.138rem;
+  }`,
+  `@media (min-width: 768px) {
+    .w-code-block {
+      padding: 40px !important;
+      font-size: 20px;
+      line-height: 28px;
+      margin: 64px -20px;
     }
   }`,
 ]
@@ -311,7 +397,7 @@ function reinitWebflow() {
   if (!wf) return
   wf.destroy()
   wf.ready()
-  wf.require("ix2").init()
+  wf.require("ix2")?.init()
 }
 
 export const marks = [
@@ -354,11 +440,12 @@ export function DesignerReference() {
 
 export function RichTextMarks() {
   const { mode } = useWebflowContext()
-  const isDesigning = mode === "design" || mode === "edit" || mode === "build"
+  const isDesigning = mode === "design" || mode === "edit"
+
+  injectStyles()
 
   useEffect(() => {
     if (isDesigning) return
-    injectStyles()
     processRichText()
     reinitWebflow()
 

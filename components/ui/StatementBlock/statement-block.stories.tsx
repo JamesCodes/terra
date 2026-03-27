@@ -4,7 +4,6 @@ import { StatementBlockItem } from "@/components/ui/StatementBlockItem/statement
 import { numberArg, responsiveArgs, selectArg } from "@/lib/storybook"
 import { StatementBlock } from "./statement-block"
 import { alignMap, propLabels } from "./statement-block.webflow"
-import "../../../app/globals.css"
 import { WebflowSlot } from "@/lib/storybook-webflow"
 
 const meta = {

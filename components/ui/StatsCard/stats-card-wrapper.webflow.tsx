@@ -2,7 +2,6 @@ import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import type React from "react"
 
-import "@/app/globals.css"
 import type { ReactNode } from "react"
 
 interface WebflowStatWrapperProps {

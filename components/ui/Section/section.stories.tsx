@@ -4,9 +4,8 @@ import { variantMap as buttonVariantMap } from "@/components/ui/Button/button.we
 import { levelMap } from "@/components/ui/Heading/heading.webflow"
 import { booleanArg, numberArg, responsiveArgs, selectArg, textArg } from "@/lib/storybook"
 import { Section } from "./section"
-import { propLabels, variantMap } from "./section.webflow"
+import { propLabels, textAlignMap, variantMap } from "./section.webflow"
 
-import "../../../app/globals.css"
 
 const meta = {
   title: "Sections/Section",
@@ -18,6 +17,7 @@ const meta = {
   tags: ["autodocs"],
   args: {
     variant: "Chalk" as any,
+    textAlign: "Center" as any,
     label: "Label",
     showLabel: false,
     heading: "Leave nothing unvalidated.",
@@ -39,6 +39,7 @@ const meta = {
   },
   argTypes: {
     variant: selectArg(propLabels.variant, variantMap),
+    textAlign: selectArg(propLabels.textAlign, textAlignMap),
     ...responsiveArgs("gap", numberArg(propLabels.gap, { min: -1, max: 200, step: 4 })),
     ...responsiveArgs(
       "paddingTop",

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { numberArg } from "@/lib/storybook"
 import { NumberedListItem } from "./numbered-list"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Content Blocks/Numbered List",

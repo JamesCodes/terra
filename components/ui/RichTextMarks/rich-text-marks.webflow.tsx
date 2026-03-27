@@ -1,7 +1,6 @@
 import { declareComponent } from "@webflow/react"
 import { RichTextMarks } from "./rich-text-marks"
 
-import "../../../app/globals.css"
 
 export default declareComponent(RichTextMarks, {
   name: "Rich Text Marks",

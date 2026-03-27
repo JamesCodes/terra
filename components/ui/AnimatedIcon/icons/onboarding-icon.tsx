@@ -29,29 +29,11 @@ export default function OnboardingIcon({
       })
       tlRef.current = tl
 
-      tl.to("[data-left]", {
+      tl.to("[data-center]", {
         opacity: 1,
         duration: speed,
         ease: "sine.in",
       })
-        .to(
-          "[data-right]",
-          {
-            opacity: 1,
-            duration: speed,
-            ease: "sine.in",
-          },
-          "<0.1",
-        )
-        .to(
-          "[data-center]",
-          {
-            opacity: 1,
-            duration: speed,
-            ease: "sine.in",
-          },
-          ">-0.2",
-        )
         .fromTo(
           "[data-badge]",
           { scale: 0, transformOrigin: "center center" },
@@ -69,7 +51,7 @@ export default function OnboardingIcon({
         )
 
       if (loop) {
-        tl.to("[data-left], [data-right], [data-center], [data-badge]", {
+        tl.to("[data-center], [data-badge]", {
           opacity: 0,
           duration: speed,
           ease: "power2.in",
@@ -95,7 +77,7 @@ export default function OnboardingIcon({
   return (
     <svg
       ref={svgRef}
-      viewBox="0 0 35.63 48.58"
+      viewBox="0 -1.25 35.63 49.83"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className="size-full"
@@ -127,7 +109,7 @@ export default function OnboardingIcon({
       </defs>
 
       {/* Left person */}
-      <g data-left opacity={0}>
+      <g data-left>
         <path
           d="M10.3 35.96C15.61 35.96 19.94 40.16 20.16 45.42H0.43C0.65 40.16 4.98 35.96 10.3 35.96Z"
           className="fill-accent stroke-accent"
@@ -143,7 +125,7 @@ export default function OnboardingIcon({
       </g>
 
       {/* Right person */}
-      <g data-right opacity={0}>
+      <g data-right>
         <path
           d="M25.34 35.96C30.65 35.96 34.98 40.16 35.2 45.42H15.47C15.69 40.16 20.02 35.96 25.34 35.96Z"
           className="fill-accent stroke-accent"

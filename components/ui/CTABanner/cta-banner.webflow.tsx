@@ -4,7 +4,6 @@ import type React from "react"
 import { createVariantMap } from "@/lib/utils"
 import { CTABanner } from "./cta-banner"
 
-import "../../../app/globals.css"
 import { responsiveProps } from "@/lib/responsive-props"
 
 export const themeMap = createVariantMap<"light" | "dark">(["light", "dark"])

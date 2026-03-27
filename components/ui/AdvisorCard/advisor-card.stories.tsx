@@ -3,7 +3,6 @@ import { textArg } from "@/lib/storybook"
 import { AdvisorCard } from "./advisor-card"
 import { propLabels } from "./advisor-card.webflow"
 
-import "../../../app/globals.css"
 
 const meta = {
   title: "Cards/Advisor Card",

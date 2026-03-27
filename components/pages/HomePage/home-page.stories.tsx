@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
-import "../../../app/globals.css"
 
 import { AnnouncementBar } from "@/components/ui/AnnouncementBar/announcement-bar"
 import { CTABanner } from "@/components/ui/CTABanner/cta-banner"

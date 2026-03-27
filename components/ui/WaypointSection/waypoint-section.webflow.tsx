@@ -2,7 +2,6 @@ import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import { WaypointSection } from "./waypoint-section"
 
-import "../../../app/globals.css"
 
 export default declareComponent(WaypointSection, {
   name: "Waypoint Section",

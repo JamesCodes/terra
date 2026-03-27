@@ -5,7 +5,6 @@ import { SiteNavSubLink } from "@/components/ui/SiteNavSubLink/site-nav-sub-link
 import { WaypointSection } from "@/components/ui/WaypointSection/waypoint-section"
 import { WebflowSlot } from "@/lib/storybook-webflow"
 import { SiteNav } from "./site-nav"
-import "../../../app/globals.css"
 import { AnnouncementBar } from "@/components/ui/AnnouncementBar/announcement-bar"
 
 const SAMPLE_CARDS = [

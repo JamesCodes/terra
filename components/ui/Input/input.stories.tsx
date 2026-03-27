@@ -4,7 +4,6 @@ import { useRef, useState } from "react"
 import { booleanArg, selectArg } from "@/lib/storybook"
 import { Input } from "./input"
 import { typeMap, variantMap } from "./input.webflow"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Elements/Input",

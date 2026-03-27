@@ -60,7 +60,7 @@ function Footer({
                         className="flex items-center rounded-full bg-[rgba(60,60,60,0.2)] p-4 transition-colors hover:bg-[rgba(60,60,60,0.4)]"
                       >
                         <Button variant="ghost" size="icon" className="size-fit">
-                          <Icon className="size-5" />
+                          <Icon className="pointer-events-none size-5" />
                         </Button>
                       </a>
                     )

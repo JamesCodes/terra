@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { RichTextLargeListItem } from "@/components/ui/RichTextLargeListItem/rich-text-large-list-item"
 import { RichTextLargeList } from "./rich-text-large-list"
 
-import "../../../app/globals.css"
 import { Section } from "@/components/ui/Section/section"
 import { WebflowSlot } from "@/lib/storybook-webflow"
 

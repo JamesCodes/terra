@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { RichTextBlock } from "./rich-text-block"
 
-import "../../../app/globals.css"
 
 interface WebflowRichTextBlockProps {
   title: string

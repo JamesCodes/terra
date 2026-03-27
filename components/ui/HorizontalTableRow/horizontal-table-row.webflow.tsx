@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { HorizontalTableRow } from "./horizontal-table-row"
 
-import "../../../app/globals.css"
 
 interface WebflowHorizontalTableRowProps {
   label: string

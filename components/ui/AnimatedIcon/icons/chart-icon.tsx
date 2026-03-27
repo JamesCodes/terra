@@ -29,8 +29,13 @@ export default function ChartIcon({
       })
       tlRef.current = tl
 
-      tl.to("[data-ring]", { opacity: 1, duration: speed, ease: "power2.out" })
-        .addLabel("reveal")
+      tl.addLabel("reveal")
+        .fromTo(
+          "[data-ring]",
+          { strokeDashoffset: 100 },
+          { strokeDashoffset: 0, duration: speed * 1.2, ease: "power2.out" },
+          "reveal",
+        )
         .fromTo(
           "[data-bar-1]",
           { attr: { y: 35.1, height: 0 } },
@@ -118,7 +123,9 @@ export default function ChartIcon({
         className="stroke-accent"
         strokeWidth="2"
         fill="none"
-        opacity={0}
+        pathLength={100}
+        strokeDasharray={102}
+        strokeDashoffset={100}
       />
       <rect data-bar-1 x="15.24" y={35.1} width="9" height={0} fill={`url(#${gradientId}-1)`} />
       <rect data-bar-2 x="24.24" y={35.1} width="9" height={0} fill={`url(#${gradientId}-2)`} />

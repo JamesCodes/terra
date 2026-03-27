@@ -4,7 +4,6 @@ import { absoluteFillDecorator } from "@/lib/webflow"
 import { createVariantMap } from "@/lib/utils"
 import { type HeroVisualVariant, HeroVisual, variantComponents } from "./hero-visual"
 
-import "../../../app/globals.css"
 
 export const variantMap = createVariantMap<HeroVisualVariant>(variantComponents)
 

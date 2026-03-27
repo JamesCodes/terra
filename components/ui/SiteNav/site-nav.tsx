@@ -9,6 +9,8 @@ import YouTubeIcon from "@/components/icons/youtube.svg"
 import { Button } from "@/components/ui/Button/button"
 import type { NavMeasureDetail } from "@/lib/nav-link-events"
 import { NAV_LINK_EVENTS } from "@/lib/nav-link-events"
+import type { NavStuckChangeDetail } from "@/lib/nav-state-events"
+import { NAV_STATE_EVENTS } from "@/lib/nav-state-events"
 import { cn } from "@/lib/utils"
 import type { WaypointIdDetail, WaypointRegisterDetail } from "@/lib/waypoint-events"
 import { WAYPOINT_EVENTS } from "@/lib/waypoint-events"
@@ -38,6 +40,7 @@ interface SiteNavProps {
   youtubeHref?: string
   youtubeTarget?: string
   stuckText?: string
+  fadeIn?: boolean
 }
 
 function SiteNav({
@@ -58,6 +61,7 @@ function SiteNav({
   youtubeHref,
   youtubeTarget,
   stuckText,
+  fadeIn = true,
 }: SiteNavProps) {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [spacerHeight, setSpacerHeight] = useState<number>(0)
@@ -248,10 +252,8 @@ function SiteNav({
         currentProgress = progress
         const announcementHeight = announcement?.offsetHeight ?? 0
 
-        if (progress === 0 || progress === 1) {
-          const visibleHeight = (fixed?.offsetHeight ?? 80) - announcementHeight * progress
-          document.documentElement.style.setProperty("--nav-height", `${visibleHeight}px`)
-        }
+        const visibleHeight = (fixed?.offsetHeight ?? 80) - announcementHeight * progress
+        document.documentElement.style.setProperty("--nav-height", `${visibleHeight}px`)
 
         if (setY) {
           setY(-announcementHeight * progress)
@@ -291,6 +293,13 @@ function SiteNav({
         if (target === targetProgress) return
         targetProgress = target
         progressTween?.kill()
+
+        window.dispatchEvent(
+          new CustomEvent<NavStuckChangeDetail>(NAV_STATE_EVENTS.STUCK_CHANGE, {
+            detail: { stuck: target === 1 },
+          }),
+        )
+
         const proxy = { value: currentProgress }
         progressTween = gsap.to(proxy, {
           value: target,
@@ -350,14 +359,19 @@ function SiteNav({
     <div style={{ height: spacerHeight }} className="w-full">
       <div ref={fixedRef} className="fixed z-50 w-full">
         {announcementBar && (
-          <div ref={announcementRef} data-slot="navbar-announcement" className="fade-in delay-100">
+          <div
+            ref={announcementRef}
+            data-slot="navbar-announcement"
+            className={cn({ "fade-in delay-100": fadeIn, "fade-in--eager": !fadeIn })}
+          >
             {announcementBar}
           </div>
         )}
         <nav
           data-slot="navbar"
           className={cn(
-            "fade-in relative w-full border-b bg-background text-foreground delay-500",
+            "relative w-full border-b bg-background text-foreground",
+            { "fade-in delay-500": fadeIn },
             className,
           )}
         >

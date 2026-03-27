@@ -4,7 +4,6 @@ import type React from "react"
 import { createVariantMap } from "@/lib/utils"
 import { BlogPostCard, blogPostCardVariants } from "./blog-post-card"
 
-import "../../../app/globals.css"
 
 type BlogPostCardVariant = NonNullable<
   import("tailwind-variants").VariantProps<typeof blogPostCardVariants>["variant"]
@@ -26,7 +25,7 @@ interface WebflowBlogPostCardProps {
   variant?: keyof typeof variantMap
   image?: PropValues[PropType.Image]
   categoryName?: string
-  categoryUrl?: string
+  categoryUrl?: PropValues[PropType.Link]
   title?: string
   description?: string
   author?: string
@@ -53,7 +52,7 @@ const WebflowBlogPostCard: React.FC<WebflowBlogPostCardProps> = ({
     <BlogPostCard
       variant={mappedVariant}
       image={showImage && image?.src ? { src: image.src, alt: image.alt } : undefined}
-      category={categoryName ? { name: categoryName, url: categoryUrl } : undefined}
+      category={categoryName ? { name: categoryName, link: categoryUrl } : undefined}
       title={title}
       description={description}
       author={author}
@@ -92,7 +91,7 @@ export default declareComponent(WebflowBlogPostCard, {
       group: "Content",
       tooltip: "Category name — used as fallback when the Categories slot is empty",
     }),
-    categoryUrl: props.Text({
+    categoryUrl: props.Link({
       name: "Category URL",
       group: "Content",
       tooltip: "Link for the primary category badge",

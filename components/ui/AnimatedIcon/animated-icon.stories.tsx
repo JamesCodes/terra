@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { numberArg, selectArg } from "@/lib/storybook"
 import { AnimatedIcon } from "./animated-icon"
 import { iconMap, modeMap, sizeMap } from "./animated-icon.webflow"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Media/Animated Icon",

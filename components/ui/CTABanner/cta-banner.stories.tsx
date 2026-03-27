@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { numberArg, responsiveArgs, selectArg } from "@/lib/storybook"
 import { CTABanner } from "./cta-banner"
 import { backgroundPositionMap, backgroundSizeMap, themeMap } from "./cta-banner.webflow"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Sections/CTA Banner",

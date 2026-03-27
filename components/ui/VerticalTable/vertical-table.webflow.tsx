@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { VerticalTable } from "./vertical-table"
 
-import "../../../app/globals.css"
 
 interface WebflowVerticalTableProps {
   heading: string

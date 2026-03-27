@@ -4,7 +4,6 @@ import { SectionHeading } from "./section-heading"
 import { levelMap } from "@/components/ui/Heading/heading.webflow"
 import { propLabels, variantMap } from "./section-heading.webflow"
 
-import "../../../app/globals.css"
 
 const meta = {
   title: "Sections/SectionHeading",

@@ -28,12 +28,12 @@ const featureCardVariants = tv({
         container: "gap-5 border border-border p-8 md:p-6 lg:p-10",
         wrapper: "gap-6 lg:gap-10",
         text: "gap-6",
+        icon: "max-md:self-start",
       },
       simple: {
         container: "w-full items-center gap-12 rounded-none py-10 md:py-8",
         wrapper: "items-center gap-6 lg:gap-12",
         text: "items-center gap-4 text-center",
-        icon: "max-md:self-start",
       },
     },
     imagePosition: {
@@ -99,7 +99,13 @@ function FeatureCard({
           {!!label && <span className="font-semibold text-accent text-sm">{label}</span>}
           {!!icon && (
             <div data-slot="feature-card-icon" className="contents">
-              <AnimatedIcon size="sm" icon={icon} mode={iconMode} speed={iconSpeed} />
+              <AnimatedIcon
+                size="sm"
+                icon={icon}
+                mode={iconMode}
+                speed={iconSpeed}
+                className={styles.icon()}
+              />
             </div>
           )}
           {(!!title || !!description) && (
@@ -110,7 +116,7 @@ function FeatureCard({
                 </Heading>
               )}
               {showText && !!description && (
-                <p className="brand-body2 text-muted-foreground">{description}</p>
+                <p className="brand-body2 text-granite/50">{description}</p>
               )}
             </div>
           )}

@@ -3,7 +3,6 @@ import { booleanArg, textArg } from "@/lib/storybook"
 import { RichTextBlock } from "./rich-text-block"
 import { propLabels } from "./rich-text-block.webflow"
 
-import "../../../app/globals.css"
 import { Section } from "@/components/ui/Section/section"
 import { WebflowSlot } from "@/lib/storybook-webflow"
 

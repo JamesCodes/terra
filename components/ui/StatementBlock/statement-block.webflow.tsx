@@ -5,7 +5,6 @@ import { responsiveProps } from "@/lib/responsive-props"
 import { createVariantMap } from "@/lib/utils"
 import { type ObjectAlign, StatementBlock } from "./statement-block"
 
-import "../../../app/globals.css"
 
 export const alignMap = createVariantMap<ObjectAlign>(["top", "center", "bottom"])
 

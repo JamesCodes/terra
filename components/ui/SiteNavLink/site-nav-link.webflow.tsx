@@ -3,7 +3,6 @@ import { declareComponent, useWebflowContext } from "@webflow/react"
 import type React from "react"
 import { SiteNavLink } from "./site-nav-link"
 
-import "../../../app/globals.css"
 
 export const propLabels = {
   label: "Label",

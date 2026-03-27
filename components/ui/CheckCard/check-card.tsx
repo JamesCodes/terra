@@ -10,11 +10,16 @@ function CheckCard({ className, text, ...props }: CheckCardProps) {
   return (
     <ItemFrame
       data-slot="check-card"
-      className={cn("flex w-full flex-row items-center gap-4 lg:flex-col lg:gap-6", className)}
+      className={cn(
+        "flex w-full flex-row items-center gap-4 self-stretch lg:flex-col lg:gap-6",
+        className,
+      )}
       {...props}
     >
       <CheckIcon className="size-16 shrink-0 text-terracotta" />
-      <p className="brand-h5 text-left md:text-center">{text}</p>
+      <p className="brand-h5 text-balance text-left leading-6 lg:text-center lg:leading-8">
+        {text}
+      </p>
     </ItemFrame>
   )
 }

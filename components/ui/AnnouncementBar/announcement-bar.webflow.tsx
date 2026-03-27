@@ -3,7 +3,6 @@ import { type PropType, type PropValues, props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import { AnnouncementBar, type Announcement } from "./announcement-bar"
 
-import "../../../app/globals.css"
 
 interface WebflowAnnouncementBarProps {
   text1?: string

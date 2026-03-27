@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { RichTextLargeList } from "./rich-text-large-list"
 
-import "../../../app/globals.css"
 
 interface WebflowRichTextLargeListProps {
   items: React.ReactNode

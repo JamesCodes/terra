@@ -9,7 +9,6 @@ import {
 import { createVariantMap } from "@/lib/utils"
 import { FeatureContent, featuredContentVariants } from "./feature-content"
 
-import "../../../app/globals.css"
 
 type FeatureContentVariant = NonNullable<
   import("tailwind-variants").VariantProps<typeof featuredContentVariants>["variant"]

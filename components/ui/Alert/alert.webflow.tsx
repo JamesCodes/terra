@@ -5,7 +5,6 @@ import type React from "react"
 import { createVariantMap } from "@/lib/utils"
 import { Alert, AlertDescription, AlertTitle, alertVariants } from "./alert"
 
-import "../../../app/globals.css"
 
 type AlertVariant = NonNullable<
   import("tailwind-variants").VariantProps<typeof alertVariants>["variant"]

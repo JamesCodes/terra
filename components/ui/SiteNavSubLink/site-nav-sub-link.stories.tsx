@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { textArg } from "@/lib/storybook"
 import { SiteNavSubLink } from "./site-nav-sub-link"
 import { propLabels } from "./site-nav-sub-link.webflow"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Navigation/SiteNav SubLink",

@@ -3,7 +3,6 @@ import { textArg } from "@/lib/storybook"
 import { RichTextLargeListItem } from "./rich-text-large-list-item"
 import { propLabels } from "./rich-text-large-list-item.webflow"
 
-import "../../../app/globals.css"
 
 const meta = {
   title: "Rich Text/Large List Item",

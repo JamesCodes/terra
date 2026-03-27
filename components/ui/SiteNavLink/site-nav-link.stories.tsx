@@ -3,7 +3,6 @@ import { SiteNavSubLink } from "@/components/ui/SiteNavSubLink/site-nav-sub-link
 import { textArg } from "@/lib/storybook"
 import { SiteNavLink } from "./site-nav-link"
 import { propLabels } from "./site-nav-link.webflow"
-import "../../../app/globals.css"
 
 const SAMPLE_CARDS = [
   {

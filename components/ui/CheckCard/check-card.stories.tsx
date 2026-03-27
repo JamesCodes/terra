@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
-import { textArg } from "@/lib/storybook"
-import { CheckCard } from "./check-card"
-import { propLabels } from "./check-card.webflow"
-import "../../../app/globals.css"
 import { ItemFlex } from "@/components/ui/ItemFlex/item-flex"
 import { Section } from "@/components/ui/Section/section"
+import { textArg } from "@/lib/storybook"
 import { WebflowSlot } from "@/lib/storybook-webflow"
+import { CheckCard } from "./check-card"
+import { propLabels } from "./check-card.webflow"
 
 const meta = {
   title: "Cards/CheckCard",
@@ -27,11 +26,13 @@ const meta = {
     (Story) => (
       <Section variant="moss">
         <WebflowSlot>
-          <ItemFlex itemMaxWidth={33} itemMaxWidthUnit="%" itemMaxWidthMobile={100} gap={40}>
+          <ItemFlex itemMaxWidth={230} itemMaxWidthUnit="px" itemMaxWidthMobile={100} gap={10}>
             <WebflowSlot>
-              <CheckCard text="Expand pentesting coverage without increasing headcount." />
-              <CheckCard text="Complement existing services and platforms." />
-              <CheckCard text="Deliver continuous value beyond point-in-time assessments." />
+              <CheckCard text="Verified, exploitable findings instead of noise" />
+              <CheckCard text="Business logic-aware testing" />
+              <CheckCard text="Continuous, change-based coverage" />
+              <CheckCard text="Scale without linear cost increases" />
+              <CheckCard text="Human-verified findings & reports on demand for compliance" />
             </WebflowSlot>
           </ItemFlex>
         </WebflowSlot>

@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "./avatar"
 
-import "../../../app/globals.css"
 
 interface WebflowAvatarProps {
   image?: PropValues[PropType.Image]

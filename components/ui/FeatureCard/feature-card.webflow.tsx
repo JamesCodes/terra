@@ -9,7 +9,6 @@ import {
 import { createVariantMap } from "@/lib/utils"
 import { FeatureCard, imagePositionVariants, layoutVariants } from "./feature-card"
 
-import "../../../app/globals.css"
 
 export const layoutMap = createVariantMap<(typeof layoutVariants)[number]>(layoutVariants)
 

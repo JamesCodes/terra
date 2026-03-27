@@ -4,7 +4,6 @@ import type React from "react"
 import { createVariantMap } from "@/lib/utils"
 import { ColorCard, colorCardVariants } from "./color-card"
 
-import "../../../app/globals.css"
 
 type ColorCardVariant = NonNullable<
   import("tailwind-variants").VariantProps<typeof colorCardVariants>["variant"]

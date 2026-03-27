@@ -5,7 +5,6 @@ import { useRef, useState } from "react"
 import { createVariantMap } from "@/lib/utils"
 import { Input, inputVariants } from "./input"
 
-import "../../../app/globals.css"
 
 type InputVariant = NonNullable<
   import("tailwind-variants").VariantProps<typeof inputVariants>["variant"]

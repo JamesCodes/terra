@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { ResponsiveImage } from "./responsive-image"
 
-import "../../../app/globals.css"
 
 interface WebflowResponsiveImageProps {
   image?: PropValues[PropType.Image]

@@ -3,7 +3,6 @@ import { declareComponent, useWebflowContext } from "@webflow/react"
 import type React from "react"
 import { FooterNavColumn } from "./footer-nav-column"
 
-import "../../../app/globals.css"
 
 interface WebflowFooterNavColumnProps {
   visible: boolean

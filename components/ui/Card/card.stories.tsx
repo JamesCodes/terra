@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { Button } from "../Button/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "./card"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Cards/Card",

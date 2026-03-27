@@ -3,7 +3,6 @@ import { declareComponent } from "@webflow/react"
 import type React from "react"
 import { HorizontalTable } from "./horizontal-table"
 
-import "../../../app/globals.css"
 
 interface WebflowHorizontalTableProps {
   heading: string

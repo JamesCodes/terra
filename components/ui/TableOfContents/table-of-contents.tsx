@@ -1,5 +1,9 @@
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: secondary actions */
+/** biome-ignore-all lint/a11y/useKeyWithClickEvents: mobile-only */
 import { useWebflowContext } from "@webflow/react"
 import { useCallback, useEffect, useRef, useState } from "react"
+import type { NavStuckChangeDetail } from "@/lib/nav-state-events"
+import { NAV_STATE_EVENTS } from "@/lib/nav-state-events"
 import { cn } from "@/lib/utils"
 
 interface TocEntry {
@@ -36,7 +40,7 @@ function gatherHeadings(): TocEntry[] {
 
 export function TableOfContents() {
   const { mode } = useWebflowContext()
-  const isDesigning = mode === "design" || mode === "edit" || mode === "build"
+  const isDesigning = mode === "design" || mode === "edit"
 
   const [entries, setEntries] = useState<TocEntry[]>([])
   const [activeId, setActiveId] = useState<string | null>(null)
@@ -44,29 +48,8 @@ export function TableOfContents() {
   const [mobileVisible, setMobileVisible] = useState(false)
   const observerRef = useRef<IntersectionObserver | null>(null)
   const headingElementsRef = useRef<Map<string, IntersectionObserverEntry>>(new Map())
-
-  if (isDesigning) {
-    return (
-      <div
-        style={{
-          padding: "16px",
-          borderRadius: "8px",
-          backgroundColor: "#f5f5f4",
-          fontFamily: "monospace",
-          fontSize: "12px",
-          lineHeight: "1.6",
-          color: "#44403c",
-        }}
-      >
-        <div style={{ fontWeight: 600, marginBottom: "4px", fontSize: "13px" }}>
-          Table of Contents
-        </div>
-        <span style={{ color: "#78716c" }}>
-          Automatically populated from H2 headings after publishing
-        </span>
-      </div>
-    )
-  }
+  const mobileOpenRef = useRef(false)
+  mobileOpenRef.current = mobileOpen
 
   const updateActiveId = useCallback(() => {
     const visibleEntries = Array.from(headingElementsRef.current.values()).filter(
@@ -82,6 +65,8 @@ export function TableOfContents() {
   }, [])
 
   useEffect(() => {
+    if (isDesigning) return
+
     const tocEntries = gatherHeadings()
     setEntries(tocEntries)
 
@@ -112,38 +97,20 @@ export function TableOfContents() {
       observerRef.current?.disconnect()
       headingElementsRef.current.clear()
     }
-  }, [updateActiveId])
-
-  const mobileOpenRef = useRef(false)
-  mobileOpenRef.current = mobileOpen
+  }, [isDesigning, updateActiveId])
 
   useEffect(() => {
-    let lastScrollY = window.scrollY
-    const scrollThreshold = 5
+    if (isDesigning) return
 
-    const onScroll = () => {
-      const scrollY = window.scrollY
-      const delta = scrollY - lastScrollY
-      lastScrollY = scrollY
-
-      if (mobileOpenRef.current) setMobileOpen(false)
-
-      if (scrollY <= 100) {
-        setMobileVisible(false)
-        return
-      }
-
-      if (delta > scrollThreshold) {
-        setMobileVisible(true)
-      } else if (delta < -scrollThreshold) {
-        setMobileVisible(false)
-      }
+    const onStuckChange = (e: Event) => {
+      const { stuck } = (e as CustomEvent<NavStuckChangeDetail>).detail
+      if (stuck && mobileOpenRef.current) setMobileOpen(false)
+      setMobileVisible(stuck)
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true })
-    onScroll()
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
+    window.addEventListener(NAV_STATE_EVENTS.STUCK_CHANGE, onStuckChange)
+    return () => window.removeEventListener(NAV_STATE_EVENTS.STUCK_CHANGE, onStuckChange)
+  }, [isDesigning])
 
   const handleClick = (id: string) => {
     setMobileOpen(false)
@@ -157,23 +124,46 @@ export function TableOfContents() {
     window.scrollTo({ top: y, behavior: "smooth" })
   }
 
+  if (isDesigning) {
+    return (
+      <div
+        style={{
+          padding: "16px",
+          borderRadius: "8px",
+          backgroundColor: "#f5f5f4",
+          fontFamily: "monospace",
+          fontSize: "12px",
+          lineHeight: "1.6",
+          color: "#44403c",
+        }}
+      >
+        <div style={{ fontWeight: 600, marginBottom: "4px", fontSize: "13px" }}>
+          Table of Contents
+        </div>
+        <span style={{ color: "#78716c" }}>
+          Automatically populated from H2 headings after publishing
+        </span>
+      </div>
+    )
+  }
+
   if (entries.length === 0) return null
 
   return (
     <>
       <div
         data-slot="toc-overlay"
-        className={cn(
-          "fixed inset-0 z-30 bg-black/50 transition-opacity duration-300 lg:hidden",
-          { "opacity-100": mobileOpen, "pointer-events-none opacity-0": !mobileOpen },
-        )}
+        className={cn("fixed inset-0 z-30 bg-black/50 transition-opacity duration-300 lg:hidden", {
+          "opacity-100": mobileOpen,
+          "pointer-events-none opacity-0": !mobileOpen,
+        })}
         onClick={() => setMobileOpen(false)}
       />
       <nav
         data-slot="table-of-contents"
         className={cn(
-          "text-sm max-lg:fixed max-lg:inset-x-0 max-lg:top-(--nav-height,80px) max-lg:z-40 max-lg:border-border max-lg:border-b max-lg:bg-background max-lg:px-5 max-lg:transition-transform max-lg:duration-300",
-          { "max-lg:-translate-y-full": !mobileVisible },
+          "text-sm max-lg:fixed max-lg:inset-x-0 max-lg:top-(--nav-height,80px) max-lg:z-40 max-lg:border-border max-lg:border-b max-lg:bg-background max-lg:px-5",
+          { "max-lg:hidden": !mobileVisible },
         )}
       >
         <button
@@ -201,16 +191,16 @@ export function TableOfContents() {
           </svg>
         </button>
 
-        <p className="brand-body2 border-border border-y py-8 text-granite/75 max-md:hidden">
+        <p className="brand-body2 border-border border-y pt-8 pb-16 text-granite/75 max-lg:hidden">
           Table of contents
         </p>
 
         <div
           data-slot="toc-list-wrapper"
-          className={cn(
-            "grid transition-[grid-template-rows] duration-300 lg:grid-rows-[1fr]",
-            { "max-lg:grid-rows-[1fr]": mobileOpen, "max-lg:grid-rows-[0fr]": !mobileOpen },
-          )}
+          className={cn("grid transition-[grid-template-rows] duration-300 lg:grid-rows-[1fr]", {
+            "max-lg:grid-rows-[1fr]": mobileOpen,
+            "max-lg:grid-rows-[0fr]": !mobileOpen,
+          })}
         >
           <ul data-slot="toc-list" className="flex flex-col overflow-hidden">
             {entries.map((entry, i) => (

@@ -95,7 +95,7 @@ function ParallaxScene({
         tl.fromTo(
           layer,
           { yPercent: scrollOffset * depth },
-          { yPercent: -scrollOffset * depth, ease: "none" },
+          { yPercent: -scrollOffset * depth, ease: "none", immediateRender: false },
           0,
         )
       }

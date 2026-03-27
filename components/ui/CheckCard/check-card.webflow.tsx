@@ -2,7 +2,6 @@ import { props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import { CheckCard } from "./check-card"
 
-import "../../../app/globals.css"
 
 export const propLabels = {
   text: "Text",

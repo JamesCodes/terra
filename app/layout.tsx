@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { DM_Sans, Geist_Mono } from "next/font/google"
+import { DM_Mono, DM_Sans } from "next/font/google"
 import localFont from "next/font/local"
 import "./globals.css"
 
@@ -16,8 +16,9 @@ const seasonMix = localFont({
   variable: "--font-season-mix",
 })
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmMono = DM_Mono({
+  variable: "--font-dm-mono",
+  weight: "400",
   subsets: ["latin"],
 })
 
@@ -33,7 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${dmSans.variable} ${seasonMix.variable} ${geistMono.variable}`}>
+      <body className={`${dmSans.variable} ${seasonMix.variable} ${dmMono.variable}`}>
         {children}
       </body>
     </html>

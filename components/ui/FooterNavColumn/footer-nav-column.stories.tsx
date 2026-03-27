@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
 import { SiteLink } from "@/components/ui/SiteLink/site-link"
 import { FooterNavColumn } from "./footer-nav-column"
-import "../../../app/globals.css"
 
 const meta = {
   title: "Navigation/FooterNavColumn",

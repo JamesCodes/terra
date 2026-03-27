@@ -5,11 +5,14 @@ import { cn } from "@/lib/utils"
 
 type ButtonVariant = NonNullable<VariantProps<typeof buttonVariants>["variant"]>
 
+type TextAlign = "left" | "center" | "right"
+
 interface SectionHeadingProps extends React.ComponentProps<"div"> {
   label?: string
   heading?: string
   headingLevel?: HeadingLevel
   text?: string
+  textAlign?: TextAlign
   variant?: "light" | "dark"
   buttonText?: string
   buttonLink?: { href: string; target?: string }
@@ -22,6 +25,7 @@ function SectionHeading({
   heading,
   headingLevel = 2,
   text,
+  textAlign = "center",
   variant = "light",
   buttonText,
   buttonLink,
@@ -31,35 +35,54 @@ function SectionHeading({
   if (!label && !heading && !text && !buttonText) return null
 
   return (
-    <div data-slot="section-heading" className={className} {...props}>
+    <div
+      data-slot="section-heading"
+      className={cn("text-center", className, {
+        "lg:text-left": textAlign === "left",
+        "lg:text-right": textAlign === "right",
+      })}
+      {...props}
+    >
       <div className="brand-grid gap-y-6">
         {label && (
-          <p className="brand-eyebrow col-span-full text-center text-accent md:col-span-7 md:col-start-2 lg:col-span-8 lg:col-start-3">
+          <p
+            className={cn("brand-eyebrow col-span-full text-accent md:col-span-7 md:col-start-2", {
+              "lg:col-span-8 lg:col-start-3": textAlign === "center",
+              "lg:col-span-full": textAlign !== "center",
+            })}
+          >
             {label}
           </p>
         )}
         {heading && (
           <Heading
             level={headingLevel}
-            className="col-span-full text-balance text-center md:col-span-7 md:col-start-2 lg:col-span-8 lg:col-start-3"
+            className={cn("col-span-full text-balance md:col-span-7 md:col-start-2", {
+              "lg:col-span-8 lg:col-start-3": textAlign === "center",
+              "lg:col-span-full": textAlign !== "center",
+            })}
           >
             {heading}
           </Heading>
         )}
         {text && (
           <p
-            className={cn(
-              "brand-body1 col-span-full text-balance text-center lg:col-span-8 lg:col-start-3",
-              {
-                "text-[#3c3c3c]": variant === "light",
-              },
-            )}
+            className={cn("brand-body1 col-span-full text-balance", {
+              "lg:col-span-8 lg:col-start-3": textAlign === "center",
+              "lg:col-span-full": textAlign !== "center",
+              "text-[#3c3c3c]": variant === "light",
+            })}
           >
             {text}
           </p>
         )}
         {buttonText && (
-          <div className="col-span-full mt-2 flex justify-center md:mt-4">
+          <div
+            className={cn("col-span-full mt-2 flex justify-center md:mt-4", {
+              "lg:justify-start": textAlign === "left",
+              "lg:justify-end": textAlign === "right",
+            })}
+          >
             {buttonLink?.href ? (
               <Button asChild variant={buttonVariant}>
                 <a href={buttonLink.href} target={buttonLink.target}>
@@ -77,4 +100,4 @@ function SectionHeading({
 }
 
 export { SectionHeading }
-export type { SectionHeadingProps }
+export type { SectionHeadingProps, TextAlign }

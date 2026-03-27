@@ -4,7 +4,6 @@ import type React from "react"
 import { createVariantMap } from "@/lib/utils"
 import { Button, type ButtonSize, type ButtonState, type ButtonVariant, buttonVariants } from "./button"
 
-import "../../../app/globals.css"
 
 export const variantMap = createVariantMap<ButtonVariant>(buttonVariants.variants.variant)
 

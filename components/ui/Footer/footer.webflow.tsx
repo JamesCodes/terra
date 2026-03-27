@@ -3,7 +3,6 @@ import { type PropType, type PropValues, props } from "@webflow/data-types"
 import { declareComponent } from "@webflow/react"
 import { Footer } from "./footer"
 
-import "../../../app/globals.css"
 
 interface WebflowFooterProps {
   navColumns?: React.ReactNode

@@ -4,21 +4,22 @@ import type React from "react"
 import type { ReactNode } from "react"
 import { variantMap as buttonVariantMap } from "@/components/ui/Button/button.webflow"
 import { levelMap } from "@/components/ui/Heading/heading.webflow"
+import type { TextAlign } from "@/components/ui/SectionHeading/section-heading"
 import {
   propLabels as headingPropLabels,
   headingTextProps,
 } from "@/components/ui/SectionHeading/section-heading.webflow"
+import { responsiveProps } from "@/lib/responsive-props"
 import { createVariantMap } from "@/lib/utils"
 import { Section, type SectionVariant, sectionVariants } from "./section"
 
-import "../../../app/globals.css"
-import { responsiveProps } from "@/lib/responsive-props"
-
 export const variantMap = createVariantMap<SectionVariant>(sectionVariants.variants.variant)
+export const textAlignMap = createVariantMap<TextAlign>(["left", "center", "right"])
 
 export const propLabels = {
   ...headingPropLabels,
   variant: "Style",
+  textAlign: "Text Align",
   gap: "Gap",
   paddingTop: "Padding Top",
   paddingBottom: "Padding Bottom",
@@ -36,11 +37,13 @@ interface WebflowSectionProps {
   buttonLink?: PropValues[PropType.Link]
   buttonVariant?: keyof typeof buttonVariantMap
   showButton?: boolean
+  textAlign?: keyof typeof textAlignMap
   showDivider?: boolean
   pattern?: PropValues[PropType.Image]
   showPattern?: boolean
   fadePattern?: boolean
   variant?: keyof typeof variantMap
+  fullBleedContents?: boolean
   gap?: number
   gapTablet?: number
   gapMobile?: number
@@ -65,11 +68,13 @@ const WebflowSection: React.FC<WebflowSectionProps> = ({
   buttonLink,
   buttonVariant = "Default",
   showButton = false,
+  textAlign = "Center",
   pattern,
   showDivider = true,
   showPattern = false,
   fadePattern = true,
   variant = "Chalk",
+  fullBleedContents = false,
   gap = 80,
   gapTablet,
   gapMobile,
@@ -82,6 +87,7 @@ const WebflowSection: React.FC<WebflowSectionProps> = ({
   content,
 }) => {
   const mappedVariant = variantMap[variant]
+  const mappedTextAlign = textAlignMap[textAlign]
   const mappedHeadingLevel = levelMap[headingLevel]
 
   return (
@@ -91,6 +97,7 @@ const WebflowSection: React.FC<WebflowSectionProps> = ({
       heading={showHeading ? heading : undefined}
       headingLevel={mappedHeadingLevel}
       text={showText ? text : undefined}
+      textAlign={mappedTextAlign}
       buttonText={showButton ? buttonText : undefined}
       buttonLink={
         buttonLink?.href ? { href: buttonLink.href, target: buttonLink.target } : undefined
@@ -98,6 +105,7 @@ const WebflowSection: React.FC<WebflowSectionProps> = ({
       buttonVariant={buttonVariantMap[buttonVariant]}
       pattern={pattern?.src}
       showDivider={showDivider}
+      fullBleedContents={fullBleedContents}
       showPattern={showPattern}
       fadePattern={fadePattern}
       gap={gap}
@@ -127,6 +135,14 @@ export default declareComponent(WebflowSection, {
       defaultValue: true,
       tooltip: "Toggle the bottom divider line",
     }),
+    fullBleedContents: props.Boolean({
+      name: "Full Bleed Contents",
+      defaultValue: false,
+      trueLabel: "On",
+      falseLabel: "Off",
+      tooltip: "Allow contents to extend beyond the container to viewport edges",
+      group: "Spacing",
+    }),
     pattern: props.Image({
       name: "Pattern",
       tooltip: "Background pattern overlay (SVG only — colors inherit from the section style)",
@@ -149,6 +165,12 @@ export default declareComponent(WebflowSection, {
       options: Object.keys(variantMap),
       defaultValue: Object.keys(variantMap)[0],
       tooltip: "Controls the section background and text colors",
+    }),
+    textAlign: props.Variant({
+      name: "Text Align",
+      options: Object.keys(textAlignMap),
+      defaultValue: "Center",
+      tooltip: "Text alignment for the section heading and description",
     }),
     ...responsiveProps("gap", props.Number, {
       name: "Gap",
