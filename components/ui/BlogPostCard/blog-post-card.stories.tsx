@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
-import { selectArg, textArg } from "@/lib/storybook"
-import { BlogPostCard } from "./blog-post-card"
-import { propLabels, variantMap } from "./blog-post-card.webflow"
 import { FloatingPostImage } from "@/components/ui/FloatingPostImage/floating-post-image"
 import { Section } from "@/components/ui/Section/section"
+import { selectArg, textArg } from "@/lib/storybook"
 import { WebflowSlot } from "@/lib/storybook-webflow"
+import { BlogPostCard } from "./blog-post-card"
+import { propLabels, variantMap } from "./blog-post-card.webflow"
 
 const meta = {
   title: "Cards/Blog Post Card",

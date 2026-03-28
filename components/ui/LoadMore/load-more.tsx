@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/Button/button"
 
 interface LoadMoreProps {
   loadMoreText?: string
+  showArchive?: boolean
   viewArchiveText?: string
   pageSize?: number
   link?: { href: string; target?: string }
@@ -11,6 +12,7 @@ interface LoadMoreProps {
 
 function LoadMore({
   loadMoreText = "Load More",
+  showArchive = true,
   viewArchiveText = "View Archive",
   pageSize = 6,
   link,
@@ -34,9 +36,9 @@ function LoadMore({
   const allVisible = visibleCount >= totalCount
 
   if (!targetSelector || totalCount === 0) return null
-  if (allVisible && !link?.href) return null
+  if (allVisible && !showArchive) return null
 
-  if (allVisible && link?.href) {
+  if (allVisible && showArchive && link?.href) {
     return (
       <Button asChild variant="outline">
         <a href={link.href} target={link.target}>

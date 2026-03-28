@@ -26,7 +26,13 @@ const meta = {
     (Story) => (
       <Section variant="moss">
         <WebflowSlot>
-          <ItemFlex itemMaxWidth={230} itemMaxWidthUnit="px" itemMaxWidthMobile={100} gap={10}>
+          <ItemFlex
+            itemMaxWidth={20}
+            itemMaxWidthUnit="%"
+            itemMaxWidthTablet={33.33}
+            itemMaxWidthMobile={80}
+            gap={10}
+          >
             <WebflowSlot>
               <CheckCard text="Verified, exploitable findings instead of noise" />
               <CheckCard text="Business logic-aware testing" />

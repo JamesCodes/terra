@@ -84,7 +84,7 @@ function AccordionItem({
       </button>
       <div ref={contentRef} className="h-0 overflow-hidden">
         <div data-slot="accordion-content" className="pb-6 lg:max-w-6/10 lg:pb-10">
-          <div className="brand-body2 text-pretty text-muted-foreground [&>p+p]:mt-3">
+          <div className="brand-body2 richtext-cast-body2 text-pretty text-muted-foreground [&>p+p]:mt-3">
             {children}
           </div>
         </div>

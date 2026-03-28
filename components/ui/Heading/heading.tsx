@@ -12,6 +12,7 @@ const headingVariants = tv({
       5: "brand-h5",
       6: "brand-h6",
       7: "brand-h7",
+      adaptive: "brand-adaptive-heading",
     },
   },
   defaultVariants: {
@@ -19,14 +20,15 @@ const headingVariants = tv({
   },
 })
 
-type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7
+type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6 | 7 | "adaptive"
 
 interface HeadingProps extends React.ComponentProps<"h1">, VariantProps<typeof headingVariants> {
   level?: HeadingLevel
 }
 
 function Heading({ className, level = 1, ...props }: HeadingProps) {
-  const Tag = `h${Math.min(level, 6) as 1 | 2 | 3 | 4 | 5 | 6}` as const
+  const numericLevel = level === "adaptive" ? 1 : Math.min(level, 6)
+  const Tag = `h${numericLevel}` as "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
 
   return (
     <Tag

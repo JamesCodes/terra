@@ -72,7 +72,7 @@
   --color-sand: var(--brand-color-sand);
   --color-neutral: var(--brand-color-neutral);
   --color-light-magma: var(--brand-color-light-magma);
-  --color-magma: var(--brand-color-magma);
+  --color-magma: var(--brand-color-light-magma);
   --color-moss: var(--brand-color-moss);
   --color-disabled: var(--brand-color-disabled);
 
@@ -89,7 +89,7 @@
   --brand-color-granite: oklch(35.618% 0.00004 271.152);
   --brand-color-sand: oklch(93.788% 0.03075 96.901);
   --brand-color-neutral: oklch(24.354% 0.00003 271.152);
-  --brand-color-light-magma: oklch(23.189% 0.06941 38.748);
+  --brand-color-light-magma: oklab(23.189% 0.05414 0.04345);
   --brand-color-magma: oklch(18.398% 0.05673 40.87);
   --brand-color-moss: oklch(28.868% 0.04544 162.089);
   --brand-color-disabled: oklch(80.466% 0.00009 271.152);
@@ -238,6 +238,10 @@
 
 @utility brand-h2 {
   @apply font-serif text-[32px] leading-10.5 lg:text-5xl lg:leading-15;
+}
+
+@utility brand-adaptive-heading {
+  @apply font-serif text-[32px] leading-10.5 lg:text-[64px] lg:leading-18;
 }
 
 @utility brand-h3 {

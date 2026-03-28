@@ -46,7 +46,7 @@ function SectionHeading({
       <div className="brand-grid gap-y-6">
         {label && (
           <p
-            className={cn("brand-eyebrow col-span-full text-accent md:col-span-7 md:col-start-2", {
+            className={cn("brand-body1 col-span-full text-accent md:col-span-7 md:col-start-2", {
               "lg:col-span-8 lg:col-start-3": textAlign === "center",
               "lg:col-span-full": textAlign !== "center",
             })}

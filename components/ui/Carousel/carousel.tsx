@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import type * as React from "react"
 import { useCallback, useEffect, useRef, useState } from "react"
+import ArrowIcon from "@/components/icons/arrow.svg"
 import { type ResponsiveProps, responsiveClass, responsiveStyles } from "@/lib/responsive-props"
 import { cn } from "@/lib/utils"
 
@@ -108,10 +109,15 @@ function Carousel({
       const visibleRight = containerRect.right
 
       if (direction > 0) {
-        const target = items.find((item) => item.getBoundingClientRect().right > visibleRight + 1)
-        if (target) {
-          const itemLeft = target.getBoundingClientRect().left
-          el.scrollTo({ left: el.scrollLeft + (itemLeft - visibleLeft), behavior: "smooth" })
+        const firstVisible = items.find(
+          (item) => item.getBoundingClientRect().right > visibleLeft + 1,
+        )
+        if (firstVisible) {
+          const nextItem = items[items.indexOf(firstVisible) + 1]
+          if (nextItem) {
+            const targetLeft = nextItem.getBoundingClientRect().left
+            el.scrollTo({ left: el.scrollLeft + (targetLeft - visibleLeft), behavior: "smooth" })
+          }
         }
       } else {
         const target = [...items]
@@ -204,17 +210,17 @@ function Carousel({
               type="button"
               onClick={() => scroll(-1)}
               aria-label="Scroll left"
-              className="-m-2 p-2"
+              className="group/btn flex size-11 cursor-pointer items-center justify-center"
             >
-              <ArrowLeft className="size-4 text-primary" />
+              <ArrowIcon className="size-4 rotate-180 text-primary transition-all group-hover/btn:-translate-x-0.5 group-hover/btn:scale-110" />
             </button>
             <button
               type="button"
               onClick={() => scroll(1)}
               aria-label="Scroll right"
-              className="-m-2 p-2"
+              className="group/btn flex size-11 cursor-pointer items-center justify-center"
             >
-              <ArrowRight className="size-4 text-primary" />
+              <ArrowIcon className="size-4 text-primary transition-all group-hover/btn:translate-x-0.5 group-hover/btn:scale-110" />
             </button>
           </div>
           <div

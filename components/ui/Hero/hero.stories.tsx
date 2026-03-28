@@ -1,10 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite"
-import { booleanArg, numberArg, responsiveArgs, selectArg, textArg } from "@/lib/storybook"
-import { Hero } from "./hero"
-import { eyebrowVariantMap, headlineSizeMap, propLabels, variantMap } from "./hero.webflow"
 import { HeroVisual } from "@/components/ui/HeroVisual/hero-visual"
+import { Input } from "@/components/ui/Input/input"
+import { booleanArg, numberArg, responsiveArgs, selectArg, textArg } from "@/lib/storybook"
 import { WebflowSlot } from "@/lib/storybook-webflow"
 import { absoluteFillDecorator } from "@/lib/webflow"
+import { Hero } from "./hero"
+import {
+  childVariantMap,
+  eyebrowVariantMap,
+  headlineSizeMap,
+  propLabels,
+  themeVariantMap,
+  variantMap,
+} from "./hero.webflow"
 
 const meta = {
   title: "Sections/Hero",
@@ -28,23 +36,35 @@ const meta = {
     buttonLabel: "Book a Demo",
     showButton: true,
     showImage: true,
-    showVisual: true,
     height: 480,
   },
   argTypes: {
     variant: selectArg(propLabels.variant, variantMap, "Default"),
     headlineSize: selectArg(propLabels.headlineSize, headlineSizeMap, "Large"),
-    eyebrow: textArg(propLabels.eyebrow),
-    eyebrowVariant: selectArg(propLabels.eyebrowVariant, eyebrowVariantMap),
-    showEyebrow: booleanArg(propLabels.showEyebrow),
-    heading: textArg(propLabels.heading),
-    description: textArg(propLabels.description),
-    showDescription: booleanArg(propLabels.showDescription),
-    buttonLabel: textArg(propLabels.buttonLabel),
-    showButton: booleanArg(propLabels.showButton),
-    showImage: booleanArg(propLabels.showImage),
-    showVisual: booleanArg(propLabels.showVisual),
-    ...responsiveArgs("height", numberArg("Height", { min: -1, max: 1000, defaultValue: 480 })),
+    theme: selectArg(propLabels.theme, themeVariantMap),
+    eyebrow: { ...textArg(propLabels.eyebrow), table: { category: "Eyebrow" } },
+    eyebrowVariant: {
+      ...selectArg(propLabels.eyebrowVariant, eyebrowVariantMap),
+      table: { category: "Eyebrow" },
+    },
+    showEyebrow: { ...booleanArg(propLabels.showEyebrow), table: { category: "Eyebrow" } },
+    heading: { ...textArg(propLabels.heading), table: { category: "Heading" } },
+    description: { ...textArg(propLabels.description), table: { category: "Description" } },
+    showDescription: {
+      ...booleanArg(propLabels.showDescription),
+      table: { category: "Description" },
+    },
+    buttonLabel: { ...textArg(propLabels.buttonLabel), table: { category: "Button" } },
+    showButton: { ...booleanArg(propLabels.showButton), table: { category: "Button" } },
+    showImage: { ...booleanArg(propLabels.showImage), table: { category: "Content" } },
+    ...responsiveArgs("height", {
+      ...numberArg("Height", { min: -1, max: 1000, defaultValue: 480 }),
+      table: { category: "Content" },
+    }),
+    childVariant: {
+      ...selectArg(propLabels.childVariant, childVariantMap, "Hidden"),
+      table: { category: "Content" },
+    },
   },
   render: ({
     showEyebrow,
@@ -101,6 +121,101 @@ export const ProductHero: Story = {
   },
 }
 
+export const BackgroundImageMoss: Story = {
+  args: {
+    variant: "Background",
+    childVariant: "Static",
+    headlineSize: "Small",
+    showEyebrow: true,
+    eyebrow: "Join Us",
+    heading: "Careers at Terra",
+    height: 536,
+    description:
+      "We’re building the future of agentic AI-powered pentesting and we’re doing it with people who care deeply about craft, impact and trust.",
+    buttonLabel: "Explore Open Roles",
+    theme: "Moss",
+  },
+  render: ({
+    showEyebrow,
+    showDescription,
+    showButton,
+    showImage,
+    eyebrow,
+    description,
+    buttonLabel,
+    ...args
+  }: any) => (
+    <div className="min-h-[300vh]">
+      <Hero
+        {...args}
+        eyebrow={showEyebrow ? eyebrow : undefined}
+        description={showDescription ? description : undefined}
+        buttonLabel={showButton ? buttonLabel : undefined}
+        imageSlot={
+          showImage ? (
+            <img
+              src="/images/desert-looped-extended.png"
+              alt="Desert dunes"
+              className="absolute top-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2"
+            />
+          ) : undefined
+        }
+      />
+    </div>
+  ),
+}
+
+export const BackgroundImageMagma: Story = {
+  args: {
+    variant: "Background",
+    childVariant: "Static",
+    headlineSize: "Small",
+    showEyebrow: true,
+    eyebrow: "Our Customers",
+    heading: "Trusted by enterprise-grade security teams and providers.",
+    height: 535,
+    description: "See why our customers choose us. Request your demo today.",
+    showButton: false,
+    theme: "Magma",
+  },
+  render: ({
+    showEyebrow,
+    showDescription,
+    showButton,
+    showImage,
+    eyebrow,
+    description,
+    buttonLabel,
+    ...args
+  }: any) => (
+    <div className="min-h-[300vh]">
+      <Hero
+        {...args}
+        eyebrow={showEyebrow ? eyebrow : undefined}
+        description={showDescription ? description : undefined}
+        buttonLabel={showButton ? buttonLabel : undefined}
+        imageSlot={
+          showImage ? (
+            <img
+              src="/images/desert-abstract-extended.png"
+              alt="Desert dunes"
+              className="absolute top-0 left-1/2 h-full w-auto max-w-none -translate-x-1/2"
+            />
+          ) : undefined
+        }
+      >
+        {args?.childVariant !== "Hidden" && (
+          <WebflowSlot>
+            <div className="mt-8 w-full max-w-[308px] rounded-full bg-white px-6 py-4">
+              Form placeholder
+            </div>
+          </WebflowSlot>
+        )}
+      </Hero>
+    </div>
+  ),
+}
+
 export const Compact: Story = {
   args: {
     variant: "Compact",
@@ -116,6 +231,7 @@ export const Compact: Story = {
 
 export const WithVisualHome: Story = {
   args: {
+    childVariant: "Interactive",
     heightMobile: 443,
   },
   render: ({
@@ -144,9 +260,11 @@ export const WithVisualHome: Story = {
           ) : undefined
         }
       >
-        <WebflowSlot decorator={absoluteFillDecorator}>
-          <HeroVisual />
-        </WebflowSlot>
+        {args?.childVariant !== "Hidden" && (
+          <WebflowSlot decorator={absoluteFillDecorator}>
+            <HeroVisual />
+          </WebflowSlot>
+        )}
       </Hero>
     </div>
   ),
@@ -155,6 +273,7 @@ export const WithVisualHome: Story = {
 export const WithVisualPlatform: Story = {
   args: {
     variant: "Product",
+    childVariant: "Interactive",
     headlineSize: "Small",
     showEyebrow: true,
     eyebrow: "Terra Platform™",
@@ -192,9 +311,11 @@ export const WithVisualPlatform: Story = {
           ) : undefined
         }
       >
-        <WebflowSlot decorator={absoluteFillDecorator}>
-          <HeroVisual variant="platform" />
-        </WebflowSlot>
+        {args?.childVariant !== "Hidden" && (
+          <WebflowSlot decorator={absoluteFillDecorator}>
+            <HeroVisual variant="platform" />
+          </WebflowSlot>
+        )}
       </Hero>
     </div>
   ),
@@ -203,6 +324,7 @@ export const WithVisualPlatform: Story = {
 export const WithVisualPortal: Story = {
   args: {
     variant: "Product",
+    childVariant: "Interactive",
     headlineSize: "Small",
     showEyebrow: true,
     eyebrow: "Terra Portal™",
@@ -240,9 +362,11 @@ export const WithVisualPortal: Story = {
           ) : undefined
         }
       >
-        <WebflowSlot decorator={absoluteFillDecorator}>
-          <HeroVisual variant="portal" />
-        </WebflowSlot>
+        {args?.childVariant !== "Hidden" && (
+          <WebflowSlot decorator={absoluteFillDecorator}>
+            <HeroVisual variant="portal" />
+          </WebflowSlot>
+        )}
       </Hero>
     </div>
   ),

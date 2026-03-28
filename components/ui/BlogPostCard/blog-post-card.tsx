@@ -10,7 +10,7 @@ const blogPostCardVariants = tv({
     container: "flex text-foreground",
     imageWrap: "overflow-hidden",
     content: "flex grow flex-col",
-    title: "",
+    title: "transition-all hover:text-accent",
     description: "",
     meta: "brand-caption flex items-center gap-4",
   },
@@ -28,8 +28,7 @@ const blogPostCardVariants = tv({
         container: "w-full flex-col gap-4 nth-[3n]:pr-0 nth-[3n+1]:pl-0",
         imageWrap: "aspect-video rounded-lg transition-all group-hover/story:opacity-70",
         content: "gap-5",
-        title:
-          "brand-h4 line-clamp-2 overflow-hidden text-balance transition-all group-hover/story:text-accent",
+        title: "brand-h4 line-clamp-2 overflow-hidden text-balance transition-all",
         description: "hidden",
         meta: "flex-row max-lg:md:flex-col max-lg:md:items-start max-lg:md:gap-0",
       },
@@ -46,7 +45,7 @@ const blogPostCardVariants = tv({
         container: "p5-4 border-border border-b py-6 md:py-9 lg:py-10",
         content: "justify-between gap-4 md:flex-row md:items-center",
         title:
-          "brand-h5 w-full grow whitespace-normal text-left transition-colors group-hover/story:text-accent md:line-clamp-1 md:w-full md:max-w-3/6 md:overflow-hidden lg:max-w-8/12 lg:pr-10",
+          "brand-h5 w-full grow whitespace-normal text-left transition-colors md:line-clamp-1 md:w-full md:max-w-3/6 md:overflow-hidden lg:max-w-8/12 lg:pr-10",
         meta: "w-full shrink-0 md:max-w-2/6 lg:max-w-3/12 lg:justify-between",
       },
     },
@@ -81,7 +80,7 @@ function BlogPostCard({
   ...props
 }: BlogPostCardProps) {
   const styles = blogPostCardVariants({ variant })
-  const isLink = ["list", "listing"].includes(variant ?? "")
+  const isLink = ["list", "listing", "featured"].includes(variant ?? "")
 
   const titleEl = (
     <h3
@@ -100,17 +99,18 @@ function BlogPostCard({
     </div>
   )
 
-  const innerContent = isLink ? (
-    <Button asChild variant="ghost" className="contents cursor-pointer font-normal">
-      <a href={href}>
-        {titleEl}
-        {metaEl}
-      </a>
-    </Button>
-  ) : (
+  const innerContent = (
     <>
-      {titleEl}
-      {metaEl}
+      <Button
+        asChild
+        variant="ghost"
+        className="group/title contents cursor-pointer whitespace-normal font-normal"
+      >
+        <a href={href}>
+          {titleEl}
+          {metaEl}
+        </a>
+      </Button>
       {description && <p className={styles.description()}>{description}</p>}
       {href && <BlogPostLink href={href} />}
     </>
@@ -124,7 +124,9 @@ function BlogPostCard({
     >
       {image && (
         <div className={styles.imageWrap()}>
-          <img src={image.src} alt={image.alt ?? title} className="size-full object-cover" />
+          <a href={href}>
+            <img src={image.src} alt={image.alt ?? title} className="size-full object-cover" />
+          </a>
         </div>
       )}
       <div className={styles.content()}>

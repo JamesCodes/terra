@@ -13,6 +13,7 @@ const meta = {
     targetSelector: ".load-more-item",
     pageSize: 6,
     loadMoreText: "Load More",
+    showArchive: true,
     viewArchiveText: "View All Articles",
     link: { href: "/archive" },
   },
@@ -50,5 +51,11 @@ export const Default: Story = {}
 export const SmallPageSize: Story = {
   args: {
     pageSize: 3,
+  },
+}
+
+export const NoArchive: Story = {
+  args: {
+    showArchive: false,
   },
 }

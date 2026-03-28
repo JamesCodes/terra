@@ -48,3 +48,8 @@ export const H4: Story = {
   name: "H4",
   args: { level: 4, children: "AI-powered, human-driven." },
 }
+
+export const Adaptive: Story = {
+  name: "Adaptive",
+  args: { level: "adaptive", children: "Leave nothing unvalidated." },
+}

@@ -164,6 +164,7 @@ export const Default: Story = {
           heading={args.heroHeading}
           description={args.heroDescription}
           buttonLabel={args.heroButtonLabel}
+          childVariant="interactive"
           imageSlot={
             <img
               src="/images/hero-dunes.png"

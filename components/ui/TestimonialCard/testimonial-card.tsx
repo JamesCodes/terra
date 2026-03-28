@@ -29,7 +29,7 @@ function TestimonialCard({
         {header}
         <p className="brand-body2 text-granite">{testimonial}</p>
       </div>
-      <div className="brand-body2 flex flex-col gap-2">
+      <div className="brand-body2 flex flex-col gap-1">
         <p className="font-semibold text-terracotta">{name}</p>
         <p className="text-granite">{position}</p>
       </div>

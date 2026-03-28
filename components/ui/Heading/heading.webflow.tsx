@@ -12,6 +12,7 @@ export const levelMap = {
   "Heading 5": 5,
   "Heading 6": 6,
   "Heading 7": 7,
+  "Adaptive Heading": "adaptive",
 } as const
 
 interface WebflowHeadingProps {

@@ -163,6 +163,9 @@ const styles = [
     border-top: 1px rgb(18 17 13 / 10%) solid;
     margin: 48px 0;
   }`,
+  `.article__rich-text.w-richtext *:first-child {
+    margin-top: 0;
+  }`,
   `@media (min-width: 768px) {
     .w-richtext hr {
       margin: 64px 0;
