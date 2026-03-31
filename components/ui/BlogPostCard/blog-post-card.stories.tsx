@@ -85,7 +85,7 @@ export const Listing: Story = {
           variant="listing"
           image={{ src: "https://picsum.photos/seed/terra1/600/400", alt: "Blog cover" }}
           category={{ name: "Featured" }}
-          title="When AI Becomes the Attack Surface: CVE-2026-25724"
+          title="When AI Comes"
           author="Ofir Hamam"
           date="February 24, 2026"
           description="AI isn't just a tool anymore — it's an attack surface. Learn how we uncovered CVE-2026-25724 in an agentic AI coding tool."
@@ -146,6 +146,7 @@ export const List: Story = {
           category={{ name: "Research" }}
           author="Gal Malachi"
           title="API Security in AI-Enabled Platforms: Strategy, Risks, and Tactics"
+          description="This is a description"
           date="February 1, 2026"
           image={{ src: "https://picsum.photos/seed/terra-list1/800/700", alt: "Blog cover" }}
         />

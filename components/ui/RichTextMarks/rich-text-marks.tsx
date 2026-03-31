@@ -288,9 +288,8 @@ const styles = [
     grid-column: 2 / span 3;
     margin-top: 1.5rem;
     margin-bottom: 0;
-    font-size: 1.125rem;
-    line-height: 2rem;
-    letter-spacing: -0.36px;
+    font-size: var(--body1-font-size);
+    line-height: var(--body1-line-height);
     color: var(--color-primary);
   }`,
   `@media (min-width: 768px) {

@@ -54,7 +54,7 @@ const heroVariants = tv({
         heading: "relative z-2 text-chalk",
         text: "relative z-2 text-chalk",
         imageContainer: "absolute top-0 left-0 z-0 h-full w-full",
-        button: "relative z-2",
+        button: "relative z-2 pt-4",
         imageWrapper: "rounded-none",
       },
     },

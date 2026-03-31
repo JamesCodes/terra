@@ -393,7 +393,7 @@ function SiteNav({
                 <span
                   ref={stuckTextRef}
                   data-slot="navbar-stuck-text"
-                  className="pointer-events-none -ml-4 whitespace-nowrap font-bold text-lg opacity-0 max-lg:hidden"
+                  className="pointer-events-none absolute ml-24 whitespace-nowrap font-bold text-lg opacity-0 max-lg:hidden"
                 >
                   {stuckText}
                 </span>

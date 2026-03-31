@@ -73,9 +73,11 @@ function AccordionItem({
             )
           }
         }}
-        className="flex w-full cursor-pointer items-center justify-between gap-4 py-6 text-left lg:py-10"
+        className="group/trigger flex w-full cursor-pointer items-center justify-between gap-4 py-6 text-left lg:py-10"
       >
-        <span className="brand-h5 text-balance">{title}</span>
+        <span className="brand-h5 text-balance underline decoration-background transition-all duration-500 group-hover/trigger:decoration-primary">
+          {title}
+        </span>
         <ChevronDown
           className={cn("size-5 shrink-0 text-foreground transition-transform duration-300", {
             "rotate-180": isOpen,

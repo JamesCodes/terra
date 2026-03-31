@@ -13,6 +13,7 @@ const blogPostCardVariants = tv({
     title: "transition-all hover:text-accent",
     description: "",
     meta: "brand-caption flex items-center gap-4",
+    button: "inline-flex items-center justify-center self-start",
   },
   variants: {
     variant: {
@@ -25,12 +26,13 @@ const blogPostCardVariants = tv({
         meta: "flex-row max-lg:md:flex-col max-lg:md:items-start max-lg:md:gap-0",
       },
       listing: {
-        container: "w-full flex-col gap-4 nth-[3n]:pr-0 nth-[3n+1]:pl-0",
+        container: "h-full w-full flex-col gap-4 nth-[3n]:pr-0 nth-[3n+1]:pl-0",
         imageWrap: "aspect-video rounded-lg transition-all group-hover/story:opacity-70",
         content: "gap-5",
         title: "brand-h4 line-clamp-2 overflow-hidden text-balance transition-all",
         description: "hidden",
         meta: "flex-row max-lg:md:flex-col max-lg:md:items-start max-lg:md:gap-0",
+        button: "mt-auto",
       },
       featured: {
         container: "flex-col items-start gap-10 md:flex-row",
@@ -44,9 +46,11 @@ const blogPostCardVariants = tv({
         imageWrap: "hidden",
         container: "p5-4 border-border border-b py-6 md:py-9 lg:py-10",
         content: "justify-between gap-4 md:flex-row md:items-center",
+        description: "hidden",
         title:
           "brand-h5 w-full grow whitespace-normal text-left transition-colors md:line-clamp-1 md:w-full md:max-w-3/6 md:overflow-hidden lg:max-w-8/12 lg:pr-10",
         meta: "w-full shrink-0 md:max-w-2/6 lg:max-w-3/12 lg:justify-between",
+        button: "hidden",
       },
     },
   },
@@ -112,7 +116,7 @@ function BlogPostCard({
         </a>
       </Button>
       {description && <p className={styles.description()}>{description}</p>}
-      {href && <BlogPostLink href={href} />}
+      {href && <BlogPostLink href={href} className={styles.button()} />}
     </>
   )
 
@@ -151,13 +155,9 @@ function CategoryBadge({ name, url }: { name: string; url?: string }) {
   return badge
 }
 
-function BlogPostLink({ href }: { href: string }) {
+function BlogPostLink({ href, className }: { href: string; className?: string }) {
   return (
-    <a
-      data-slot="blog-post-link"
-      href={href}
-      className="inline-flex items-center justify-center self-start"
-    >
+    <a data-slot="blog-post-link" href={href} className={className}>
       <Button variant="outline" size="md">
         Read the full story
       </Button>
